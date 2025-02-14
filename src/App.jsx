@@ -5,12 +5,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className='relative z-0 bg-primary overflow-hidden'>
-        <div className='w-full h-screen relative bg-[linear-gradient(1deg,#010918_0%,#0e1c6f_46%,#000610_100%)]
-
-
-
-
-'>
+        <div className='w-full h-screen relative bg-[linear-gradient(1deg,#010918_0%,#0e1c6f_46%,#000610_100%)]'>
           <Navbar />
           <Hero />
         </div>

@@ -11,7 +11,7 @@ const ServiceCard = ({ index, title, icon }) => (
   <Tilt className='xs:w-[250px] w-full'>
     <motion.div
       variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className='w-full card-gradient p-[1px] rounded-[20px] shadow-[3px_35px_120px_-2px_#211e35]  '
+      className='w-full green-pink-gradient p-[1px] rounded-[20px] shadow-[3px_35px_120px_-2px_#211e35]  '
     >
       <div
         options={{
@@ -19,7 +19,8 @@ const ServiceCard = ({ index, title, icon }) => (
           scale: 1,
           speed: 450,
         }}
-        className='bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col'
+        className='bg-gradient-to-r from-cyan-500 to-blue-500
+ rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col'
       >
         <FontAwesomeIcon icon={icon}
           className="text-4xl text-white"
