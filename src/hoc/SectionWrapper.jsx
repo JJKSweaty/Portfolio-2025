@@ -6,6 +6,8 @@ import { staggerContainer } from "../utils/motion";
 const StarWrapper = (Component, idName) =>
   function HOC() {
     return (
+      <div className="bg-gradient-to-b from-[#0f172a] to-[#1e293b]
+">
       <motion.section
         variants={staggerContainer()}
         initial='hidden'
@@ -19,6 +21,7 @@ const StarWrapper = (Component, idName) =>
 
         <Component />
       </motion.section>
+      </div>
     );
   };
 
