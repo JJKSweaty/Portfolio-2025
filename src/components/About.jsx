@@ -1,6 +1,6 @@
 import React from "react";
 import Tilt from "react-parallax-tilt";
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styles } from "../styles";
 import { services } from "../constants";
@@ -19,7 +19,13 @@ const ServiceCard = ({ index, title, icon }) => (
           scale: 1,
           speed: 450,
         }}
-        className='bg-gradient-to-b from-[#0f172a] to-[#1e293b]
+        className='bg-gradient-to-b from-[#020617] via-[#03142b] to-[#04203e]
+
+
+
+
+
+
 
 
  rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col'
@@ -41,8 +47,11 @@ const About = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <h2 className={styles.sectionHeadText}>Overview</h2>
-      </motion.div>
+  <h2 className={`${styles.sectionHeadText} underline decoration-dotted decoration-amber-300`}>
+    Overview
+  </h2>
+</motion.div>
+
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}

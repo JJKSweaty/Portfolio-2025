@@ -4,8 +4,15 @@ import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Works, Stars
 const App = () => {
   return (
     <BrowserRouter>
-      <div className='relative z-0 bg-primary overflow-hidden'>
-        <div className='w-full h-screen relative bg-[linear-gradient(1deg,#010918_0%,#0e1c6f_46%,#000610_100%)]'>
+      <div className='relative z-0 bg-gradient-to-b from-[#0f172a] to-[#1e293b]
+y overflow-hidden bg-center bg-no-repeat bg-blend'>
+        <div className='w-full h-screen relative bg-gradient-to-b from-[#0a0f2c] via-[#0c1333] to-[#10173f]
+
+
+
+
+
+'>
           <Navbar />
           <Hero />
         </div>

@@ -6,13 +6,12 @@ import { staggerContainer } from "../utils/motion";
 const StarWrapper = (Component, idName) =>
   function HOC() {
     return (
-      <div className="bg-gradient-to-b from-[#0f172a] to-[#1e293b]
-">
+      <div>
       <motion.section
         variants={staggerContainer()}
         initial='hidden'
         whileInView='show'
-        viewport={{ once: true, amount: 0.25 }}
+        viewport={{ once: true, amount:0.75 }}
         className={`${styles.padding} max-w-7xl mx-auto relative z-0`}
       >
         <span className='hash-span' id={idName}>

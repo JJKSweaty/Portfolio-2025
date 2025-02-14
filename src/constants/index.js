@@ -1,8 +1,4 @@
 import {
-    mobile,
-    backend,
-    creator,
-    web,
     javascript,
     typescript,
     html,
@@ -15,18 +11,17 @@ import {
     git,
     figma,
     docker,
-    meta,
-    starbucks,
-    tesla,
-    shopify,
     carrent,
     jobit,
     tripguide,
     threejs,
+    Microsoft_Azure,
+    waterloooRocketry,
+    waterloo
   } from "../assets";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-  import { faLaptopCode, faTerminal,faCloudArrowUp,faGear} from "@fortawesome/free-solid-svg-icons";
-  
+  import { faLaptopCode, faServer,faCloudArrowUp,faGear} from "@fortawesome/free-solid-svg-icons";
+
   export const navLinks = [
     {
       id: "about",
@@ -57,7 +52,7 @@ import {
     },
     {
       title: "IT Engineering",
-      icon: faTerminal,
+      icon: faServer,
     },
   ];
   
@@ -118,55 +113,39 @@ import {
   
   const experiences = [
     {
-      title: "React.js Developer",
-      company_name: "Starbucks",
-      icon: starbucks,
-      iconBg: "#383E56",
-      date: "March 2020 - April 2021",
+      title: "AI/Ml Engineer (Azure AI)",
+      company_name: "Microsoft We Accelerate",
+      icon: Microsoft_Azure,
+      iconBg: "white",
+      date: "Jan 2024 - Apr 2024",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Utilized Azure Health Bot service and advanced machine learning algorithms to analyze diverse medical datasets, increasing diagnosis accuracy by 30%. ",
+        "Developed a personalized medical guidance system using Azure Health Bot Service, reducing diagnosis time by 20% and improving patient outcomes.",
+        "Implemented and optimized data analysis workflows within the Azure Health Bot service, resulting in a 15% increase in overall healthcare efficiency and more accurate patient recommendations.",
       ],
     },
     {
-      title: "React Native Developer",
-      company_name: "Tesla",
-      icon: tesla,
+      title: "Electrical Sub Team",
+      company_name: "Waterloo Rocketry Design Team",
+      icon:waterloooRocketry, 
       iconBg: "#E6DEDD",
-      date: "Jan 2021 - Feb 2022",
+      date: "Mar 2024 - Oct 2024",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Assisted with PCB design using KiCad software, contributing to a 20% improvement in system efficiency.",
+        "Conducted in-depth research on propulsion system designs, reducing costs by 15% and enhancing performance.",
+        "Analyzed component specifications and performance data, providing insights that led to a 10-20% decrease in project timelines",
       ],
     },
     {
-      title: "Web Developer",
-      company_name: "Shopify",
-      icon: shopify,
-      iconBg: "#383E56",
-      date: "Jan 2022 - Jan 2023",
+      title: "Information Tech Eningeer",
+      company_name: "UW ECE Dept.",
+      icon: waterloo,
+      iconBg: "black",
+      date: "Sep 2024 - Dec 2024",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "Full stack Developer",
-      company_name: "Meta",
-      icon: meta,
-      iconBg: "#E6DEDD",
-      date: "Jan 2023 - Present",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Maintained server environments by performing regular upkeep and troubleshooting, resulting in 99% uptime and increased system efficiency.",
+        " Built and deployed new computers using Microsoft Deployment Services, automating installation processes through command line scripts for OS, drivers, and applications, reducing setup time by 50%.",
+        "Supported graduate students and professors by recommending computer hardware based on their application and software specifications, ensuring optimal performance for specialized use cases.",
       ],
     },
   ];

@@ -9,7 +9,7 @@ import { text } from "@fortawesome/fontawesome-svg-core";
 
 
 const ExperienceCard = ({experience}) =>(
-  <VerticalTimelineElement contentStyle={{backgroundColor: '#1d1836',color:'#ggg'}}
+  <VerticalTimelineElement contentStyle={{ backgroundColor: '#1e5a8a', color: '#fff' }}
   contentArrowStyle={{borderRight:'7px solid #232631'}}
   date={experience.date}
   iconStyle={{background:experience.iconBg}}
@@ -54,7 +54,7 @@ const Experience = () => {
   return (
    <>
     <motion.div variants={textVariant()}>
-       <h2 className={styles.sectionHeadText}>Experience</h2>
+       <h2 className={`${styles.sectionHeadText} text-center align-middle justify-center mx-auto underline decoration-dotted decoration-amber-300`}>Experience</h2>
     </motion.div>
     <div className="mt-20 flex flex-col">
       <VerticalTimeline>

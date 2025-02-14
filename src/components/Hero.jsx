@@ -16,9 +16,9 @@ const Hero = () => {
 
         <div>
           <h1 className={`${styles.heroHeadText} text-white flex xl:flex-row sm:flex-col`}>
-            Hi, I'm &nbsp; <span className='text-[#5aa7ee]'><AnimatedName/></span>
+            Hi, I'm &nbsp; <span className='text-[#68b1f5]'><AnimatedName/></span>
           </h1>
-          <p className={`${styles.heroSubText} mt-2 text-white xl:block sm:hidden md:block`}>
+          <p className={`${styles.heroSubText} mt-2 text-grey-200 xl:block sm:hidden md:block`}>
             I create fullstack web applications <br className='sm:block hidden' />
             and build AI/ML projects
           </p>
@@ -28,7 +28,9 @@ const Hero = () => {
       <ComputersCanvas />
 
       <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
-      <button className="cursor-pointer bg-blue-900 px-3 py-2 rounded-md text-white tracking-wider shadow-xl animate-bounce">
+      <button className="cursor-pointer bg-blue-800
+
+ px-3 py-2 rounded-md text-white tracking-wider shadow-xl animate-bounce">
       <a href="#about">
       <svg
         className="sm:w-10 sm:h-10 xl:w-10 xl:h-10 w-8 h-8"
