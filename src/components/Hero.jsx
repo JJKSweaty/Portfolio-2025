@@ -56,7 +56,7 @@ const Hero = () => {
  px-3 py-2 rounded-md text-white tracking-wider shadow-xl animate-bounce">
       <a href="#about">
       <svg
-        className="sm:w-10 sm:h-10 xl:w-10 xl:h-10 w-8 h-8"
+        className="sm:w-10 sm:h-10 xl:w-8 xl:h-8 w-8 h-8"
         stroke="currentColor"
         strokeWidth="2"
         viewBox="0 0 24 24"
