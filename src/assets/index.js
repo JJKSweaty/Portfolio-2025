@@ -26,6 +26,7 @@ import tripguide from "./tripguide.png";
 import Microsoft_Azure from './company/Microsoft_Azure.png'
 import waterloo from './company/waterloo.png'
 import waterloooRocketry from './company/waterlooRocketry.png'
+import faceLogo from './jonathanFace.jpeg'
 
 export {
   logo,
@@ -55,4 +56,5 @@ export {
   waterloo,
   waterloooRocketry,
   Microsoft_Azure,
+  faceLogo,
 };

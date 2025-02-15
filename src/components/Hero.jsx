@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import AnimatedName from "./AnimatedName";
 import Tilt from "react-parallax-tilt";
 import { styles } from "../styles";
-import { ComputersCanvas } from "./canvas";
+import { faceLogo } from "../assets";
 
 const Hero = () => {
   return (
@@ -15,17 +15,39 @@ const Hero = () => {
         </div>
 
         <div>
-          <h1 className={`${styles.heroHeadText} text-white flex xl:flex-row sm:flex-col`}>
+          <h1 className={`${styles.heroHeadText} !text-[35px] xl:!text-[40px] text-white flex xl:flex-row sm:flex-col`}>
             Hi, I'm &nbsp; <span className='text-[#68b1f5]'><AnimatedName/></span>
           </h1>
-          <p className={`${styles.heroSubText} mt-2 text-grey-200 xl:block sm:hidden md:block`}>
+          <p className={`${styles.heroSubText} mt-2 text-grey-200 xl:block sm:block md:block hidden`}>
             I create fullstack web applications <br className='sm:block hidden' />
             and build AI/ML projects
           </p>
         </div>
       </div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 mt-0 xl:mt-15 sm:mt-25">
+    <Tilt
+      tiltMaxAngleX={30}
+      tiltMaxAngleY={30}
+      scale={1.2}
+      transitionSpeed={1500}
+      className="relative"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2 }}
+        className="relative w-80 h-80 rounded-full border-4 border-[#68b1f5] 
+                 overflow-hidden shadow-xl hover:shadow-2xl transition-shadow"
+      >
+        <img
+          src={faceLogo}
+          alt="Your Name"
+          className="w-full h-full object-cover hover:scale-105 transition-transform"
+        />
+      </motion.div>
+    </Tilt>
+  </div>
       
-      <ComputersCanvas />
 
       <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
       <button className="cursor-pointer bg-blue-800
