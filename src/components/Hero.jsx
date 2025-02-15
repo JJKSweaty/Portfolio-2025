@@ -53,7 +53,7 @@ const Hero = () => {
       <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
       <button className="cursor-pointer bg-blue-900
 
- px-3 py-2 rounded-md text-white tracking-wider shadow-xl animate-bounce">
+ px-3 py-2 rounded-md text-white tracking-wider shadow-xl animate-pulse">
       <a href="#about">
       <svg
         className="sm:w-10 sm:h-10 xl:w-8 xl:h-8 w-8 h-8"

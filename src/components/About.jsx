@@ -19,7 +19,7 @@ const ServiceCard = ({ index, title, icon }) => (
           scale: 1,
           speed: 450,
         }}
-        className='bg-gradient-to-b from-[#3a0ca3] via-[#2b3089] to-[#1e3a8a]
+        className='bg-[#1e5a8a]
 
 
 

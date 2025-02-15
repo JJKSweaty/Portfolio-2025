@@ -25,8 +25,10 @@ import {
     azureChat,
     maxSensor,
   } from "../assets";
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-  import { faLaptopCode, faServer,faCloudArrowUp,faGear} from "@fortawesome/free-solid-svg-icons";
+  import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+  import { faLaptopCode, faServer,faCloudArrowUp,faGear,faEnvelope} from "@fortawesome/free-solid-svg-icons"; 
+  import {faLinkedin,faGithub, faGit} from "@fortawesome/free-brands-svg-icons"; 
+
 
   export const navLinks = [
     {
@@ -92,15 +94,15 @@ import {
       icon: threejs,
     },
     {
-      name: "git",
+      name: "Git",
       icon: git,
     },
     {
-      name: "figma",
+      name: "Figma",
       icon: figma,
     },
     {
-      name: 'github',
+      name: 'Github',
       icon: github,
     },
     {
@@ -108,27 +110,27 @@ import {
       icon: Microsoft_Azure,
     },
     {
-      name: 'cpp',
+      name: 'Cpp',
       icon: cpp,
     },
     {
-      name: 'flask',
+      name: 'Flask',
       icon: flask,
     },
     {
-      name: 'keras',
+      name: 'Keras',
       icon: keras,
     },
     {
-      name: 'mediapipe',
+      name: 'Mediapipe',
       icon: mediapipe,
     },
     {
-      name: 'opencv',
+      name: 'OpenCV',
       icon: opencv,
     },
     {
-      name: 'tensorflow',
+      name: 'TensorFlow',
       icon: tensorflow,
     },
     {
@@ -177,32 +179,7 @@ import {
     },
   ];
   
-  const testimonials = [
-    {
-      testimonial:
-        "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
-      name: "Sara Lee",
-      designation: "CFO",
-      company: "Acme Co",
-      image: "https://randomuser.me/api/portraits/women/4.jpg",
-    },
-    {
-      testimonial:
-        "I've never met a web developer who truly cares about their clients' success like Rick does.",
-      name: "Chris Brown",
-      designation: "COO",
-      company: "DEF Corp",
-      image: "https://randomuser.me/api/portraits/men/5.jpg",
-    },
-    {
-      testimonial:
-        "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
-      name: "Lisa Wang",
-      designation: "CTO",
-      company: "456 Enterprises",
-      image: "https://randomuser.me/api/portraits/women/6.jpg",
-    },
-  ];
+
   
   const projects = [
     {
@@ -288,5 +265,25 @@ import {
       source_code_link: "https://github.com/JJKSweaty/Heartbeat-Monitor-STM32-Using-Arduino-IDE-"
     },
   ];
+  const contacts = [
+    {
+      info:'https://www.linkedin.com/in/jonathan-jacob-koshy-49b683291/?profileId=ACoAAEbBtvcBVjkY-zL8NmlZ2okVDVF7R1r5xwg',
+      icon:faLinkedin,
+      name:'LinkedIn'
+      
+    },
+    {
+      info:'johnkoper12@gmail.com',
+      icon:faEnvelope,
+      name:"Email"
+    },
+
+    {
+      info:'https://github.com/JJKSweaty',
+      icon:faGithub,
+      name:'Github'
+    },
+  ];
+
   
-  export { services, technologies, experiences, testimonials, projects };
+  export { services, technologies, experiences, projects,contacts };

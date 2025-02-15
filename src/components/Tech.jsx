@@ -1,8 +1,6 @@
 import React from "react";
-import { BallCanvas } from "./canvas";
 import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
-import Tilt from 'react-parallax-tilt';
 import { motion } from 'framer-motion';
 import {styles} from '../styles';
 import {github} from '../assets'
@@ -41,7 +39,9 @@ const Tech = () => {
     <motion.div variants={textVariant()}>
        <h2 className={`${styles.sectionHeadText} text-center align-middle justify-center mx-auto underline decoration-dotted decoration-blue-200`}>Technical Skills & Frameworks</h2>
       </motion.div>
+      <motion.div variants={fadeIn('up','',0.5,3)}>
       <SkillsCarousel/>
+      </motion.div>
     </>
   );
 };

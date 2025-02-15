@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Works, StarsCanvas } from "./components";
+import { About, Contact, Experience, Hero, Navbar, Tech, Works} from "./components";
 
 const App = () => {
   return (
@@ -8,10 +8,6 @@ const App = () => {
 
 y overflow-hidden bg-center bg-no-repeat bg-blend'>
         <div className='w-full h-screen relative bg-gradient-to-b from-[#050a1a] via-[#081e3a] to-[#0c3058]
-
-
-
-
 '>
           <Navbar />
           <Hero />
@@ -20,10 +16,8 @@ y overflow-hidden bg-center bg-no-repeat bg-blend'>
         <Experience />
         <Tech />
         <Works />
-        <Feedbacks />
         <div className='relative z-0'>
           <Contact />
-          <StarsCanvas />
         </div>
       </div>
     </BrowserRouter>
