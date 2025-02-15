@@ -4,12 +4,10 @@ import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Works, Stars
 const App = () => {
   return (
     <BrowserRouter>
-      <div className='relative z-0 bg-gradient-to-b from-[#0f172a] to-[#1e293b]
+      <div className='relative z-0 bg-gradient-to-b from-[#020617] via-[#03142b] to-[#04203e]
+
 y overflow-hidden bg-center bg-no-repeat bg-blend'>
-        <div className='w-full h-screen relative bg-gradient-to-b from-[#0a0f2c] via-[#0c1333] to-[#10173f]
-
-
-
+        <div className='w-full h-screen relative bg-gradient-to-b from-[#3b1e87] via-[#2a2e66] to-[#1b1e5a]
 
 
 '>

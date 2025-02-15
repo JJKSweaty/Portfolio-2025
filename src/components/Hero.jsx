@@ -36,7 +36,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
-        className="relative w-80 h-80 rounded-full border-4 border-[#68b1f5] 
+        className="relative w-80 h-80 rounded-full border-4 border-[#072c4e] 
                  overflow-hidden shadow-xl hover:shadow-2xl transition-shadow"
       >
         <img
