@@ -232,3 +232,44 @@ background-image: linear-gradient(62deg, #2269a6 0%, #3b32d4 100%);
 .animate-scroll-down {
   animation: scroll-down 3s infinite;
 }
+.sunset-text {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.rainbow-text {
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ocean-text {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.pink-purple-text {
+  background: linear-gradient(90deg, #ff6a88, #ff99ac);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.fire-text {
+  background: linear-gradient(90deg, #ff512f, #dd2476);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.midnight-text {
+  background: linear-gradient(90deg, #232526, #414345);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gold-text {
+  background: linear-gradient(90deg, #e3d700, #ffac00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.lava-text {
+  background: linear-gradient(90deg, #ff4500, #ff8c00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+

@@ -7,7 +7,9 @@ const App = () => {
       <div className='relative z-0 bg-gradient-to-b from-[#020617] via-[#03142b] to-[#04203e]
 
 y overflow-hidden bg-center bg-no-repeat bg-blend'>
-        <div className='w-full h-screen relative bg-gradient-to-b from-[#3b1e87] via-[#2a2e66] to-[#1b1e5a]
+        <div className='w-full h-screen relative bg-gradient-to-b from-[#050a1a] via-[#081e3a] to-[#0c3058]
+
+
 
 
 '>

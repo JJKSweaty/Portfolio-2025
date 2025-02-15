@@ -1,23 +1,27 @@
 import {
     javascript,
-    typescript,
     html,
     css,
     reactjs,
-    redux,
     tailwind,
-    nodejs,
-    mongodb,
     git,
     figma,
-    docker,
     carrent,
     jobit,
     tripguide,
     threejs,
     Microsoft_Azure,
     waterloooRocketry,
-    waterloo
+    waterloo,
+    github,
+    keras,
+    mediapipe,
+    opencv,
+    python,
+    tensorflow,
+    cpp,
+    flask,
+    signtolearn,
   } from "../assets";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import { faLaptopCode, faServer,faCloudArrowUp,faGear} from "@fortawesome/free-solid-svg-icons";
@@ -30,6 +34,14 @@ import {
     {
       id: "work",
       title: "Work",
+    },
+    {
+      id: "skills",
+      title: "Skills",
+    },
+    {
+      id: "projects",
+      title: "Projects",
     },
     {
       id: "contact",
@@ -58,10 +70,6 @@ import {
   
   const technologies = [
     {
-      name: "HTML 5",
-      icon: html,
-    },
-    {
       name: "CSS 3",
       icon: css,
     },
@@ -70,28 +78,12 @@ import {
       icon: javascript,
     },
     {
-      name: "TypeScript",
-      icon: typescript,
-    },
-    {
       name: "React JS",
       icon: reactjs,
     },
     {
-      name: "Redux Toolkit",
-      icon: redux,
-    },
-    {
       name: "Tailwind CSS",
       icon: tailwind,
-    },
-    {
-      name: "Node JS",
-      icon: nodejs,
-    },
-    {
-      name: "MongoDB",
-      icon: mongodb,
     },
     {
       name: "Three JS",
@@ -106,9 +98,42 @@ import {
       icon: figma,
     },
     {
-      name: "docker",
-      icon: docker,
+      name: 'github',
+      icon: github,
     },
+    {
+      name: 'Azure',
+      icon: Microsoft_Azure,
+    },
+    {
+      name: 'cpp',
+      icon: cpp,
+    },
+    {
+      name: 'flask',
+      icon: flask,
+    },
+    {
+      name: 'keras',
+      icon: keras,
+    },
+    {
+      name: 'mediapipe',
+      icon: mediapipe,
+    },
+    {
+      name: 'opencv',
+      icon: opencv,
+    },
+    {
+      name: 'tensorflow',
+      icon: tensorflow,
+    },
+    {
+      name: 'Python',
+      icon: python,
+    },
+
   ];
   
   const experiences = [
@@ -179,25 +204,41 @@ import {
   
   const projects = [
     {
-      name: "Car Rent",
+      name: "SignToLearn",
       description:
-        "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+        "Web-based AI-powered application designed to recognize ASL hand gestures in real-time. The project uses MediaPipe for hand tracking and TensorFlow for recognizing ASL gestures. This application aims to help users learn ASL in an interactive, engaging way, similar to language learning apps like Duolingo.",
       tags: [
         {
-          name: "react",
+          name: "React",
           color: "blue-text-gradient",
         },
         {
-          name: "mongodb",
+          name: "Flask",
           color: "green-text-gradient",
         },
         {
-          name: "tailwind",
+          name: "Tailwind",
           color: "pink-text-gradient",
         },
+        {
+          name: "OpenCV",
+          color: "sunset-text",
+        },
+        {
+          name: "Three.Js",
+          color: "ocean-text",
+        },
+        {
+          name: "Python",
+          color: "gold-text",
+        },
+        {
+          name: "Tensorflow",
+          color: "lava-text",
+        },
       ],
-      image: carrent,
-      source_code_link: "https://github.com/",
+      image: signtolearn,
+      source_code_link: "https://github.com/JJKSweaty/SignToLearn/",
     },
     {
       name: "Job IT",

@@ -26,9 +26,9 @@ const Hero = () => {
       </div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 mt-0 xl:mt-15 sm:mt-25">
     <Tilt
-      tiltMaxAngleX={30}
-      tiltMaxAngleY={30}
-      scale={1.2}
+      tiltMaxAngleX={15}
+      tiltMaxAngleY={16}
+      scale={1.1}
       transitionSpeed={1500}
       className="relative"
     >
@@ -37,7 +37,8 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
         className="relative w-80 h-80 rounded-full border-4 border-[#072c4e] 
-                 overflow-hidden shadow-xl hover:shadow-2xl transition-shadow"
+                 overflow-hidden"
+                 onScroll={'bg-transparent'}
       >
         <img
           src={faceLogo}
@@ -50,7 +51,7 @@ const Hero = () => {
       
 
       <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
-      <button className="cursor-pointer bg-blue-800
+      <button className="cursor-pointer bg-blue-900
 
  px-3 py-2 rounded-md text-white tracking-wider shadow-xl animate-bounce">
       <a href="#about">

@@ -6,27 +6,33 @@ import web from "./web.png";
 import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
-
 import css from "./tech/css.png";
 import docker from "./tech/docker.png";
 import figma from "./tech/figma.png";
 import git from "./tech/git.png";
 import html from "./tech/html.png";
 import javascript from "./tech/javascript.png";
-import mongodb from "./tech/mongodb.png";
-import nodejs from "./tech/nodejs.png";
 import reactjs from "./tech/reactjs.png";
-import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
-import Microsoft_Azure from './company/Microsoft_Azure.png'
-import waterloo from './company/waterloo.png'
-import waterloooRocketry from './company/waterlooRocketry.png'
-import faceLogo from './jonathanFace.jpeg'
+import Microsoft_Azure from './company/Microsoft_Azure.png';
+import waterloo from './company/waterloo.png';
+import waterloooRocketry from './company/waterlooRocketry.png';
+import faceLogo from './jonathanFace2.jpeg';
+import cpp from './tech/cpp.png';
+import flask from './tech/flask.png';
+import keras from './tech/keras.png';
+import mediapipe from './tech/mediapipe.png';
+import opencv from './tech/opencv.png';
+import python from './tech/Python.png';
+import tensorflow from './tech/tensorflow.png';
+import signtolearn from './signtolearn.png'
+
+
 
 export {
   logo,
@@ -43,10 +49,7 @@ export {
   git,
   html,
   javascript,
-  mongodb,
-  nodejs,
   reactjs,
-  redux,
   tailwind,
   typescript,
   threejs,
@@ -57,4 +60,12 @@ export {
   waterloooRocketry,
   Microsoft_Azure,
   faceLogo,
+  cpp,
+  flask,
+  keras,
+  mediapipe,
+  opencv,
+  python,
+  tensorflow,
+  signtolearn,
 };

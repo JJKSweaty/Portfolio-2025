@@ -50,7 +50,7 @@ const About = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-  <h2 className={`${styles.sectionHeadText} underline decoration-dotted decoration-amber-300`}>
+  <h2 className={`${styles.sectionHeadText} underline decoration-dotted decoration-blue-200`}>
     Overview
   </h2>
 </motion.div>
