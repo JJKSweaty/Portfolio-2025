@@ -22,6 +22,8 @@ import {
     cpp,
     flask,
     signtolearn,
+    azureChat,
+    maxSensor,
   } from "../assets";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import { faLaptopCode, faServer,faCloudArrowUp,faGear} from "@fortawesome/free-solid-svg-icons";
@@ -206,7 +208,7 @@ import {
     {
       name: "SignToLearn",
       description:
-        "Web-based AI-powered application designed to recognize ASL hand gestures in real-time. The project uses MediaPipe for hand tracking and TensorFlow for recognizing ASL gestures. This application aims to help users learn ASL in an interactive, engaging way, similar to language learning apps like Duolingo.",
+        "Web based AI-powered application designed to recognize ASL hand gestures in real-time. The project uses MediaPipe for hand tracking and TensorFlow for recognizing ASL gestures. This application aims to help users learn ASL in an interactive, engaging way, similar to language learning apps like Duolingo.",
       tags: [
         {
           name: "React",
@@ -241,46 +243,49 @@ import {
       source_code_link: "https://github.com/JJKSweaty/SignToLearn/",
     },
     {
-      name: "Job IT",
+      name: "Medical Chatbot",
       description:
-        "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+        "Medical chatbot that connects to Azure Health Bot using the Azure Chatbot Service API, allowing users to get symptom-based diagnoses and health information in a user-friendly web app. I also presented the project to stakeholders, demonstrating its capabilities and potential for real-world use.",
       tags: [
         {
-          name: "react",
+          name: "React",
           color: "blue-text-gradient",
         },
         {
-          name: "restapi",
+          name: "Azure Health Bot",
           color: "green-text-gradient",
         },
         {
-          name: "scss",
+          name: "Azure Chatbot Service API",
           color: "pink-text-gradient",
         },
       ],
-      image: jobit,
-      source_code_link: "https://github.com/",
+      image: azureChat,
     },
     {
-      name: "Trip Guide",
+      name: "Heartbeat Monitor STM32",
       description:
-        "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+        "Built a heartbeat sensor using an STM32 microcontroller and a MAX32 sensor in C to measure heart rate in real time. The system processed sensor data to display heart rate readings, demonstrating your skills in embedded systems, signal processing, and microcontroller programming.",
       tags: [
         {
-          name: "nextjs",
+          name: "C++",
           color: "blue-text-gradient",
         },
         {
-          name: "supabase",
+          name: "C",
           color: "green-text-gradient",
         },
         {
-          name: "css",
-          color: "pink-text-gradient",
+          name: "STM32",
+          color: "sunset-text",
+        },
+        {
+          name: "Arduino",
+          color: "lava-text",
         },
       ],
-      image: tripguide,
-      source_code_link: "https://github.com/",
+      image: maxSensor,
+      source_code_link: "https://github.com/JJKSweaty/Heartbeat-Monitor-STM32-Using-Arduino-IDE-"
     },
   ];
   

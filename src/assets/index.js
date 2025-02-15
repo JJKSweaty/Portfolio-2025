@@ -31,8 +31,8 @@ import opencv from './tech/opencv.png';
 import python from './tech/Python.png';
 import tensorflow from './tech/tensorflow.png';
 import signtolearn from './signtolearn.png'
-
-
+import azureChat from './azurechatbot.jpg'
+import maxSensor from './maxSensor.png'
 
 export {
   logo,
@@ -68,4 +68,6 @@ export {
   python,
   tensorflow,
   signtolearn,
+  azureChat,
+  maxSensor,
 };
