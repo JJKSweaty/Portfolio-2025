@@ -13,7 +13,7 @@ const SkillsCarousel = () => {
       <motion.div
         className="flex space-x-10 min-w-max"
         animate={{ x: ["0%", "-100%"] }} // Moves left
-        transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+        transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
       >
         {[...technologies, ...technologies].map((skill, index) => (
           <div
@@ -39,7 +39,7 @@ const Tech = () => {
     <motion.div variants={textVariant()}>
        <h2 className={`${styles.sectionHeadText} text-center align-middle justify-center mx-auto underline decoration-dotted decoration-blue-200`}>Technical Skills & Frameworks</h2>
       </motion.div>
-      <motion.div variants={fadeIn('up','',0.5,3)}>
+      <motion.div variants={fadeIn('up','',0.5,1.5)}>
       <SkillsCarousel/>
       </motion.div>
     </>
