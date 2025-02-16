@@ -166,7 +166,7 @@ import {
       ],
     },
     {
-      title: "Information Tech Eningeer",
+      title: "Information Tech Engineer",
       company_name: "UW ECE Dept.",
       icon: waterloo,
       iconBg: "black",
