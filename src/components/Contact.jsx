@@ -26,7 +26,7 @@ const Contact = () => {
         <FontAwesomeIcon icon={contact.icon} />
       </div>
 
-     
+
       <a href={contact.info} className="text-lg font-semibold text-white py-2 hover:text-blue-800 transition">
         {contact.name}
       </a>

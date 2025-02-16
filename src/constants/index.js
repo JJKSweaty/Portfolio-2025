@@ -273,7 +273,7 @@ import {
       
     },
     {
-      info:'johnkoper12@gmail.com',
+      info:'mailto:johnkoper12@gmail.com',
       icon:faEnvelope,
       name:"Email"
     },
