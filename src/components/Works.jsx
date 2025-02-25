@@ -71,7 +71,8 @@ const Works = () => {
     </motion.div>
     <div className='w-full flex'>
       <motion.p variants={fadeIn('','',0.1,1)} className='mt-3 text-gray-200 text-[17px] max-w-[1100px] leading-[30px]'>
-      I’ve worked on some cool projects that let me dive into full-stack dev, embedded systems, and OOP. SignToLearn, my hackathon winning ASL learning app, used Flask, React, OpenCV, Mediapipe. For my heartbeat sensor project, I worked with a MAX32 sensor and an STM32 microcontroller, getting hands-on with embedded systems. I also built an ETF investment tracker in C++ using OOP, focusing on structured programming and financial data management.
+      I’ve worked on some cool projects that let me dive into full-stack dev, embedded systems, and OOP. SignToLearn, my hackathon winning ASL learning app, used Flask, React, OpenCV, Mediapipe. For my heartbeat sensor project, I worked with a MAX32 sensor and an STM32 microcontroller, getting hands-on with embedded systems. I also Developed a secure voting platform with face authentication using OpenCV, ensuring privacy by storing
+      only embeddings in Supabase.
 
       </motion.p>
     </div>

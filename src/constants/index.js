@@ -24,6 +24,7 @@ import {
     signtolearn,
     azureChat,
     maxSensor,
+    truvote,
   } from "../assets";
   import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
   import { faLaptopCode, faServer,faCloudArrowUp,faGear,faEnvelope} from "@fortawesome/free-solid-svg-icons"; 
@@ -220,24 +221,48 @@ import {
       source_code_link: "https://github.com/JJKSweaty/SignToLearn/",
     },
     {
-      name: "Medical Chatbot",
-      description:
-        "Medical chatbot that connects to Azure Health Bot using the Azure Chatbot Service API, allowing users to get symptom-based diagnoses and health information in a user-friendly web app. I also presented the project to stakeholders, demonstrating its capabilities and potential for real-world use.",
+      name: "FaceAuth Voting Platform",
+      description: "I developed a secure online voting platform that uses face authentication to verify voter identity, ensuring privacy by storing only encrypted data rather than personal images. The platform features a real time, user friendly voting dashboard for seamless participation, and I optimized the system to retrieve and display votes 40% faster for a smooth experience.",
       tags: [
         {
           name: "React",
           color: "blue-text-gradient",
         },
         {
-          name: "Azure Health Bot",
+          name: "Flask",
           color: "green-text-gradient",
         },
         {
-          name: "Azure Chatbot Service API",
+          name: "Tailwind",
           color: "pink-text-gradient",
         },
+        {
+          name: "OpenCV",
+          color: "sunset-text",
+        },
+        {
+          name: "Typscript",
+          color: "ocean-text",
+        },
+        {
+          name: "Python",
+          color: "gold-text",
+        },
+        {
+          name: "SQL",
+          color: "lava-text",
+        },
+        {
+          name: "Gemini",
+          color: "green-text-gradient",
+        },
+        {
+          name: "Next.js",
+          color: "ocean-text",
+        },
       ],
-      image: azureChat,
+      image: truvote,
+      source_code_link: "https://github.com/JJKSweaty/hack-canada-FaceAuth-Voting/",
     },
     {
       name: "Heartbeat Monitor STM32",

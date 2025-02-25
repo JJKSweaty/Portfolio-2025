@@ -33,7 +33,7 @@ import tensorflow from './tech/tensorflow.png';
 import signtolearn from './signtolearn.png'
 import azureChat from './azurechatbot.jpg'
 import maxSensor from './maxSensor.png'
-
+import truvote  from './truvote.png'
 export {
   logo,
   backend,
@@ -70,4 +70,5 @@ export {
   signtolearn,
   azureChat,
   maxSensor,
+  truvote,
 };
