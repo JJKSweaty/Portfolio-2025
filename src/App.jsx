@@ -1,23 +1,41 @@
 import { BrowserRouter } from "react-router-dom";
-import { About, Contact, Experience, Hero, Navbar, Tech, Works} from "./components";
+import { Canvas } from "@react-three/fiber";
+import { About, Contact, Experience, Hero, Navbar, Works } from "./components";
+import { Stars } from "./components/canvas/Stars";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div className='relative z-0 bg-gradient-to-b from-[#020617] via-[#03142b] to-[#04203e]
-
-y overflow-hidden bg-center bg-no-repeat bg-blend'>
-        <div className='w-full h-screen relative bg-gradient-to-b from-[#050a1a] via-[#081e3a] to-[#0c3058]
-'>
-          <Navbar />
-          <Hero />
+      <div className='relative z-0 bg-black overflow-hidden'>
+        <div className='fixed inset-0 z-0'>
+          <Canvas
+            camera={{
+              position: [0, 0, 1000],
+              fov: 75,
+              near: 0.1,
+              far: 2000
+            }}
+          >
+            <Stars />
+          </Canvas>
         </div>
-        <About />
-        <Experience />
-        <Tech />
-        <Works />
-        <div className='relative z-0'>
-          <Contact />
+        <div className='relative z-10'>
+          <div className='w-full h-screen relative bg-black/30'>
+            <Navbar />
+            <Hero />
+          </div>
+          <div className='relative bg-black/30'>
+            <About />
+          </div>
+          <div className='relative bg-black/30'>
+            <Experience />
+          </div>
+          <div className='relative bg-black/30'>
+            <Works />
+          </div>
+          <div className='relative bg-black/30'>
+            <Contact />
+          </div>
         </div>
       </div>
     </BrowserRouter>

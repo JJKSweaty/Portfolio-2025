@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose,faBars } from '@fortawesome/free-solid-svg-icons'
 import { styles } from "../styles";
 import { navLinks } from "../constants";
-import { logo, menu, close } from "../assets";
+import { logo } from "../assets";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
@@ -31,7 +31,7 @@ const Navbar = () => {
       className={`${
         styles.paddingX
       } w-full flex items-center py-5 fixed top-0 z-20 ${
-        scrolled ?"bg-[#01010f]" : "bg-transparent"
+        scrolled ? "bg-black/80 backdrop-blur-sm" : "bg-transparent"
       }`}
     >
       <div className='w-full flex justify-between items-center max-w-7xl mx-auto'>
@@ -43,10 +43,10 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-           <img src={logo} alt='logo' className='w-9 h-9 mx-5 ' />
+          <img src={logo} alt='logo' className='w-9 h-9 mx-5' />
           <p className='text-white text-[18px] font-bold cursor-pointer flex mx-2'>
             Jonathan Jacob Koshy &nbsp;
-            <span className='xl:block hidden text-amber-200'> | Electrical Engineer</span>
+            <span className='xl:block hidden text-[#64ffda]'> | Electrical Engineer</span>
           </p>
         </Link>
 
@@ -55,8 +55,8 @@ const Navbar = () => {
             <li
               key={nav.id}
               className={`${
-                active === nav.title ? "text-white" : "text-gray-200"
-              } hover:text-amber-300 text-[14px] font-medium cursor-pointer`}
+                active === nav.title ? "text-[#64ffda]" : "text-white"
+              } hover:text-[#64ffda] text-[14px] font-medium cursor-pointer transition-colors duration-300`}
               onClick={() => setActive(nav.title)}
             >
               <a href={`#${nav.id}`}>{nav.title}</a>
@@ -65,23 +65,22 @@ const Navbar = () => {
         </ul>
 
         <div className='sm:hidden flex flex-1 justify-end items-center'>
-        <button onClick={() => setToggle(!toggle)} className="text-white text-2xl cursor-pointer">
-      <FontAwesomeIcon icon={toggle ? faClose : faBars} />
-        </button>
-
+          <button onClick={() => setToggle(!toggle)} className="text-[#64ffda] text-2xl cursor-pointer">
+            <FontAwesomeIcon icon={toggle ? faClose : faBars} />
+          </button>
 
           <div
             className={`${
               !toggle ? "hidden" : "flex"
-            } p-6 card-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            } p-6 bg-black/95 backdrop-blur-sm absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl border border-[#64ffda]/20`}
           >
             <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
               {navLinks.map((nav) => (
                 <li
                   key={nav.id}
                   className={`font-poppins font-medium cursor-pointer text-[16px] ${
-                    active === nav.title ? "text-white" : "text-white"
-                  }`}
+                    active === nav.title ? "text-[#64ffda]" : "text-white"
+                  } hover:text-[#64ffda] transition-colors duration-300`}
                   onClick={() => {
                     setToggle(!toggle);
                     setActive(nav.title);

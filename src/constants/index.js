@@ -33,10 +33,6 @@ import {
 
   export const navLinks = [
     {
-      id: "about",
-      title: "About",
-    },
-    {
       id: "work",
       title: "Work",
     },
@@ -187,6 +183,7 @@ import {
       name: "SignToLearn",
       description:
         "Web based AI-powered application designed to recognize ASL hand gestures in real-time. The project uses MediaPipe for hand tracking and TensorFlow for recognizing ASL gestures. This application aims to help users learn ASL in an interactive, engaging way, similar to language learning apps like Duolingo.",
+      type: "software",
       tags: [
         {
           name: "React",
@@ -221,8 +218,24 @@ import {
       source_code_link: "https://github.com/JJKSweaty/SignToLearn/",
     },
     {
+      name: "Motor Tester",
+      description: "Developed a motor tester for UWARG using an STM32 microcontroller. Implemented SPI-based ADC reading of potentiometer values and mapped those readings to PWM signals to control motor speed and direction for both servo and continuous-rotation motors.",
+      type: "hardware",
+      tags: [
+        { name: "STM32", color: "blue-text-gradient" },
+        { name: "SPI", color: "green-text-gradient" },
+        { name: "PWM", color: "pink-text-gradient" },
+        { name: "ADC", color: "sunset-text" },
+        { name: "Embedded", color: "ocean-text" },
+        { name: "C/C++", color: "gold-text" }
+      ],
+      image: null,
+      source_code_link: "https://github.com/JJKSweaty/embedded-bootcamp"
+    },
+    {
       name: "FaceAuth Voting Platform",
-      description: "I developed a secure online voting platform that uses face authentication to verify voter identity, ensuring privacy by storing only encrypted data rather than personal images. The platform features a real time, user friendly voting dashboard for seamless participation, and I optimized the system to retrieve and display votes 40% faster for a smooth experience.",
+      description: "Secure online voting platform that uses face authentication to verify voter identity, ensuring privacy by storing only encrypted data rather than personal images. The platform features a real time, user friendly voting dashboard for seamless participation, and I optimized the system to retrieve and display votes 40% faster for a smooth experience.",
+      type: "software",
       tags: [
         {
           name: "React",
@@ -256,39 +269,58 @@ import {
           name: "Gemini",
           color: "green-text-gradient",
         },
-        {
-          name: "Next.js",
-          color: "ocean-text",
-        },
       ],
       image: truvote,
       source_code_link: "https://github.com/JJKSweaty/hack-canada-FaceAuth-Voting/",
     },
     {
-      name: "Heartbeat Monitor STM32",
-      description:
-        "Built a heartbeat sensor using an STM32 microcontroller and a MAX32 sensor in C to measure heart rate in real time. The system processed sensor data to display heart rate readings, demonstrating your skills in embedded systems, signal processing, and microcontroller programming.",
+      name: "C++ Investment Tracker",
+      description: "Console-based C++ application that reads buy/sell transactions from file, maintains a linked-list history, calculates adjusted cost base (ACB) and capital gains/losses (CGL) per year, and outputs a sorted, formatted transaction ledger for easy portfolio analysis.",
+      type: "software",
       tags: [
-        {
-          name: "C++",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "C",
-          color: "green-text-gradient",
-        },
-        {
-          name: "STM32",
-          color: "sunset-text",
-        },
-        {
-          name: "Arduino",
-          color: "lava-text",
-        },
+        { name: "C++", color: "blue-text-gradient" },
+        { name: "OOP", color: "green-text-gradient" },
+        { name: "File I/O", color: "pink-text-gradient" },
+        { name: "Data Structures", color: "sunset-text" },
+        { name: "Algorithms", color: "ocean-text" },
+        { name: "Linked Lists", color: "gold-text" },
+        { name: "Sorting", color: "lava-text" },
+        { name: "Unit Testing", color: "green-text-gradient" },
       ],
-      image: maxSensor,
-      source_code_link: "https://github.com/JJKSweaty/Heartbeat-Monitor-STM32-Using-Arduino-IDE-"
+      image:null,
+      source_code_link: "https://github.com/JJKSweaty/cpp-investment-tracker"
     },
+    {
+      name: "Heartbeat Monitor PCB Design",
+      description: "Custom PCB designed in KiCad for heartbeat and SpO₂ monitoring using the MAX30102 sensor and USB-C power input. Optimized I²C communication for reliable BPM and oxygen saturation tracking on an Arduino interface.",
+      type: "hardware",
+      tags: [
+        { name: "KiCad", color: "blue-text-gradient" },
+        { name: "MAX30102", color: "green-text-gradient" },
+        { name: "PCB Design", color: "pink-text-gradient" },
+        { name: "I²C", color: "sunset-text" },
+        { name: "Arduino", color: "ocean-text" },
+        { name: "USB-C", color: "gold-text" }
+      ],
+      image: null,
+    },
+    {
+      name: "ESP32 Media Controller",
+      description: "Built a custom ESP32-S3 hardware dashboard with a 3.5″ SPI TFT touchscreen and I²C touch controller. Enables real-time media control, system monitoring, and Discord voice management via WebSockets.",
+      type: "hardware",
+      tags: [
+        { name: "ESP32-S3", color: "blue-text-gradient" },
+        { name: "SPI", color: "green-text-gradient" },
+        { name: "I²C", color: "pink-text-gradient" },
+        { name: "LVGL", color: "sunset-text" },
+        { name: "PlatformIO", color: "ocean-text" },
+        { name: "WebSockets", color: "gold-text" }
+      ],
+      image: null,
+      source_code_link: "https://github.com/JJKSweaty/esp32-media-controller"
+    },
+    
+    
   ];
   const contacts = [
     {

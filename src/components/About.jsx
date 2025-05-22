@@ -1,77 +1,108 @@
-import React from "react";
-import Tilt from "react-parallax-tilt";
-import { color, motion } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { styles } from "../styles";
-import { services } from "../constants";
+import { technologies } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
+import CyberCard from './CyberCard';
 
-const ServiceCard = ({ index, title, icon }) => (
-  <Tilt className='xs:w-[250px] w-full'>
-    <motion.div
-      variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className='w-full card-gradient p-[1px] rounded-[20px] shadow-[3px_35px_120px_-2px_#211e35]  '
-    >
-      <div
-        options={{
-          max: 45,
-          scale: 1,
-          speed: 450,
-        }}
-        className='bg-[#1e5a8a]
+const Skills = () => {
+  const [activeTab, setActiveTab] = useState('software');
 
+  const softwareSkills = [
+    {
+      title: "FRONTEND",
+      subtitle: "Tailwind CSS, Next.js",
+      highlight: "React.Js"
+    },
+    {
+      title: "BACKEND",
+      subtitle: "Node.js, C++",
+      highlight: "Python"
+    },
+    {
+      title: "TOOLS",
+      subtitle: "Git, OpenCV",
+      highlight: "TensorFlow"
+    }
+  ];
 
+  const hardwareSkills = [
+    {
+      title: "MCU",
+      subtitle: "STM32, Arduino",
+      highlight: "ESP32"
+    },
+    {
+      title: "SOFTWARE",
+      subtitle: "KiCAD, Keil uVision",
+      highlight: "STM32CubeIDE"
+    },
+    {
+      title: "PROTOCOLS",
+      subtitle: "I2C, UART, PWM",
+      highlight: "SPI"
+    },
+    {
+      title: "TOOLS",
+      subtitle: "Oscilloscope",
+      highlight: "Multimeter"
+    }
+  ];
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
-
-
-
-
-
-
-
- rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col'
-      >
-        <FontAwesomeIcon icon={icon}
-          className="text-4xl text-white"
-        >
-        </FontAwesomeIcon>
-
-        <h3 className='text-[#d0d7dd] text-[20px] font-bold text-center mb-8'>
-          {title}
-        </h3>
-      </div>
-    </motion.div>
-  </Tilt>
-);
-
-const About = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-  <h2 className={`${styles.sectionHeadText} underline decoration-dotted decoration-blue-200`}>
-    Overview
-  </h2>
-</motion.div>
-
+        <h2 className="text-4xl font-bold text-[#64ffda] text-center mb-8">Skills & Frameworks</h2>
+      </motion.div>
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}
-        className='mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]'
+        className='mt-4 text-white text-[17px] max-w-3xl leading-[30px] text-center mx-auto'
       >
-       I’m an Electrical Engineering student at the University of Waterloo with a strong passion for technology, problem solving, and innovation. My experience spans IT engineering, Machine Learning, and full-stack development, where I’ve worked on making impactful AI projects, creating STM32 and Arduino projects, and building interactive applications. I have expertise in frameworks like React, Flask and three.js allowing me to create dynamic and engaging user experiences. I also enjoy hackathons and am always eager to push my limits, collaborate with others, and build impactful projects under tight deadlines. Outside of engineering, I’m a huge Lakers fan and love catching a good game.
-
-
+        A collection of technologies and frameworks I've mastered through my projects and experiences.
+        Each skill represents a tool in my arsenal for building innovative solutions.
       </motion.p>
 
-      <div className='mt-15 grid grid-cols-1 xl:grid-cols-2 xl:w-[1100px] gap-10'>
-        {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} {...service} />
+      <div className="mt-12 flex justify-center gap-4">
+        <button
+          onClick={() => handleTabChange('software')}
+          className={`px-6 py-2 rounded-md transition-all duration-300 ${
+            activeTab === 'software'
+              ? 'bg-[#64ffda] text-black'
+              : 'text-white hover:bg-[#64ffda]/10'
+          }`}
+        >
+          Software
+        </button>
+        <button
+          onClick={() => handleTabChange('hardware')}
+          className={`px-6 py-2 rounded-md transition-all duration-300 ${
+            activeTab === 'hardware'
+              ? 'bg-[#64ffda] text-black'
+              : 'text-white hover:bg-[#64ffda]/10'
+          }`}
+        >
+          Hardware
+        </button>
+      </div>
+
+      <div className="mt-12 flex flex-wrap justify-center gap-8">
+        {(activeTab === 'software' ? softwareSkills : hardwareSkills).map((skill, index) => (
+          <CyberCard
+            key={index}
+            title={skill.title}
+            subtitle={skill.subtitle}
+            highlight={skill.highlight}
+          />
         ))}
       </div>
     </>
   );
 };
 
-export default SectionWrapper(About, "about");
+export default SectionWrapper(Skills, "skills");
