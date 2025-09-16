@@ -26,6 +26,20 @@ const Experience = () => {
       period: "Apr 2025 - Present",
       description: "Designed a motor tester system using STM32, SPI, and PWM to evaluate servo and continuous rotation motors. Configured SPI to interface with external ADCs reading analog potentiometer values. Controlled motor speed and direction by mapping ADC readings to PWM duty cycles.",
       technologies: ["STM32", "SPI", "PWM", "ADC", "Embedded Systems", "C/C++"]
+    },
+    {
+      company: "Electrium Mobility Electric Skateboard",
+      role: "CF - Firmware Member",
+      period: "May 2025 - Sept 2025",
+      description: "Built a custom touchscreen dashboard with ESP32 and FreeRTOS to display real-time motor and battery stats, log data locally, and integrate BLE sensor feedback for responsive wireless communication with the VESC.",
+      technologies: ["FreeRTOS", "ESP32", "BLE","C/C++"]
+    },  
+    {
+      company: "Vitruvius Innovation",
+      role: "Embedded Systems Intern",
+      period: "Sep 2025 - Dec 2025",
+      description: "Designed and built custom low-noise PCBs with an ESP32-S3 and over seven environmental and biomedical sensors (IMU, SpO₂, CO₂, O₂, temperature, pressure) for a lightweight health-monitoring device. Developed FreeRTOS firmware using ESP-IDF to collect and stream multi-sensor data via BLE with sub-50 ms latency, implemented power-efficient dual-core task scheduling, and calibrated all sensors to within ±2 % of reference measurements.",
+      technologies: ["ESP32-S3", "FreeRTOS", "ESP-IDF", "I2C", "UART", "BLE", "PCB design"]
     }
   ];
 
