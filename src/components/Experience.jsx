@@ -4,11 +4,12 @@ import styled from 'styled-components';
 
 const Experience = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const experienceCardRef = useRef(null);
 
-  // Smooth scroll to experience card when activeIndex changes
+  // Smooth scroll to experience card when activeIndex changes (only after user interaction)
   useEffect(() => {
-    if (experienceCardRef.current) {
+    if (experienceCardRef.current && hasUserInteracted) {
       // Small delay to allow the animation to start
       const timer = setTimeout(() => {
         experienceCardRef.current.scrollIntoView({
@@ -20,7 +21,7 @@ const Experience = () => {
 
       return () => clearTimeout(timer);
     }
-  }, [activeIndex]);
+  }, [activeIndex, hasUserInteracted]);
 
   const experiences = [
     {
@@ -79,7 +80,10 @@ const Experience = () => {
               <TimelineItem 
                 key={index}
                 $isActive={index === activeIndex}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => {
+                  setActiveIndex(index);
+                  setHasUserInteracted(true);
+                }}
               >
                 <TimelineDot $isActive={index === activeIndex} />
                 <TimelineContent>
@@ -91,13 +95,14 @@ const Experience = () => {
             ))}
           </Timeline>
 
-          <ExperienceCard
-            ref={experienceCardRef}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            key={activeIndex}
-          >
+          <ExperienceCardWrapper>
+            <ExperienceCard
+              ref={experienceCardRef}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              key={activeIndex}
+            >
             <CardContent>
               <CardHeader>
                 <CompanyName>{experiences[activeIndex].company}</CompanyName>
@@ -122,6 +127,7 @@ const Experience = () => {
               </CornerElements>
             </CardContent>
           </ExperienceCard>
+          </ExperienceCardWrapper>
         </TimelineContainer>
       </div>
     </section>
@@ -133,6 +139,17 @@ const TimelineContainer = styled.div`
   flex-direction: column;
   gap: 2rem;
   margin-top: 2rem;
+
+  @media (min-width: 769px) {
+    gap: 2.5rem;
+  }
+`;
+
+const ExperienceCardWrapper = styled.div`
+  @media (min-width: 769px) {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
 `;
 
 const Timeline = styled.div`
@@ -157,6 +174,11 @@ const Timeline = styled.div`
       transparent
     );
     transform: translateY(-50%);
+  }
+
+  @media (min-width: 769px) {
+    margin: 2rem 0;
+    padding: 1.5rem 0;
   }
 
   @media (max-width: 768px) {
