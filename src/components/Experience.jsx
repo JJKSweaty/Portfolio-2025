@@ -1,9 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 const Experience = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const experienceCardRef = useRef(null);
+
+  // Smooth scroll to experience card when activeIndex changes
+  useEffect(() => {
+    if (experienceCardRef.current) {
+      // Small delay to allow the animation to start
+      const timer = setTimeout(() => {
+        experienceCardRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest'
+        });
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [activeIndex]);
 
   const experiences = [
     {
@@ -51,7 +68,7 @@ const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-[#64ffda] text-4xl font-bold mb-12 text-center"
+          className="text-[#64ffda] text-4xl font-bold mb-12 text-center sm:text-3xl"
         >
           Work Experience
         </motion.h2>
@@ -75,6 +92,7 @@ const Experience = () => {
           </Timeline>
 
           <ExperienceCard
+            ref={experienceCardRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -141,8 +159,20 @@ const Timeline = styled.div`
     transform: translateY(-50%);
   }
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    
+    &::before {
+      display: none;
+    }
+  }
+
   @media (max-width: 640px) {
     gap: 1rem;
+    padding: 1rem 0;
   }
 `;
 
@@ -156,6 +186,7 @@ const TimelineItem = styled.div`
   z-index: 1;
   position: relative;
   padding-top: 1rem;
+  min-width: 200px;
 
   &:hover {
     transform: translateY(-5px);
@@ -164,6 +195,27 @@ const TimelineItem = styled.div`
   ${props => props.$isActive && `
     transform: translateY(-5px);
   `}
+
+  @media (max-width: 768px) {
+    min-width: auto;
+    width: 100%;
+    max-width: 300px;
+    padding: 1rem;
+    background: rgba(100, 255, 218, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    
+    &:hover {
+      background: rgba(100, 255, 218, 0.1);
+      transform: translateY(-2px);
+    }
+
+    ${props => props.$isActive && `
+      background: rgba(100, 255, 218, 0.1);
+      border-color: rgba(100, 255, 218, 0.3);
+      transform: translateY(-2px);
+    `}
+  }
 `;
 
 const TimelineDot = styled.div`
@@ -177,6 +229,12 @@ const TimelineDot = styled.div`
   position: absolute;
   top: 0;
   transform: translateY(-50%);
+
+  @media (max-width: 768px) {
+    position: static;
+    transform: none;
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const TimelineContent = styled.div`
@@ -193,14 +251,34 @@ const TimelineTitle = styled.div`
   font-weight: 600;
   color: white;
   margin-top: 0.25rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const TimelineRole = styled.div`
   font-size: 0.875rem;
   color: #64ffda;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 0.75rem;
+  }
 `;
 
-const ExperienceCard = styled(motion.div)`
+const ExperienceCard = styled(motion.div).withConfig({
+  shouldForwardProp: (prop) => prop !== 'ref',
+})`
   background: linear-gradient(45deg, #1a1a1a, #262626);
   border-radius: 15px;
   border: 2px solid rgba(255, 255, 255, 0.1);
@@ -214,6 +292,14 @@ const ExperienceCard = styled(motion.div)`
 const CardContent = styled.div`
   padding: 2rem;
   position: relative;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    padding: 1rem;
+  }
 `;
 
 const CardHeader = styled.div`
@@ -225,29 +311,63 @@ const CompanyName = styled.h3`
   font-weight: 700;
   color: #64ffda;
   margin-bottom: 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const RoleTitle = styled.h4`
   font-size: 1.25rem;
   color: white;
   margin-bottom: 0.25rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 1rem;
+  }
 `;
 
 const Period = styled.div`
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
+
+  @media (max-width: 640px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const Description = styled.p`
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
 `;
 
 const TechStack = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+
+  @media (max-width: 640px) {
+    gap: 0.375rem;
+  }
 `;
 
 const TechPill = styled.span`
@@ -262,6 +382,16 @@ const TechPill = styled.span`
   &:hover {
     background: rgba(100, 255, 218, 0.2);
     transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
   }
 `;
 
