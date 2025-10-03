@@ -17,13 +17,13 @@ const Skills = () => {
     },
     {
       title: "BACKEND",
-      subtitle: "Node.js, C++",
+      subtitle: "C/C++, Java",
       highlight: "Python"
     },
     {
       title: "TOOLS",
-      subtitle: "Git, OpenCV",
-      highlight: "TensorFlow"
+      subtitle: "Git, CUDA",
+      highlight: "PyTorch"
     }
   ];
 
@@ -35,12 +35,12 @@ const Skills = () => {
     },
     {
       title: "SOFTWARE",
-      subtitle: "KiCAD, Keil uVision",
+      subtitle: "Altium , ESP-IDF",
       highlight: "STM32CubeIDE"
     },
     {
       title: "PROTOCOLS",
-      subtitle: "I2C, UART, PWM",
+      subtitle: "I2C, UART, BLE",
       highlight: "SPI"
     },
     {

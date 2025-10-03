@@ -131,7 +131,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-white text-xl md:text-2xl mb-8"
           >
-            I'm a University of Waterloo Electrical Engineering student. I develop full stack web applications, embedded systems, and hardware designs.
+            I'm a University of Waterloo Electrical Engineering student. I develop embedded systems, hardware designs and experimenting with GPU Acceleration using CUDA.
           </motion.p>
 
           <motion.div
