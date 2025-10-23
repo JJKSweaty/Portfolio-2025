@@ -96,13 +96,13 @@ const StyledWrapper = styled.div`
     letter-spacing: 2px;
     text-align: center;
     width: 100%;
-    background: linear-gradient(45deg, #64ffda, #00a2ff);
+    background: linear-gradient(45deg, var(--theme-primary), var(--theme-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 15px rgba(100, 255, 218, 0.3));
+    filter: drop-shadow(0 0 15px var(--theme-glow));
     text-shadow:
-      0 0 10px rgba(92, 103, 255, 0.5),
-      0 0 20px rgba(92, 103, 255, 0.3);
+      0 0 10px var(--theme-glow),
+      0 0 20px var(--theme-glow);
   }
 
   .subtitle {
@@ -118,8 +118,8 @@ const StyledWrapper = styled.div`
   }
 
   .highlight {
-    color: #64ffda;
-    background: linear-gradient(90deg, #64ffda, #00a2ff);
+    color: var(--theme-primary);
+    background: linear-gradient(90deg, var(--theme-primary), var(--theme-secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: bold;
@@ -140,8 +140,8 @@ const StyledWrapper = styled.div`
     border-radius: 50%;
     background: radial-gradient(
       circle at center,
-      rgba(100, 255, 218, 0.3) 0%,
-      rgba(100, 255, 218, 0) 70%
+      var(--theme-glow) 0%,
+      transparent 70%
     );
     filter: blur(15px);
     opacity: 0;
@@ -166,7 +166,7 @@ const StyledWrapper = styled.div`
     position: absolute;
     width: 2px;
     height: 2px;
-    background: #64ffda;
+    background: var(--theme-primary);
     border-radius: 50%;
     opacity: 0;
     transition: opacity 0.3s ease;

@@ -2,10 +2,12 @@ import { BrowserRouter } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { About, Contact, Experience, Hero, Navbar, Works } from "./components";
 import { Stars } from "./components/canvas/Stars";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
       <div className='relative z-0 bg-black overflow-hidden'>
         <div className='fixed inset-0 z-0'>
           <Canvas
@@ -39,6 +41,7 @@ const App = () => {
         </div>
       </div>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

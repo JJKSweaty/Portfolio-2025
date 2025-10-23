@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from "framer-motion";
 import AnimatedName from "./AnimatedName";
+import { AppleHelloEnglishEffect } from "./ui/shadcn-io/apple-hello-effect";
+import ParticleBackground from "./ParticleBackground";
 import { styles } from "../styles";
 import styled from 'styled-components';
 
@@ -111,25 +113,32 @@ const StyledGlitchButton = styled.a`
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen mx-auto bg-black flex items-center justify-center">
-      <div className="max-w-4xl mx-auto text-center px-4">
+    <section className="relative w-full h-screen mx-auto bg-black flex items-center justify-center overflow-hidden">
+      {/* Particle background */}
+      <ParticleBackground />
+      
+      <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 md:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className={`${styles.heroHeadText} text-[#64ffda] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-5`}>
-            Hi, I'm
-          </h1>
-          <div className="h-[1.2em] flex justify-center items-center mb-18">
-            <AnimatedName/>
+          <div className="h-20 sm:h-24 md:h-32 flex justify-center items-center mb-2 sm:mb-4 text-[var(--theme-primary)]">
+            <AppleHelloEnglishEffect 
+              speed={1.1}
+              className="h-12 sm:h-16 md:h-20 lg:h-24 w-full max-w-[280px] sm:max-w-[350px] md:max-w-[450px]"
+            />
           </div>
+          
+          <h1 className={`${styles.heroHeadText} text-[var(--theme-primary)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 md:mb-8`}>
+            I'm Jonathan
+          </h1>
           
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-white text-xl md:text-2xl mb-8"
+            className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 px-2 leading-relaxed"
           >
             I'm a University of Waterloo Electrical Engineering student. I develop embedded systems, hardware designs and experimenting with GPU Acceleration using CUDA.
           </motion.p>
@@ -138,21 +147,25 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex justify-center gap-6"
+            className="flex justify-center gap-3 sm:gap-4 md:gap-6 flex-wrap px-2"
           >
             <a 
               href="#work"
-              className="px-8 py-3 border-2 border-[#64ffda] text-[#64ffda] rounded-md 
-                       hover:bg-[#64ffda] hover:text-black transition-all duration-300
-                       shadow-[0_0_15px_rgba(100,255,218,0.3)] hover:shadow-[0_0_25px_rgba(100,255,218,0.5)]"
+              className="px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base md:text-lg
+                       border-2 border-[var(--theme-primary)] text-[var(--theme-primary)] rounded-md 
+                       hover:bg-[var(--theme-primary)] hover:text-black transition-all duration-300
+                       shadow-[0_0_10px_var(--theme-glow)] hover:shadow-[0_0_20px_var(--theme-glow)]
+                       transform hover:-translate-y-1 active:translate-y-0"
             >
               Experience
             </a>
             <a 
               href="#projects"
-              className="px-8 py-3 border-2 border-[#64ffda] text-[#64ffda] rounded-md 
-                       hover:bg-[#64ffda] hover:text-black transition-all duration-300
-                       shadow-[0_0_15px_rgba(100,255,218,0.3)] hover:shadow-[0_0_25px_rgba(100,255,218,0.5)]"
+              className="px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base md:text-lg
+                       border-2 border-[var(--theme-primary)] text-[var(--theme-primary)] rounded-md 
+                       hover:bg-[var(--theme-primary)] hover:text-black transition-all duration-300
+                       shadow-[0_0_10px_var(--theme-glow)] hover:shadow-[0_0_20px_var(--theme-glow)]
+                       transform hover:-translate-y-1 active:translate-y-0"
             >
               View Projects
             </a>
@@ -160,7 +173,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-5 w-full flex justify-center items-center">
+      <div className="absolute bottom-5 sm:bottom-8 w-full flex justify-center items-center">
         <StyledGlitchButton href="#skills">
           <motion.button
             animate={{

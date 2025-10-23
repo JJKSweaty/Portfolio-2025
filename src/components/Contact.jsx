@@ -25,12 +25,12 @@ const ContactLink = styled.a`
   display: flex;
   align-items: center;
   gap: 1rem;
-  color: #64ffda;
+  color: var(--theme-primary);
   text-decoration: none;
   font-size: 1.25rem;
   transition: all 0.3s ease;
   padding: 1rem 2rem;
-  border: 2px solid rgba(100, 255, 218, 0.2);
+  border: 2px solid var(--theme-border);
   border-radius: 12px;
   background: rgba(17, 25, 40, 0.75);
   min-width: 200px;
@@ -38,8 +38,8 @@ const ContactLink = styled.a`
 
   &:hover {
     transform: translateY(-5px);
-    border-color: #64ffda;
-    box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 20px var(--theme-glow);
   }
 
   svg {

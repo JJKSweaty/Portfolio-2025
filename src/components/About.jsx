@@ -57,7 +57,7 @@ const Skills = () => {
   return (
     <>
       <motion.div variants={textVariant()}>
-        <h2 className="text-4xl font-bold text-[#64ffda] text-center mb-8">Skills & Frameworks</h2>
+        <h2 className="text-4xl font-bold text-[var(--theme-primary)] text-center mb-8">Skills & Frameworks</h2>
       </motion.div>
 
       <motion.p
@@ -73,8 +73,8 @@ const Skills = () => {
           onClick={() => handleTabChange('software')}
           className={`px-6 py-2 rounded-md transition-all duration-300 ${
             activeTab === 'software'
-              ? 'bg-[#64ffda] text-black'
-              : 'text-white hover:bg-[#64ffda]/10'
+              ? 'bg-[var(--theme-primary)] text-black'
+              : 'text-white hover:bg-[var(--theme-primary)]/10'
           }`}
         >
           Software
@@ -83,8 +83,8 @@ const Skills = () => {
           onClick={() => handleTabChange('hardware')}
           className={`px-6 py-2 rounded-md transition-all duration-300 ${
             activeTab === 'hardware'
-              ? 'bg-[#64ffda] text-black'
-              : 'text-white hover:bg-[#64ffda]/10'
+              ? 'bg-[var(--theme-primary)] text-black'
+              : 'text-white hover:bg-[var(--theme-primary)]/10'
           }`}
         >
           Hardware

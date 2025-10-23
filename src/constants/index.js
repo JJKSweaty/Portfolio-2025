@@ -233,62 +233,37 @@ import {
       source_code_link: "https://github.com/JJKSweaty/embedded-bootcamp"
     },
     {
-      name: "FaceAuth Voting Platform",
-      description: "Secure online voting platform that uses face authentication to verify voter identity, ensuring privacy by storing only encrypted data rather than personal images. The platform features a real time, user friendly voting dashboard for seamless participation, and I optimized the system to retrieve and display votes 40% faster for a smooth experience.",
+      name: "CUDA MLP for MNIST Classification",
+      description: "Implemented a 2-layer MLP for MNIST digit classification, scaling from PyTorch to custom CUDA kernels to analyze speed and efficiency tradeoffs. Wrote CUDA kernels for matrix operations, activation functions, and loss computation, optimizing memory transfers and GPU utilization. Leveraged cuBLAS routines to reach over 2× faster training than PyTorch baseline while maintaining accuracy across 10,000 samples.",
       type: "software",
       tags: [
-        {
-          name: "React",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "Flask",
-          color: "green-text-gradient",
-        },
-        {
-          name: "Tailwind",
-          color: "pink-text-gradient",
-        },
-        {
-          name: "OpenCV",
-          color: "sunset-text",
-        },
-        {
-          name: "Typscript",
-          color: "ocean-text",
-        },
-        {
-          name: "Python",
-          color: "gold-text",
-        },
-        {
-          name: "SQL",
-          color: "lava-text",
-        },
-        {
-          name: "Gemini",
-          color: "green-text-gradient",
-        },
+        { name: "CUDA", color: "blue-text-gradient" },
+        { name: "PyTorch", color: "green-text-gradient" },
+        { name: "cuBLAS", color: "pink-text-gradient" },
+        { name: "GPU Computing", color: "sunset-text" },
+        { name: "Machine Learning", color: "ocean-text" },
+        { name: "C++", color: "gold-text" },
+        { name: "Performance Optimization", color: "lava-text" },
       ],
-      image: truvote,
-      source_code_link: "https://github.com/JJKSweaty/hack-canada-FaceAuth-Voting/",
+      image: null,
+      source_code_link: "https://github.com/JJKSweaty/cuda-mlp-mnist"
     },
     {
-      name: "C++ Investment Tracker",
-      description: "Console-based C++ application that reads buy/sell transactions from file, maintains a linked-list history, calculates adjusted cost base (ACB) and capital gains/losses (CGL) per year, and outputs a sorted, formatted transaction ledger for easy portfolio analysis.",
+      name: "Claude Powered Firmware Assistant",
+      description: "Developed a full-stack Claude-based agent to assist with firmware and embedded tasks, featuring live streaming and secure file upload. Integrated local vector RAG and Supabase session memory to enable multi-turn context recall across chats. Implemented scoped memory, prompt compression, and selective context injection reducing token usage by 60%.",
       type: "software",
       tags: [
-        { name: "C++", color: "blue-text-gradient" },
-        { name: "OOP", color: "green-text-gradient" },
-        { name: "File I/O", color: "pink-text-gradient" },
-        { name: "Data Structures", color: "sunset-text" },
-        { name: "Algorithms", color: "ocean-text" },
-        { name: "Linked Lists", color: "gold-text" },
-        { name: "Sorting", color: "lava-text" },
-        { name: "Unit Testing", color: "green-text-gradient" },
+        { name: "Claude AI", color: "blue-text-gradient" },
+        { name: "RAG", color: "pink-text-gradient" },
+        { name: "Supabase", color: "sunset-text" },
+        { name: "Vector DB", color: "ocean-text" },
+        { name: "Fastify", color: "green-text-gradient" },
+        { name: "Node.js", color: "gold-text" }
+        
+
       ],
-      image:null,
-      source_code_link: "https://github.com/JJKSweaty/cpp-investment-tracker"
+      image: null,
+      source_code_link: "https://github.com/JJKSweaty/jjkAI"
     },
     {
       name: "Heartbeat Monitor PCB Design",

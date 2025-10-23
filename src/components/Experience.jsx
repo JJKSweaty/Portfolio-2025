@@ -69,7 +69,7 @@ const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-[#64ffda] text-4xl font-bold mb-12 text-center sm:text-3xl"
+          className="text-[var(--theme-primary)] text-4xl font-bold mb-20 text-center sm:text-3xl"
         >
           Work Experience
         </motion.h2>
@@ -169,8 +169,8 @@ const Timeline = styled.div`
     height: 2px;
     background: linear-gradient(90deg, 
       transparent,
-      rgba(100, 255, 218, 0.3),
-      rgba(100, 255, 218, 0.3),
+      var(--theme-border),
+      var(--theme-border),
       transparent
     );
     transform: translateY(-50%);
@@ -223,18 +223,18 @@ const TimelineItem = styled.div`
     width: 100%;
     max-width: 300px;
     padding: 1rem;
-    background: rgba(100, 255, 218, 0.05);
+    background: var(--theme-bg-card);
     border-radius: 10px;
-    border: 1px solid rgba(100, 255, 218, 0.1);
+    border: 1px solid var(--theme-border);
     
     &:hover {
-      background: rgba(100, 255, 218, 0.1);
+      background: var(--theme-bg-card-hover);
       transform: translateY(-2px);
     }
 
     ${props => props.$isActive && `
-      background: rgba(100, 255, 218, 0.1);
-      border-color: rgba(100, 255, 218, 0.3);
+      background: var(--theme-bg-card-hover);
+      border-color: var(--theme-primary);
       transform: translateY(-2px);
     `}
   }
@@ -244,9 +244,9 @@ const TimelineDot = styled.div`
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: ${props => props.$isActive ? '#64ffda' : 'rgba(100, 255, 218, 0.3)'};
-  border: 2px solid ${props => props.$isActive ? '#64ffda' : 'rgba(100, 255, 218, 0.5)'};
-  box-shadow: 0 0 10px ${props => props.$isActive ? 'rgba(100, 255, 218, 0.5)' : 'transparent'};
+  background: ${props => props.$isActive ? 'var(--theme-primary)' : 'var(--theme-primary-muted)'};
+  border: 2px solid ${props => props.$isActive ? 'var(--theme-primary)' : 'var(--theme-primary)'};
+  box-shadow: 0 0 10px ${props => props.$isActive ? 'var(--theme-glow)' : 'transparent'};
   transition: all 0.3s ease;
   position: absolute;
   top: 0;
@@ -286,7 +286,7 @@ const TimelineTitle = styled.div`
 
 const TimelineRole = styled.div`
   font-size: 0.875rem;
-  color: #64ffda;
+  color: var(--theme-primary);
 
   @media (max-width: 768px) {
     font-size: 0.8rem;
@@ -331,7 +331,7 @@ const CardHeader = styled.div`
 const CompanyName = styled.h3`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #64ffda;
+  color: var(--theme-primary);
   margin-bottom: 0.5rem;
 
   @media (max-width: 768px) {
@@ -393,16 +393,16 @@ const TechStack = styled.div`
 `;
 
 const TechPill = styled.span`
-  background: rgba(100, 255, 218, 0.1);
-  color: #64ffda;
+  background: var(--theme-bg-card);
+  color: var(--theme-primary);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.875rem;
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  border: 1px solid var(--theme-border);
   transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(100, 255, 218, 0.2);
+    background: var(--theme-bg-card-hover);
     transform: translateY(-2px);
   }
 
@@ -422,8 +422,8 @@ const CardGlow = styled.div`
   inset: 0;
   background: radial-gradient(
     circle at center,
-    rgba(100, 255, 218, 0.1) 0%,
-    rgba(0, 162, 255, 0.05) 50%,
+    var(--theme-glow) 0%,
+    var(--theme-secondary-muted) 50%,
     transparent 100%
   );
   filter: blur(20px);
@@ -446,7 +446,7 @@ const CardLines = styled.div`
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(100, 255, 218, 0.2),
+      var(--theme-border),
       transparent
     );
   }
@@ -501,7 +501,7 @@ const CornerElements = styled.div`
     position: absolute;
     width: 12px;
     height: 12px;
-    border: 2px solid rgba(100, 255, 218, 0.3);
+    border: 2px solid var(--theme-border);
     transition: all 0.3s ease;
   }
 
@@ -534,8 +534,8 @@ const CornerElements = styled.div`
   }
 
   ${ExperienceCard}:hover & span {
-    border-color: rgba(100, 255, 218, 0.8);
-    box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 10px var(--theme-glow);
   }
 `;
 
