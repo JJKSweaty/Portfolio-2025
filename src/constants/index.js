@@ -246,7 +246,7 @@ import {
         { name: "Performance Optimization", color: "lava-text" },
       ],
       image: null,
-      source_code_link: "https://github.com/JJKSweaty/cuda-mlp-mnist"
+      source_code_link: "https://github.com/JJKSweaty/MNIST"
     },
     {
       name: "Claude Powered Firmware Assistant",
