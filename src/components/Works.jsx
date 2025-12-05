@@ -106,10 +106,10 @@ const FeaturedDemoCard = ({ project, onWatchDemo }) => {
                 <div className="relative">
                   {/* Pulsing ring animation */}
                   <div className="absolute inset-0 rounded-full bg-[var(--theme-primary)]/20 animate-ping" style={{ animationDuration: '2s' }} />
-                  <div className="relative flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] shadow-[0_8px_30px_var(--theme-glow)] group-hover/video:scale-110 transition-transform duration-300">
+                  <div className="relative flex items-center justify-center w-15 h-15 rounded-full bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] shadow-[0_8px_30px_var(--theme-glow)] group-hover/video:scale-110 transition-transform duration-300">
                     <FontAwesomeIcon 
                       icon={faPlay} 
-                      className="text-2xl text-white ml-1"
+                      className="text-xl text-white ml-1"
                     />
                   </div>
                 </div>
@@ -127,7 +127,7 @@ const FeaturedDemoCard = ({ project, onWatchDemo }) => {
               {/* Watch Demo label */}
               <div className="absolute bottom-3 left-0 right-0 text-center">
                 <span className="text-sm font-medium text-[var(--theme-primary)] tracking-wide uppercase">
-                  Watch Demo
+                 
                 </span>
               </div>
             </div>
