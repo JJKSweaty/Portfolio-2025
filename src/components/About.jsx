@@ -7,7 +7,7 @@ import { fadeIn, textVariant } from "../utils/motion";
 import CyberCard from './CyberCard';
 
 const Skills = () => {
-  const [activeTab, setActiveTab] = useState('software');
+  const [activeTab, setActiveTab] = useState('hardware');
 
   const softwareSkills = [
     {
@@ -70,16 +70,6 @@ const Skills = () => {
 
       <div className="mt-12 flex justify-center gap-4">
         <button
-          onClick={() => handleTabChange('software')}
-          className={`px-6 py-2 rounded-md transition-all duration-300 ${
-            activeTab === 'software'
-              ? 'bg-[var(--theme-primary)] text-black'
-              : 'text-white hover:bg-[var(--theme-primary)]/10'
-          }`}
-        >
-          Software
-        </button>
-        <button
           onClick={() => handleTabChange('hardware')}
           className={`px-6 py-2 rounded-md transition-all duration-300 ${
             activeTab === 'hardware'
@@ -88,6 +78,16 @@ const Skills = () => {
           }`}
         >
           Hardware
+        </button>
+        <button
+          onClick={() => handleTabChange('software')}
+          className={`px-6 py-2 rounded-md transition-all duration-300 ${
+            activeTab === 'software'
+              ? 'bg-[var(--theme-primary)] text-black'
+              : 'text-white hover:bg-[var(--theme-primary)]/10'
+          }`}
+        >
+          Software
         </button>
       </div>
 

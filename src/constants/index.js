@@ -218,21 +218,6 @@ import {
       source_code_link: "https://github.com/JJKSweaty/SignToLearn/",
     },
     {
-      name: "Motor Tester",
-      description: "Developed a motor tester for UWARG using an STM32 microcontroller. Implemented SPI-based ADC reading of potentiometer values and mapped those readings to PWM signals to control motor speed and direction for both servo and continuous-rotation motors.",
-      type: "hardware",
-      tags: [
-        { name: "STM32", color: "blue-text-gradient" },
-        { name: "SPI", color: "green-text-gradient" },
-        { name: "PWM", color: "pink-text-gradient" },
-        { name: "ADC", color: "sunset-text" },
-        { name: "Embedded", color: "ocean-text" },
-        { name: "C/C++", color: "gold-text" }
-      ],
-      image: null,
-      source_code_link: "https://github.com/JJKSweaty/embedded-bootcamp"
-    },
-    {
       name: "CUDA MLP for MNIST Classification",
       description: "Implemented a 2-layer MLP for MNIST digit classification, scaling from PyTorch to custom CUDA kernels to analyze speed and efficiency tradeoffs. Wrote CUDA kernels for matrix operations, activation functions, and loss computation, optimizing memory transfers and GPU utilization. Leveraged cuBLAS routines to reach over 2× faster training than PyTorch baseline while maintaining accuracy across 10,000 samples.",
       type: "software",
@@ -265,6 +250,22 @@ import {
       image: null,
       source_code_link: "https://github.com/JJKSweaty/jjkAI"
     },
+    
+    {
+      name: "Motor Tester",
+      description: "Developed a motor tester for UWARG using an STM32 microcontroller. Implemented SPI-based ADC reading of potentiometer values and mapped those readings to PWM signals to control motor speed and direction for both servo and continuous-rotation motors.",
+      type: "hardware",
+      tags: [
+        { name: "STM32", color: "blue-text-gradient" },
+        { name: "SPI", color: "green-text-gradient" },
+        { name: "PWM", color: "pink-text-gradient" },
+        { name: "ADC", color: "sunset-text" },
+        { name: "Embedded", color: "ocean-text" },
+        { name: "C/C++", color: "gold-text" }
+      ],
+      image: null,
+      source_code_link: "https://github.com/JJKSweaty/embedded-bootcamp"
+    },
     {
       name: "Heartbeat Monitor PCB Design",
       description: "Custom PCB designed in KiCad for heartbeat and SpO₂ monitoring using the MAX30102 sensor and USB-C power input. Optimized I²C communication for reliable BPM and oxygen saturation tracking on an Arduino interface.",
@@ -280,19 +281,21 @@ import {
       image: null,
     },
     {
-      name: "ESP32 Media Controller",
+      name: "ESP32 Wifi Media Controller",
       description: "Built a custom ESP32-S3 hardware dashboard with a 3.5″ SPI TFT touchscreen and I²C touch controller. Enables real-time media control, system monitoring, and Discord voice management via WebSockets.",
       type: "hardware",
+      featured: true,
+      demoVideo: "https://youtu.be/28Kmm38Xvjg",
       tags: [
-        { name: "ESP32-S3", color: "blue-text-gradient" },
-        { name: "SPI", color: "green-text-gradient" },
+        { name: "ESP32", color: "blue-text-gradient" },
+        { name: "WIFI", color: "green-text-gradient" },
         { name: "I²C", color: "pink-text-gradient" },
         { name: "LVGL", color: "sunset-text" },
         { name: "PlatformIO", color: "ocean-text" },
         { name: "WebSockets", color: "gold-text" }
       ],
       image: null,
-      source_code_link: "https://github.com/JJKSweaty/esp32-media-controller"
+      source_code_link: "https://github.com/JJKSweaty/ESP32Media"
     },
     
     

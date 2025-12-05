@@ -101,7 +101,7 @@ export const projects: Project[] = [
     impact: 'Sub-50ms input latency; modular LVGL UI',
     category: 'embedded',
     links: {
-      github: 'https://github.com/JJKSweaty/esp32-media-controller',
+      github: 'https://github.com/JJKSweaty/ESP32Media',
     },
     status: 'in-progress',
   },
