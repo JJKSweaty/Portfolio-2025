@@ -285,7 +285,7 @@ import {
       description: "Built a custom ESP32-S3 hardware dashboard with a 3.5″ SPI TFT touchscreen and I²C touch controller. Enables real-time media control, system monitoring, and Discord voice management via WebSockets.",
       type: "hardware",
       featured: true,
-      demoVideo: "https://youtu.be/28Kmm38Xvjg",
+      demoVideo: "https://youtu.be/r_K0236xxg4",
       tags: [
         { name: "ESP32", color: "blue-text-gradient" },
         { name: "WIFI", color: "green-text-gradient" },
