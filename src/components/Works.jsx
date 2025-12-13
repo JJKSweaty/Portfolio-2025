@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { styles } from '../styles';
 import { github } from '../assets';
 import { SectionWrapper } from '../hoc';
@@ -58,7 +59,7 @@ const getVideoThumbnail = (project) => {
   return null;
 };
 
-const FeaturedDemoCard = ({ project, onWatchDemo }) => {
+const FeaturedDemoCard = ({ project, onWatchDemo, onViewMore }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -162,18 +163,30 @@ const FeaturedDemoCard = ({ project, onWatchDemo }) => {
                   </span>
                 ))}
               </div>
-              
-              {project.source_code_link && (
-                <a
-                  href={project.source_code_link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-600 text-slate-300 text-sm hover:border-[var(--theme-primary)] hover:text-[var(--theme-primary)] transition-all duration-300"
-                >
-                  <img src={github} alt="github" className="w-4 h-4" />
-                  View Source Code
-                </a>
-              )}
+
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+                {onViewMore && (
+                  <button
+                    type="button"
+                    onClick={onViewMore}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[var(--theme-primary)]/40 text-[var(--theme-primary)] text-sm hover:border-[var(--theme-primary)] hover:bg-[var(--theme-primary)]/10 transition-all duration-300"
+                  >
+                    View More
+                  </button>
+                )}
+
+                {project.source_code_link && (
+                  <a
+                    href={project.source_code_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-600 text-slate-300 text-sm hover:border-[var(--theme-primary)] hover:text-[var(--theme-primary)] transition-all duration-300"
+                  >
+                    <img src={github} alt="github" className="w-4 h-4" />
+                    GitHub
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -182,40 +195,89 @@ const FeaturedDemoCard = ({ project, onWatchDemo }) => {
   );
 };
 
-const ProjectCard = ({ index, name, description, tags, image, source_code_link, type }) => {
+const ProjectCard = ({ index, name, description, tags, image, source_code_link, type, route, demoVideoMp4 }) => {
+  const navigate = useNavigate();
+  const isNavigable = Boolean(route);
+  const hasDemo = Boolean(demoVideoMp4);
+
+  const handleOpen = () => {
+    if (!isNavigable) return;
+    navigate(route);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="w-full h-full flex justify-center">
       <div className="group relative min-h-[360px] w-full max-w-[320px]">
-        <div className="relative overflow-hidden rounded-2xl bg-slate-950 shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--theme-primary)]/20 h-full">
+        <div
+          className={`relative overflow-hidden rounded-2xl bg-slate-950 shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--theme-primary)]/20 h-full ${
+            isNavigable ? 'cursor-pointer' : ''
+          }`}
+          onClick={handleOpen}
+          role={isNavigable ? 'button' : undefined}
+          tabIndex={isNavigable ? 0 : undefined}
+          onKeyDown={(e) => {
+            if (!isNavigable) return;
+            if (e.key === 'Enter') handleOpen();
+          }}
+          aria-label={isNavigable ? `Open ${name} project page` : undefined}
+        >
           <div className="absolute -left-16 -top-16 h-32 w-32 rounded-full bg-gradient-to-br from-[var(--theme-primary)]/20 to-transparent blur-2xl transition-all duration-500 group-hover:scale-150 group-hover:opacity-70" />
           <div className="absolute -right-16 -bottom-16 h-32 w-32 rounded-full bg-gradient-to-br from-[var(--theme-secondary)]/20 to-transparent blur-2xl transition-all duration-500 group-hover:scale-150 group-hover:opacity-70" />
           
           <div className="relative p-4 flex flex-col h-full">
-            <div className="flex flex-col items-center text-center">
-              <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] mb-2">
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] opacity-20 blur-sm transition-opacity duration-300 group-hover:opacity-30" />
-                <FontAwesomeIcon 
-                  icon={type === 'hardware' ? faMicrochip : faCode} 
-                  className="text-xl text-white"
+            <div className="relative w-full h-32 rounded-xl overflow-hidden mb-3 border border-[var(--theme-primary)]/20 bg-black flex items-center justify-center">
+              {hasDemo ? (
+                <video
+                  className="w-full h-full object-contain"
+                  muted
+                  playsInline
+                  preload="metadata"
+                  // Using a small time offset helps some browsers render a frame for the thumbnail.
+                  src={`${demoVideoMp4}#t=0.1`}
                 />
-              </div>
+              ) : image ? (
+                <img
+                  src={image}
+                  alt={`${name} thumbnail`}
+                  loading="lazy"
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <div
+                  className="w-full h-full opacity-20"
+                  style={{
+                    backgroundImage: `linear-gradient(var(--theme-primary) 1px, transparent 1px),\n                                      linear-gradient(90deg, var(--theme-primary) 1px, transparent 1px)`,
+                    backgroundSize: '18px 18px'
+                  }}
+                />
+              )}
+
+              {hasDemo && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/15">
+                  <div className="relative">
+                    <div
+                      className="absolute inset-0 rounded-full bg-[var(--theme-primary)]/20 animate-ping"
+                      style={{ animationDuration: '2s' }}
+                    />
+                    <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] shadow-[0_8px_30px_var(--theme-glow)]">
+                      <FontAwesomeIcon icon={faPlay} className="text-lg text-white ml-0.5" />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+              {type !== 'hardware' && (
+                <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] mb-2">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] opacity-20 blur-sm transition-opacity duration-300 group-hover:opacity-30" />
+                  <FontAwesomeIcon icon={faCode} className="text-xl text-white" />
+                </div>
+              )}
               <h3 className="text-base font-semibold text-white mb-1">{name}</h3>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-slate-400">Project</span>
-                {source_code_link && (
-                  <a
-                    href={source_code_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/save flex h-8 w-8 items-center justify-center rounded-xl bg-slate-900 transition-colors hover:bg-slate-800"
-                  >
-                    <img
-                      src={github}
-                      alt="source code"
-                      className="h-4 w-4 text-slate-400 transition-colors group-hover/save:text-[var(--theme-primary)]"
-                    />
-                  </a>
-                )}
               </div>
             </div>
 
@@ -233,6 +295,41 @@ const ProjectCard = ({ index, name, description, tags, image, source_code_link, 
             <div className="mt-2 flex-grow">
               <p className="text-xs leading-relaxed text-slate-400 text-center mb-0">{description}</p>
             </div>
+
+            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-center gap-3">
+              {isNavigable && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpen();
+                  }}
+                  className="px-4 py-1.5 rounded-lg bg-[var(--theme-primary)]/10 text-[var(--theme-primary)] text-xs border border-[var(--theme-primary)]/30 hover:bg-[var(--theme-primary)]/20 hover:border-[var(--theme-primary)] transition-colors"
+                >
+                  View More
+                </button>
+              )}
+
+              {source_code_link ? (
+                <a
+                  href={source_code_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-slate-900 text-slate-200 text-xs border border-slate-700 hover:border-[var(--theme-primary)] transition-colors"
+                  aria-label="Open GitHub repository"
+                >
+                  <img src={github} alt="github" className="w-4 h-4" />
+                </a>
+              ) : (
+                <span className="inline-flex items-center gap-2 text-xs text-slate-500">
+                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-slate-950 border border-slate-800">
+                    <img src={github} alt="github" className="w-4 h-4 opacity-40" />
+                  </span>
+                  TODO
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -241,6 +338,7 @@ const ProjectCard = ({ index, name, description, tags, image, source_code_link, 
 };
 
 const Works = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('hardware');
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [activeVideoUrl, setActiveVideoUrl] = useState('');
@@ -268,7 +366,7 @@ const Works = () => {
           variants={fadeIn('', '', 0.1, 1)}
           className='mt-3 text-white text-[17px] max-w-[1100px] leading-[30px]'
         >
-         I've tackled a range of software and hardware challenges across full-stack, embedded systems and some hardware design. I built an ESP32 Media Controller with Flask for music playback and Discord voice controls, developed SignToLearn (React, Flask, OpenCV, MediaPipe) achieving 90% real-time ASL recognition, and created a Claude-powered firmware assistant with RAG and Supabase integration reducing token usage by 60%. On the machine learning side, I implemented a custom CUDA MLP for MNIST classification achieving 2× speedup over PyTorch. For hardware projects, I engineered an STM32-based motor tester using SPI and PWM, and designed a heartbeat monitor PCB in KiCad with the MAX30102 sensor.
+         I've tackled a range of software and hardware challenges across full-stack, embedded systems and some hardware design. I built an ESP32 Media Controller with Flask for music playback and Discord voice controls, developed SignToLearn (React, Flask, OpenCV, MediaPipe) achieving 90% real-time ASL recognition, and created a Claude-powered firmware assistant with RAG and Supabase integration reducing token usage by 60%. On the machine learning side, I implemented a custom CUDA MLP for MNIST classification achieving 2× speedup over PyTorch. For hardware projects, I built a vision-guided autonomous disk launcher integrating perception, closed-loop control, and safety-gated actuation, and designed a heartbeat monitor PCB in KiCad with the MAX30102 sensor.
         </motion.p>
       </div>
 
@@ -310,6 +408,12 @@ const Works = () => {
               <FeaturedDemoCard 
                 project={featuredProject} 
                 onWatchDemo={() => handleWatchDemo(featuredProject.demoVideo)}
+                onViewMore={() => {
+                  if (featuredProject.route) {
+                    navigate(featuredProject.route);
+                    window.scrollTo(0, 0);
+                  }
+                }}
               />
             )}
             

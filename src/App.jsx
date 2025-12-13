@@ -1,6 +1,9 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
-import { About, Contact, Experience, Hero, Navbar, Works } from "./components";
+import Home from "./pages/Home";
+import VisionGuidedAutonomousDiskLauncher from "./pages/projects/VisionGuidedAutonomousDiskLauncher";
+import ESP32MediaController from "./pages/projects/ESP32MediaController";
+import HeartbeatMonitorPCB from "./pages/projects/HeartbeatMonitorPCB";
 import { Stars } from "./components/canvas/Stars";
 import { ThemeProvider } from "./components/ThemeProvider";
 
@@ -22,22 +25,21 @@ const App = () => {
           </Canvas>
         </div>
         <div className='relative z-10'>
-          <div className='w-full h-screen relative bg-black/30'>
-            <Navbar />
-            <Hero />
-          </div>
-          <div className='relative bg-black/30'>
-            <About />
-          </div>
-          <div className='relative bg-black/30'>
-            <Experience />
-          </div>
-          <div className='relative bg-black/30'>
-            <Works />
-          </div>
-          <div className='relative bg-black/30'>
-            <Contact />
-          </div>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route
+              path='/projects/vision-guided-autonomous-disk-launcher'
+              element={<VisionGuidedAutonomousDiskLauncher />}
+            />
+            <Route
+              path='/projects/esp32-media-controller'
+              element={<ESP32MediaController />}
+            />
+            <Route
+              path='/projects/heartbeat-monitor-pcb'
+              element={<HeartbeatMonitorPCB />}
+            />
+          </Routes>
         </div>
       </div>
     </BrowserRouter>

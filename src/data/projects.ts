@@ -106,20 +106,37 @@ export const projects: Project[] = [
     status: 'in-progress',
   },
   {
-    slug: 'motor-tester',
-    title: 'STM32 Motor Tester',
-    year: '2024',
-    summary: 'SPI-based motor controller for UWARG flight systems',
+    slug: 'vision-guided-autonomous-disk-launcher',
+    title: 'Vision-Guided Autonomous Disk Launcher',
+    year: '2025',
+    summary: 'Vision-guided embedded system integrating perception, control, and electromechanical actuation.',
     description:
-      'Developed a motor tester for UWARG using an STM32 microcontroller. Implemented SPI-based ADC reading of potentiometer values and mapped those readings to PWM signals to control motor speed and direction for both servo and continuous-rotation motors.',
-    image: null,
-    tags: ['Embedded', 'Firmware', 'Aerospace'],
-    stack: ['STM32', 'SPI', 'PWM', 'ADC', 'C/C++', 'Embedded Systems'],
-    impact: 'Enabled precise motor characterization for flight control',
+      'Built an autonomous vision-guided launcher that detects, tracks, and engages targets using a Raspberry Pi for perception and an ESP32-S3 for real-time motion and firing control. The system integrates computer vision, closed-loop control, and electromechanical actuation with range validation before firing.',
+    image: '/images/panTilt.jpeg',
+    tags: ['Embedded', 'Control', 'Perception'],
+    stack: ['Raspberry Pi', 'ESP32-S3', 'Serial', 'PID Control', 'TF-Luna LiDAR', 'Servo Actuation', 'BLDC Flywheels'],
     category: 'embedded',
     links: {
-      github: 'https://github.com/JJKSweaty/embedded-bootcamp',
+      github: 'https://github.com/JJKSweaty/Autonomous-Disk-Launcher',
+      writeup: '/projects/vision-guided-autonomous-disk-launcher',
     },
+    media: [
+      {
+        type: 'image',
+        src: '/images/panTilt.jpeg',
+        caption: 'Pan-tilt mechanism used for target tracking',
+      },
+      {
+        type: 'image',
+        src: '/images/flywheel.png',
+        caption: 'Dual flywheel disk launch mechanism',
+      },
+      {
+        type: 'video',
+        src: '/demos/autonomous-launcher-demo.mp4',
+        caption: 'Bench-top demo showing pan-tilt tracking and launch sequencing',
+      },
+    ],
     status: 'completed',
   },
   {
@@ -134,7 +151,10 @@ export const projects: Project[] = [
     stack: ['KiCad', 'MAX30102', 'I²C', 'Arduino', 'USB-C'],
     impact: 'Reliable vital sign monitoring for wearable applications',
     category: 'hardware',
-    links: {},
+    links: {
+      // TODO: Add Heartbeat PCB repo link.
+      // github: 'https://github.com/<you>/<repo>',
+    },
     status: 'completed',
   },
 ];

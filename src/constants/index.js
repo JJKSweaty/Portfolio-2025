@@ -252,24 +252,27 @@ import {
     },
     
     {
-      name: "Motor Tester",
-      description: "Developed a motor tester for UWARG using an STM32 microcontroller. Implemented SPI-based ADC reading of potentiometer values and mapped those readings to PWM signals to control motor speed and direction for both servo and continuous-rotation motors.",
+      name: "Vision-Guided Autonomous Disk Launcher",
+      description: "Vision-guided embedded system integrating perception, control, and electromechanical actuation.",
       type: "hardware",
+      route: "/projects/vision-guided-autonomous-disk-launcher",
+      demoVideoMp4: "/demos/autonomous-launcher-demo.mp4",
       tags: [
-        { name: "STM32", color: "blue-text-gradient" },
-        { name: "SPI", color: "green-text-gradient" },
-        { name: "PWM", color: "pink-text-gradient" },
-        { name: "ADC", color: "sunset-text" },
-        { name: "Embedded", color: "ocean-text" },
-        { name: "C/C++", color: "gold-text" }
+        { name: "Raspberry Pi", color: "blue-text-gradient" },
+        { name: "ESP32-S3", color: "green-text-gradient" },
+        { name: "PID", color: "pink-text-gradient" },
+        { name: "LiDAR", color: "sunset-text" },
+        { name: "Serial", color: "ocean-text" },
+        { name: "Actuation", color: "gold-text" }
       ],
-      image: null,
-      source_code_link: "https://github.com/JJKSweaty/embedded-bootcamp"
+      image: "/images/panTilt.jpeg",
+      source_code_link: "https://github.com/JJKSweaty/Autonomous-Disk-Launcher",
     },
     {
       name: "Heartbeat Monitor PCB Design",
       description: "Custom PCB designed in KiCad for heartbeat and SpO₂ monitoring using the MAX30102 sensor and USB-C power input. Optimized I²C communication for reliable BPM and oxygen saturation tracking on an Arduino interface.",
       type: "hardware",
+      route: "/projects/heartbeat-monitor-pcb",
       tags: [
         { name: "KiCad", color: "blue-text-gradient" },
         { name: "MAX30102", color: "green-text-gradient" },
@@ -279,6 +282,7 @@ import {
         { name: "USB-C", color: "gold-text" }
       ],
       image: null,
+      source_code_link: "https://github.com/JJKSweaty/Heartbeat-Monitor-STM32-Using-Arduino-IDE-",
     },
     {
       name: "ESP32 Wifi Media Controller",
@@ -286,6 +290,7 @@ import {
       type: "hardware",
       featured: true,
       demoVideo: "https://youtu.be/r_K0236xxg4",
+      route: "/projects/esp32-media-controller",
       tags: [
         { name: "ESP32", color: "blue-text-gradient" },
         { name: "WIFI", color: "green-text-gradient" },
