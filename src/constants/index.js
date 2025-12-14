@@ -291,6 +291,13 @@ import {
       featured: true,
       demoVideo: "https://youtu.be/r_K0236xxg4",
       route: "/projects/esp32-media-controller",
+      cad: {
+        renders: ["/assets/esp32-media/cad/model_thumb.svg"],
+        files: [
+          { type: "stl", name: "JJKscreenmount.STL", src: "/assets/esp32-media/cad/JJKscreenmount.STL" },
+          { type: "sldprt", name: "JJKscreenmount.SLDPRT", src: "/assets/esp32-media/cad/JJKscreenmount.SLDPRT" },
+        ],
+      },
       tags: [
         { name: "ESP32", color: "blue-text-gradient" },
         { name: "WIFI", color: "green-text-gradient" },

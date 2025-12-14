@@ -139,6 +139,11 @@ const FeaturedDemoCard = ({ project, onWatchDemo, onViewMore }) => {
                 <span className="px-3 py-1 rounded-full bg-[var(--theme-primary)]/20 text-[var(--theme-primary)] text-xs font-semibold uppercase tracking-wider">
                   Featured Project
                 </span>
+                {project.cad && (
+                  <span className="px-2 py-1 rounded bg-[var(--theme-secondary)]/10 text-[var(--theme-secondary)] text-xs font-medium">
+                    CAD Available
+                  </span>
+                )}
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)]">
                   <FontAwesomeIcon 
                     icon={faMicrochip} 
@@ -355,6 +360,12 @@ const Works = () => {
     setShowVideoModal(true);
   };
 
+  const handleViewMore = (project) => {
+    if (!project?.route) return;
+    navigate(project.route);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       <motion.div variants={textVariant()}>
@@ -408,12 +419,7 @@ const Works = () => {
               <FeaturedDemoCard 
                 project={featuredProject} 
                 onWatchDemo={() => handleWatchDemo(featuredProject.demoVideo)}
-                onViewMore={() => {
-                  if (featuredProject.route) {
-                    navigate(featuredProject.route);
-                    window.scrollTo(0, 0);
-                  }
-                }}
+                onViewMore={() => handleViewMore(featuredProject)}
               />
             )}
             
