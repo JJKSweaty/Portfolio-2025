@@ -157,6 +157,40 @@ export const projects: Project[] = [
     },
     status: 'completed',
   },
+  {
+    slug: 'truvote-secure-voting',
+    title: 'TruVote – Secure Digital Voting Platform',
+    year: '2025',
+    summary: 'Biometric voting system enforcing one-person-one-vote through facial embedding verification',
+    description:
+      'Designed a secure voting system enforcing one-person-one-vote through biometric identity verification. Implemented face authentication by extracting facial embeddings and matching vectors during vote submission. Built backend authorization logic supporting election setup, ballot casting, auditing, and result verification.',
+    image: null,
+    tags: ['Full-Stack', 'Computer Vision', 'Security'],
+    stack: ['TypeScript', 'React', 'Next.js', 'Flask', 'Supabase', 'Python', 'OpenCV', 'Vercel'],
+    impact: 'Biometric verification ensuring tamper-proof one-person-one-vote',
+    category: 'full-stack',
+    links: {
+      github: 'https://github.com/18gen/hack-canada',
+    },
+    status: 'completed',
+  },
+  {
+    slug: 'second-sight',
+    title: 'Second Sight – AI Indoor Object Finder',
+    year: '2025',
+    summary: 'AI-powered indoor assistant using pan-tilt camera and on-device YOLO vision for hands-free object location',
+    description:
+      'AI-powered indoor assistant that finds everyday objects using a pan-tilt camera and on-device YOLO vision running on a Raspberry Pi. Scans a room, captures snapshots when target items are detected, and sends results to a web app that explains locations in natural language with voice guidance for hands-free use.',
+    image: null,
+    tags: ['Embedded', 'AI/ML', 'Computer Vision'],
+    stack: ['Raspberry Pi', 'YOLO', 'Python', 'Pan-Tilt', 'Web App', 'Voice UI'],
+    impact: 'Hands-free object location with natural language voice guidance',
+    category: 'embedded',
+    links: {
+      github: 'https://github.com/mahadk28/SecondSight',
+    },
+    status: 'completed',
+  },
 ];
 
 export const experiences: Experience[] = [

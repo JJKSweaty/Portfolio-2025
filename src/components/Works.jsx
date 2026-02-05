@@ -100,7 +100,16 @@ const FeaturedDemoCard = ({ project, onWatchDemo, onViewMore }) => {
                     />
                   );
                 }
-                return null;
+                // Show icon placeholder if no thumbnail
+                return (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-black">
+                    <div className="absolute inset-0 rounded-2xl bg-[var(--theme-primary)]/5 blur-3xl" />
+                    <FontAwesomeIcon 
+                      icon={faMicrochip} 
+                      className="text-8xl text-[var(--theme-primary)]/30 relative z-10"
+                    />
+                  </div>
+                );
               })()}
               {/* Play button overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
@@ -114,15 +123,6 @@ const FeaturedDemoCard = ({ project, onWatchDemo, onViewMore }) => {
                     />
                   </div>
                 </div>
-              </div>
-              
-              {/* Grid pattern background visible when there is no thumbnail */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="w-full h-full" style={{
-                  backgroundImage: `linear-gradient(var(--theme-primary) 1px, transparent 1px),
-                                    linear-gradient(90deg, var(--theme-primary) 1px, transparent 1px)`,
-                  backgroundSize: '20px 20px'
-                }} />
               </div>
               
               {/* Watch Demo label */}
@@ -207,10 +207,16 @@ const ProjectCard = ({ index, name, description, tags, image, source_code_link, 
   };
 
   return (
-    <div className="w-full h-full flex justify-center">
-      <div className="group relative min-h-[360px] w-full max-w-[320px]">
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.4, delay: index * 0.06 }}
+      className="w-full h-full"
+    >
+      <div className="group relative w-full h-full">
         <div
-          className={`relative overflow-hidden rounded-2xl bg-slate-950 shadow-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--theme-primary)]/20 h-full ${
+          className={`relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/80 backdrop-blur-sm shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[var(--theme-primary)]/40 hover:shadow-[0_8px_30px_var(--theme-glow)] h-full flex flex-col ${
             isNavigable ? 'cursor-pointer' : ''
           }`}
           onClick={handleOpen}
@@ -222,81 +228,88 @@ const ProjectCard = ({ index, name, description, tags, image, source_code_link, 
           }}
           aria-label={isNavigable ? `Open ${name} project page` : undefined}
         >
-          <div className="absolute -left-16 -top-16 h-32 w-32 rounded-full bg-gradient-to-br from-[var(--theme-primary)]/20 to-transparent blur-2xl transition-all duration-500 group-hover:scale-150 group-hover:opacity-70" />
-          <div className="absolute -right-16 -bottom-16 h-32 w-32 rounded-full bg-gradient-to-br from-[var(--theme-secondary)]/20 to-transparent blur-2xl transition-all duration-500 group-hover:scale-150 group-hover:opacity-70" />
-          
-          <div className="relative p-4 flex flex-col h-full">
-            <div className="relative w-full h-32 rounded-xl overflow-hidden mb-3 border border-[var(--theme-primary)]/20 bg-black flex items-center justify-center">
-              {hasDemo ? (
-                <video
-                  className="w-full h-full object-contain"
-                  muted
-                  playsInline
-                  preload="metadata"
-                  // Using a small time offset helps some browsers render a frame for the thumbnail.
-                  src={`${demoVideoMp4}#t=0.1`}
-                />
-              ) : image ? (
-                <img
-                  src={image}
-                  alt={`${name} thumbnail`}
-                  loading="lazy"
-                  className="w-full h-full object-contain"
-                />
-              ) : (
-                <div
-                  className="w-full h-full opacity-20"
-                  style={{
-                    backgroundImage: `linear-gradient(var(--theme-primary) 1px, transparent 1px),\n                                      linear-gradient(90deg, var(--theme-primary) 1px, transparent 1px)`,
-                    backgroundSize: '18px 18px'
-                  }}
-                />
-              )}
+          {/* Thumbnail / Media */}
+          <div className="relative w-full aspect-[16/10] overflow-hidden bg-black/60 flex-shrink-0">
+            {hasDemo ? (
+              <video
+                className="w-full h-full object-cover"
+                muted
+                playsInline
+                preload="metadata"
+                src={`${demoVideoMp4}#t=0.1`}
+              />
+            ) : image ? (
+              <img
+                src={image}
+                alt={`${name} thumbnail`}
+                loading="lazy"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-950 to-black">
+                <div className="relative flex flex-col items-center gap-2">
+                  <div className="absolute w-24 h-24 rounded-full bg-[var(--theme-primary)]/10 blur-2xl" />
+                  <FontAwesomeIcon
+                    icon={type === 'hardware' ? faMicrochip : faCode}
+                    className="text-5xl text-[var(--theme-primary)] opacity-30 relative z-10"
+                  />
+                </div>
+              </div>
+            )}
 
-              {hasDemo && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/15">
-                  <div className="relative">
-                    <div
-                      className="absolute inset-0 rounded-full bg-[var(--theme-primary)]/20 animate-ping"
-                      style={{ animationDuration: '2s' }}
-                    />
-                    <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] shadow-[0_8px_30px_var(--theme-glow)]">
-                      <FontAwesomeIcon icon={faPlay} className="text-lg text-white ml-0.5" />
-                    </div>
+            {hasDemo && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                <div className="relative">
+                  <div
+                    className="absolute inset-0 rounded-full bg-[var(--theme-primary)]/20 animate-ping"
+                    style={{ animationDuration: '2s' }}
+                  />
+                  <div className="relative flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] shadow-[0_6px_24px_var(--theme-glow)]">
+                    <FontAwesomeIcon icon={faPlay} className="text-base text-white ml-0.5" />
                   </div>
                 </div>
-              )}
-            </div>
-
-            <div className="flex flex-col items-center text-center">
-              {type !== 'hardware' && (
-                <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] mb-2">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--theme-primary)] to-[var(--theme-secondary)] opacity-20 blur-sm transition-opacity duration-300 group-hover:opacity-30" />
-                  <FontAwesomeIcon icon={faCode} className="text-xl text-white" />
-                </div>
-              )}
-              <h3 className="text-base font-semibold text-white mb-1">{name}</h3>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-slate-400">Project</span>
               </div>
-            </div>
+            )}
 
-            <div className="mt-2 flex flex-wrap justify-center gap-1.5 min-h-[50px]">
-              {tags.map((tag) => (
+            {/* GitHub link overlay (top-right corner) */}
+            {source_code_link && (
+              <a
+                href={source_code_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="absolute top-3 right-3 flex items-center justify-center w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 hover:border-[var(--theme-primary)]/60 hover:bg-black/80 transition-all duration-200 opacity-0 group-hover:opacity-100"
+                aria-label="Open GitHub repository"
+              >
+                <img src={github} alt="github" className="w-4 h-4" />
+              </a>
+            )}
+          </div>
+
+          {/* Content */}
+          <div className="flex flex-col flex-1 p-5">
+            <h3 className="text-base font-semibold text-white leading-snug mb-2 line-clamp-2">{name}</h3>
+
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              {tags.slice(0, 5).map((tag) => (
                 <span
                   key={tag.name}
-                  className={`inline-flex items-center gap-1 rounded-lg bg-[var(--theme-primary)]/10 px-2 py-0.5 text-xs text-[var(--theme-primary)]`}
+                  className="inline-flex items-center rounded-md bg-[var(--theme-primary)]/8 px-2 py-0.5 text-[11px] font-medium text-[var(--theme-primary)]/80 ring-1 ring-inset ring-[var(--theme-primary)]/15"
                 >
-                  #{tag.name}
+                  {tag.name}
                 </span>
               ))}
+              {tags.length > 5 && (
+                <span className="inline-flex items-center rounded-md bg-slate-800 px-2 py-0.5 text-[11px] text-slate-400">
+                  +{tags.length - 5}
+                </span>
+              )}
             </div>
 
-            <div className="mt-2 flex-grow">
-              <p className="text-xs leading-relaxed text-slate-400 text-center mb-0">{description}</p>
-            </div>
+            <p className="text-[13px] leading-relaxed text-slate-400 flex-1 line-clamp-3">{description}</p>
 
-            <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-center gap-3">
+            {/* Footer actions */}
+            <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center gap-3">
               {isNavigable && (
                 <button
                   type="button"
@@ -304,36 +317,29 @@ const ProjectCard = ({ index, name, description, tags, image, source_code_link, 
                     e.stopPropagation();
                     handleOpen();
                   }}
-                  className="px-4 py-1.5 rounded-lg bg-[var(--theme-primary)]/10 text-[var(--theme-primary)] text-xs border border-[var(--theme-primary)]/30 hover:bg-[var(--theme-primary)]/20 hover:border-[var(--theme-primary)] transition-colors"
+                  className="px-4 py-1.5 rounded-lg bg-[var(--theme-primary)]/10 text-[var(--theme-primary)] text-xs font-medium border border-[var(--theme-primary)]/25 hover:bg-[var(--theme-primary)]/20 hover:border-[var(--theme-primary)]/60 transition-colors"
                 >
                   View More
                 </button>
               )}
-
-              {source_code_link ? (
+              {source_code_link && (
                 <a
                   href={source_code_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-slate-900 text-slate-200 text-xs border border-slate-700 hover:border-[var(--theme-primary)] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-[var(--theme-primary)] transition-colors"
                   aria-label="Open GitHub repository"
                 >
-                  <img src={github} alt="github" className="w-4 h-4" />
+                  <img src={github} alt="github" className="w-3.5 h-3.5" />
+                  Source
                 </a>
-              ) : (
-                <span className="inline-flex items-center gap-2 text-xs text-slate-500">
-                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-slate-950 border border-slate-800">
-                    <img src={github} alt="github" className="w-4 h-4 opacity-40" />
-                  </span>
-                  TODO
-                </span>
               )}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </motion.article>
   );
 };
 
@@ -366,30 +372,42 @@ const Works = () => {
           variants={fadeIn('', '', 0.1, 1)}
           className='mt-3 text-white text-[17px] max-w-[1100px] leading-[30px]'
         >
-         I've tackled a range of software and hardware challenges across full-stack, embedded systems and some hardware design. I built an ESP32 Media Controller with Flask for music playback and Discord voice controls, developed SignToLearn (React, Flask, OpenCV, MediaPipe) achieving 90% real-time ASL recognition, and created a Claude-powered firmware assistant with RAG and Supabase integration reducing token usage by 60%. On the machine learning side, I implemented a custom CUDA MLP for MNIST classification achieving 2× speedup over PyTorch. For hardware projects, I built a vision-guided autonomous disk launcher integrating perception, closed-loop control, and safety-gated actuation, and designed a heartbeat monitor PCB in KiCad with the MAX30102 sensor.
+         I've tackled software and hardware challenges across full-stack, embedded systems, AI/ML, and hardware design. Highlights include a biometric voting platform (TruVote) with facial-embedding auth, a Claude-powered firmware assistant with RAG reducing token usage by 60%, and an AI indoor object finder (Second Sight) using on-device YOLO vision with voice guidance. On hardware, I built a vision-guided autonomous disk launcher with closed-loop PID control and a custom heartbeat monitor PCB in KiCad.
         </motion.p>
       </div>
 
-      <div className="mt-12 flex justify-center gap-4">
+      <div className="mt-12 flex justify-center gap-2">
         <button
           onClick={() => setActiveTab('hardware')}
-          className={`px-6 py-2 rounded-md transition-all duration-300 ${
+          className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
             activeTab === 'hardware'
-              ? 'bg-[var(--theme-primary)] text-black'
-              : 'text-white hover:bg-[var(--theme-primary)]/10'
+              ? 'bg-[var(--theme-primary)] text-black shadow-[0_0_20px_var(--theme-glow)]'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60 border border-slate-800'
           }`}
         >
+          <FontAwesomeIcon icon={faMicrochip} className="text-xs" />
           Hardware
+          <span className={`ml-1 text-[11px] font-semibold px-1.5 py-0.5 rounded-full ${
+            activeTab === 'hardware' ? 'bg-black/20 text-black' : 'bg-slate-800 text-slate-400'
+          }`}>
+            {hardwareProjects.length}
+          </span>
         </button>
         <button
           onClick={() => setActiveTab('software')}
-          className={`px-6 py-2 rounded-md transition-all duration-300 ${
+          className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
             activeTab === 'software'
-              ? 'bg-[var(--theme-primary)] text-black'
-              : 'text-white hover:bg-[var(--theme-primary)]/10'
+              ? 'bg-[var(--theme-primary)] text-black shadow-[0_0_20px_var(--theme-glow)]'
+              : 'text-slate-400 hover:text-white hover:bg-slate-800/60 border border-slate-800'
           }`}
         >
+          <FontAwesomeIcon icon={faCode} className="text-xs" />
           Software
+          <span className={`ml-1 text-[11px] font-semibold px-1.5 py-0.5 rounded-full ${
+            activeTab === 'software' ? 'bg-black/20 text-black' : 'bg-slate-800 text-slate-400'
+          }`}>
+            {softwareProjects.length}
+          </span>
         </button>
       </div>
 
@@ -418,17 +436,29 @@ const Works = () => {
             )}
             
             {activeTab === 'software' ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-7xl mx-auto px-4">
+              <div
+                className="w-full max-w-7xl mx-auto px-4"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                  gap: '1.5rem',
+                }}
+              >
                 {softwareProjects.map((project, index) => (
-                  <ProjectCard key={index} index={index} {...project} type={activeTab} />
+                  <ProjectCard key={`sw-${index}`} index={index} {...project} type={activeTab} />
                 ))}
               </div>
             ) : (
-              <div className="flex flex-wrap justify-center gap-8 w-full max-w-4xl mx-auto px-4">
+              <div
+                className="w-full max-w-7xl mx-auto px-4"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                  gap: '1.5rem',
+                }}
+              >
                 {nonFeaturedHardwareProjects.map((project, index) => (
-                  <div key={index} className="w-full sm:w-1/2 max-w-[360px]">
-                    <ProjectCard index={index} {...project} type={activeTab} />
-                  </div>
+                  <ProjectCard key={`hw-${index}`} index={index} {...project} type={activeTab} />
                 ))}
               </div>
             )}

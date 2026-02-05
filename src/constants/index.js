@@ -25,6 +25,7 @@ import {
     azureChat,
     maxSensor,
     truvote,
+    claudefirmwareai,
   } from "../assets";
   import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
   import { faLaptopCode, faServer,faCloudArrowUp,faGear,faEnvelope} from "@fortawesome/free-solid-svg-icons"; 
@@ -244,13 +245,41 @@ import {
         { name: "Vector DB", color: "ocean-text" },
         { name: "Fastify", color: "green-text-gradient" },
         { name: "Node.js", color: "gold-text" }
-        
-
       ],
-      image: null,
+      image: claudefirmwareai,
       source_code_link: "https://github.com/JJKSweaty/jjkAI"
     },
-    
+    {
+      name: "TruVote – Secure Digital Voting Platform",
+      description: "Designed a secure voting system enforcing one-person-one-vote through biometric identity verification. Implemented face authentication by extracting facial embeddings and matching vectors during vote submission. Built backend authorization logic supporting election setup, ballot casting, auditing, and result verification.",
+      type: "software",
+      tags: [
+        { name: "TypeScript", color: "blue-text-gradient" },
+        { name: "React", color: "green-text-gradient" },
+        { name: "Next.js", color: "pink-text-gradient" },
+        { name: "Flask", color: "sunset-text" },
+        { name: "Supabase", color: "ocean-text" },
+        { name: "OpenCV", color: "gold-text" },
+        { name: "Vercel", color: "lava-text" }
+      ],
+      image: truvote,
+      source_code_link: "https://github.com/18gen/hack-canada"
+    },
+    {
+      name: "Second Sight – AI Indoor Object Finder",
+      description: "AI-powered indoor assistant that finds everyday objects using a pan-tilt camera and on-device YOLO vision running on a Raspberry Pi. Scans a room, captures snapshots when target items are detected, and sends results to a web app that explains locations in natural language with voice guidance for hands-free use.",
+      type: "hardware",
+      tags: [
+        { name: "Raspberry Pi", color: "blue-text-gradient" },
+        { name: "YOLO", color: "green-text-gradient" },
+        { name: "Pan-Tilt", color: "pink-text-gradient" },
+        { name: "Computer Vision", color: "sunset-text" },
+        { name: "Web App", color: "ocean-text" },
+        { name: "Voice UI", color: "gold-text" }
+      ],
+      image: null,
+      source_code_link: "https://github.com/mahadk28/SecondSight"
+    },
     {
       name: "Vision-Guided Autonomous Disk Launcher",
       description: "Vision-guided embedded system integrating perception, control, and electromechanical actuation.",

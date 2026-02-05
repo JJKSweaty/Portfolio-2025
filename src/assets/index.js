@@ -34,6 +34,7 @@ import signtolearn from './signtolearn.png'
 import azureChat from './azurechatbot.jpg'
 import maxSensor from './maxSensor.png'
 import truvote  from './truvote.png'
+import claudefirmwareai from './claudefirmwareai.png'
 export {
   logo,
   backend,
@@ -71,4 +72,5 @@ export {
   azureChat,
   maxSensor,
   truvote,
+  claudefirmwareai,
 };
