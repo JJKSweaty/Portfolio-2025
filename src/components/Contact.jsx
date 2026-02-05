@@ -1,82 +1,49 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { styles } from '../styles';
 import { SectionWrapper } from '../hoc';
-import { slideIn } from '../utils/motion';
-import styled from 'styled-components';
 import { contacts } from '../constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const ContactLinks = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
-
-  @media (max-width: 640px) {
-    gap: 1.5rem;
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-const ContactLink = styled.a`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: var(--theme-primary);
-  text-decoration: none;
-  font-size: 1.25rem;
-  transition: all 0.3s ease;
-  padding: 1rem 2rem;
-  border: 2px solid var(--theme-border);
-  border-radius: 12px;
-  background: rgba(17, 25, 40, 0.75);
-  min-width: 200px;
-  justify-content: center;
-
-  &:hover {
-    transform: translateY(-5px);
-    border-color: var(--theme-primary);
-    box-shadow: 0 0 20px var(--theme-glow);
-  }
-
-  svg {
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 1rem;
-    padding: 0.75rem 1.5rem;
-    width: 100%;
-    max-width: 280px;
-  }
-`;
-
 const Contact = () => {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-2xl mx-auto px-4 py-16 text-center">
       <motion.div
-        variants={slideIn('up', 'tween', 0.2, 1)}
-        className="text-center"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4 }}
       >
-        <p className={`${styles.sectionSubText} text-base sm:text-lg`}>Let's Connect</p>
-        <h3 className={`${styles.sectionHeadText} text-2xl sm:text-3xl md:text-4xl`}>Find Me On</h3>
+        <p className="text-slate-500 text-sm font-medium tracking-widest uppercase mb-2">
+          Get In Touch
+        </p>
+        <h3 className="text-3xl sm:text-4xl font-bold text-white mb-3">
+          Let's Connect
+        </h3>
+        <p className="text-slate-400 text-sm mb-10 max-w-md mx-auto">
+          I'm always open to chatting about embedded systems, cool projects, or co-op opportunities.
+        </p>
 
-        <ContactLinks>
+        <div className="flex justify-center gap-4 flex-wrap">
           {contacts.map((contact, index) => (
-            <ContactLink 
-              key={index} 
-              href={contact.info} 
-              target="_blank" 
+            <motion.a
+              key={index}
+              href={contact.info}
+              target="_blank"
               rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.3 }}
+              className="flex items-center gap-2.5 px-5 py-2.5 rounded-lg text-sm font-medium
+                         text-slate-300 border border-white/[0.06] bg-white/[0.02]
+                         hover:text-[var(--theme-primary)] hover:border-[var(--theme-primary)]/30 hover:bg-[var(--theme-primary)]/[0.05]
+                         transition-all duration-200"
             >
-              <FontAwesomeIcon icon={contact.icon} />
-              <span>{contact.name}</span>
-            </ContactLink>
+              <FontAwesomeIcon icon={contact.icon} className="text-base" />
+              {contact.name}
+            </motion.a>
           ))}
-        </ContactLinks>
+        </div>
       </motion.div>
     </div>
   );

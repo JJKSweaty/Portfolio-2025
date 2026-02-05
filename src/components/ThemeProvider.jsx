@@ -8,41 +8,41 @@ const ThemeContext = createContext({
 export const useTheme = () => useContext(ThemeContext);
 
 export const themes = {
-  'cyber-green': {
-    primary: '#64ffda',
-    secondary: '#4db8ff',
-    bg: '#000000',
-    text: '#ffffff',
-    accent: 'rgba(100, 255, 218, 0.1)',
+  'arctic': {
+    primary: '#94a3b8',
+    secondary: '#60a5fa',
+    bg: '#0a0a0f',
+    text: '#f1f5f9',
+    accent: 'rgba(148, 163, 184, 0.08)',
   },
-  'neon-purple': {
-    primary: '#a855f7',
-    secondary: '#ec4899',
-    bg: '#0f0a1e',
-    text: '#ffffff',
-    accent: 'rgba(168, 85, 247, 0.1)',
+  'lavender': {
+    primary: '#a78bfa',
+    secondary: '#c084fc',
+    bg: '#0c0a14',
+    text: '#f1f5f9',
+    accent: 'rgba(167, 139, 250, 0.08)',
   },
-  'sunset-orange': {
-    primary: '#f97316',
-    secondary: '#fb923c',
-    bg: '#1a0f00',
-    text: '#ffffff',
-    accent: 'rgba(249, 115, 22, 0.1)',
+  'ember': {
+    primary: '#fb923c',
+    secondary: '#f97316',
+    bg: '#0f0a06',
+    text: '#f1f5f9',
+    accent: 'rgba(251, 146, 60, 0.08)',
   },
-  'ocean-blue': {
-    primary: '#0ea5e9',
-    secondary: '#06b6d4',
-    bg: '#001220',
-    text: '#ffffff',
-    accent: 'rgba(14, 165, 233, 0.1)',
+  'ocean': {
+    primary: '#38bdf8',
+    secondary: '#22d3ee',
+    bg: '#060d14',
+    text: '#f1f5f9',
+    accent: 'rgba(56, 189, 248, 0.08)',
   },
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('sunset-orange');
+  const [theme, setTheme] = useState('arctic');
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('portfolio-theme') || 'sunset-orange';
+    const savedTheme = localStorage.getItem('portfolio-theme') || 'arctic';
     setTheme(savedTheme);
   }, []);
 

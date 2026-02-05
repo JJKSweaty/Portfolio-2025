@@ -35,6 +35,8 @@ import azureChat from './azurechatbot.jpg'
 import maxSensor from './maxSensor.png'
 import truvote  from './truvote.png'
 import claudefirmwareai from './claudefirmwareai.png'
+import mnst from './mnst.png'
+import heartbeatpcb from './hearbeatsensor pcb.png'
 export {
   logo,
   backend,
@@ -73,4 +75,6 @@ export {
   maxSensor,
   truvote,
   claudefirmwareai,
+  mnst,
+  heartbeatpcb,
 };

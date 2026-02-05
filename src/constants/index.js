@@ -26,6 +26,8 @@ import {
     maxSensor,
     truvote,
     claudefirmwareai,
+    mnst,
+    heartbeatpcb,
   } from "../assets";
   import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
   import { faLaptopCode, faServer,faCloudArrowUp,faGear,faEnvelope} from "@fortawesome/free-solid-svg-icons"; 
@@ -182,164 +184,123 @@ import {
   const projects = [
     {
       name: "SignToLearn",
-      description:
-        "Web based AI-powered application designed to recognize ASL hand gestures in real-time. The project uses MediaPipe for hand tracking and TensorFlow for recognizing ASL gestures. This application aims to help users learn ASL in an interactive, engaging way, similar to language learning apps like Duolingo.",
+      description: "Real-time ASL gesture recognition app with 90%+ accuracy using MediaPipe and TensorFlow.",
       type: "software",
+      category: "ai-ml",
       tags: [
-        {
-          name: "React",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "Flask",
-          color: "green-text-gradient",
-        },
-        {
-          name: "Tailwind",
-          color: "pink-text-gradient",
-        },
-        {
-          name: "OpenCV",
-          color: "sunset-text",
-        },
-        {
-          name: "Three.Js",
-          color: "ocean-text",
-        },
-        {
-          name: "Python",
-          color: "gold-text",
-        },
-        {
-          name: "Tensorflow",
-          color: "lava-text",
-        },
+        { name: "React" },
+        { name: "Flask" },
+        { name: "TensorFlow" },
+        { name: "OpenCV" },
+        { name: "MediaPipe" },
       ],
       image: signtolearn,
       source_code_link: "https://github.com/JJKSweaty/SignToLearn/",
     },
     {
-      name: "CUDA MLP for MNIST Classification",
-      description: "Implemented a 2-layer MLP for MNIST digit classification, scaling from PyTorch to custom CUDA kernels to analyze speed and efficiency tradeoffs. Wrote CUDA kernels for matrix operations, activation functions, and loss computation, optimizing memory transfers and GPU utilization. Leveraged cuBLAS routines to reach over 2× faster training than PyTorch baseline while maintaining accuracy across 10,000 samples.",
+      name: "CUDA MLP — MNIST",
+      description: "Custom CUDA kernels for a 2-layer MLP achieving 2× faster training than PyTorch baseline.",
       type: "software",
+      category: "ai-ml",
       tags: [
-        { name: "CUDA", color: "blue-text-gradient" },
-        { name: "PyTorch", color: "green-text-gradient" },
-        { name: "cuBLAS", color: "pink-text-gradient" },
-        { name: "GPU Computing", color: "sunset-text" },
-        { name: "Machine Learning", color: "ocean-text" },
-        { name: "C++", color: "gold-text" },
-        { name: "Performance Optimization", color: "lava-text" },
+        { name: "CUDA" },
+        { name: "PyTorch" },
+        { name: "cuBLAS" },
+        { name: "C++" },
       ],
-      image: null,
+      image: mnst,
       source_code_link: "https://github.com/JJKSweaty/MNIST"
     },
     {
-      name: "Claude Powered Firmware Assistant",
-      description: "Developed a full-stack Claude-based agent to assist with firmware and embedded tasks, featuring live streaming and secure file upload. Integrated local vector RAG and Supabase session memory to enable multi-turn context recall across chats. Implemented scoped memory, prompt compression, and selective context injection reducing token usage by 60%.",
+      name: "Claude Firmware Assistant",
+      description: "AI agent with RAG and session memory for firmware tasks — 60% token reduction via smart context.",
       type: "software",
+      category: "ai-ml",
       tags: [
-        { name: "Claude AI", color: "blue-text-gradient" },
-        { name: "RAG", color: "pink-text-gradient" },
-        { name: "Supabase", color: "sunset-text" },
-        { name: "Vector DB", color: "ocean-text" },
-        { name: "Fastify", color: "green-text-gradient" },
-        { name: "Node.js", color: "gold-text" }
+        { name: "Claude AI" },
+        { name: "RAG" },
+        { name: "Supabase" },
+        { name: "Node.js" },
       ],
       image: claudefirmwareai,
       source_code_link: "https://github.com/JJKSweaty/jjkAI"
     },
     {
-      name: "TruVote – Secure Digital Voting Platform",
-      description: "Designed a secure voting system enforcing one-person-one-vote through biometric identity verification. Implemented face authentication by extracting facial embeddings and matching vectors during vote submission. Built backend authorization logic supporting election setup, ballot casting, auditing, and result verification.",
+      name: "TruVote",
+      description: "Biometric voting platform enforcing one-person-one-vote via facial embedding verification.",
       type: "software",
+      category: "full-stack",
       tags: [
-        { name: "TypeScript", color: "blue-text-gradient" },
-        { name: "React", color: "green-text-gradient" },
-        { name: "Next.js", color: "pink-text-gradient" },
-        { name: "Flask", color: "sunset-text" },
-        { name: "Supabase", color: "ocean-text" },
-        { name: "OpenCV", color: "gold-text" },
-        { name: "Vercel", color: "lava-text" }
+        { name: "Next.js" },
+        { name: "Flask" },
+        { name: "OpenCV" },
+        { name: "Supabase" },
       ],
       image: truvote,
       source_code_link: "https://github.com/18gen/hack-canada"
     },
     {
-      name: "Second Sight – AI Indoor Object Finder",
-      description: "AI-powered indoor assistant that finds everyday objects using a pan-tilt camera and on-device YOLO vision running on a Raspberry Pi. Scans a room, captures snapshots when target items are detected, and sends results to a web app that explains locations in natural language with voice guidance for hands-free use.",
+      name: "Second Sight",
+      description: "AI indoor assistant using on-device YOLO and pan-tilt camera to locate objects with voice guidance.",
       type: "hardware",
+      category: "embedded",
       tags: [
-        { name: "Raspberry Pi", color: "blue-text-gradient" },
-        { name: "YOLO", color: "green-text-gradient" },
-        { name: "Pan-Tilt", color: "pink-text-gradient" },
-        { name: "Computer Vision", color: "sunset-text" },
-        { name: "Web App", color: "ocean-text" },
-        { name: "Voice UI", color: "gold-text" }
+        { name: "Raspberry Pi" },
+        { name: "YOLO" },
+        { name: "Pan-Tilt" },
+        { name: "Voice UI" },
       ],
       image: null,
       source_code_link: "https://github.com/mahadk28/SecondSight"
     },
     {
-      name: "Vision-Guided Autonomous Disk Launcher",
-      description: "Vision-guided embedded system integrating perception, control, and electromechanical actuation.",
+      name: "Autonomous Disk Launcher",
+      description: "Vision-guided launcher with PID tracking, LiDAR range-gating, and dual-flywheel actuation.",
       type: "hardware",
+      category: "embedded",
       route: "/projects/vision-guided-autonomous-disk-launcher",
       demoVideoMp4: "/demos/autonomous-launcher-demo.mp4",
       tags: [
-        { name: "Raspberry Pi", color: "blue-text-gradient" },
-        { name: "ESP32-S3", color: "green-text-gradient" },
-        { name: "PID", color: "pink-text-gradient" },
-        { name: "LiDAR", color: "sunset-text" },
-        { name: "Serial", color: "ocean-text" },
-        { name: "Actuation", color: "gold-text" }
+        { name: "Raspberry Pi" },
+        { name: "ESP32-S3" },
+        { name: "PID" },
+        { name: "LiDAR" },
       ],
       image: "/images/panTilt.jpeg",
       source_code_link: "https://github.com/JJKSweaty/Autonomous-Disk-Launcher",
     },
     {
-      name: "Heartbeat Monitor PCB Design",
-      description: "Custom PCB designed in KiCad for heartbeat and SpO₂ monitoring using the MAX30102 sensor and USB-C power input. Optimized I²C communication for reliable BPM and oxygen saturation tracking on an Arduino interface.",
+      name: "Heartbeat Monitor PCB",
+      description: "Custom KiCad PCB for BPM and SpO₂ tracking with MAX30102 sensor and USB-C power.",
       type: "hardware",
+      category: "hardware",
       route: "/projects/heartbeat-monitor-pcb",
       tags: [
-        { name: "KiCad", color: "blue-text-gradient" },
-        { name: "MAX30102", color: "green-text-gradient" },
-        { name: "PCB Design", color: "pink-text-gradient" },
-        { name: "I²C", color: "sunset-text" },
-        { name: "Arduino", color: "ocean-text" },
-        { name: "USB-C", color: "gold-text" }
+        { name: "KiCad" },
+        { name: "MAX30102" },
+        { name: "I²C" },
+        { name: "PCB Design" },
       ],
-      image: null,
+      image: heartbeatpcb,
       source_code_link: "https://github.com/JJKSweaty/Heartbeat-Monitor-STM32-Using-Arduino-IDE-",
     },
     {
-      name: "ESP32 Wifi Media Controller",
-      description: "Built a custom ESP32-S3 hardware dashboard with a 3.5″ SPI TFT touchscreen and I²C touch controller. Enables real-time media control, system monitoring, and Discord voice management via WebSockets.",
+      name: "ESP32 Media Controller",
+      description: "Touchscreen hardware dashboard for media control, system stats, and Discord via WebSockets.",
       type: "hardware",
+      category: "embedded",
       featured: true,
       demoVideo: "https://youtu.be/r_K0236xxg4",
       route: "/projects/esp32-media-controller",
-      cad: {
-        renders: ["/assets/esp32-media/cad/model_thumb.svg"],
-        files: [
-          { type: "stl", name: "JJKscreenmount.STL", src: "/assets/esp32-media/cad/JJKscreenmount.STL" },
-          { type: "sldprt", name: "JJKscreenmount.SLDPRT", src: "/assets/esp32-media/cad/JJKscreenmount.SLDPRT" },
-        ],
-      },
       tags: [
-        { name: "ESP32", color: "blue-text-gradient" },
-        { name: "WIFI", color: "green-text-gradient" },
-        { name: "I²C", color: "pink-text-gradient" },
-        { name: "LVGL", color: "sunset-text" },
-        { name: "PlatformIO", color: "ocean-text" },
-        { name: "WebSockets", color: "gold-text" }
+        { name: "ESP32-S3" },
+        { name: "LVGL" },
+        { name: "WebSockets" },
+        { name: "SPI" },
       ],
       image: null,
       source_code_link: "https://github.com/JJKSweaty/ESP32Media"
     },
-    
-    
   ];
   const contacts = [
     {

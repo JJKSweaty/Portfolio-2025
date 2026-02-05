@@ -1,542 +1,161 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const experiences = [
+  {
+    company: "Vitruvius Innovation",
+    role: "Embedded Systems Intern",
+    period: "Sep 2025 – Dec 2025",
+    description:
+      "Designed custom low-noise PCBs with ESP32-S3 and 7+ biomedical sensors. Built FreeRTOS firmware streaming multi-sensor data via BLE with sub-50 ms latency and ±2% calibration accuracy.",
+    technologies: ["ESP32-S3", "FreeRTOS", "ESP-IDF", "BLE", "PCB Design"],
+  },
+  {
+    company: "Electrium Mobility",
+    role: "Firmware Engineer",
+    period: "May 2025 – Sep 2025",
+    description:
+      "Built a touchscreen dashboard on ESP32 with FreeRTOS showing real-time motor and battery telemetry. Integrated BLE sensor feedback for responsive wireless VESC communication.",
+    technologies: ["FreeRTOS", "ESP32", "BLE", "C/C++"],
+  },
+  {
+    company: "UW Aerial Robotics (UWARG)",
+    role: "Embedded Flight Systems",
+    period: "Apr 2025 – Present",
+    description:
+      "Designed a motor tester system using STM32, SPI, and PWM to evaluate servo motors. Configured external ADCs via SPI and mapped readings to PWM duty cycles for motor control.",
+    technologies: ["STM32", "SPI", "PWM", "ADC", "C/C++"],
+  },
+  {
+    company: "UW ECE Department",
+    role: "IT Engineer",
+    period: "Sep 2024 – Dec 2024",
+    description:
+      "Maintained server environments with 99% uptime. Automated computer deployment via Microsoft Deployment Services, cutting setup time by 50%.",
+    technologies: ["Deployment Services", "Networking", "System Admin"],
+  },
+  {
+    company: "WE Accelerate",
+    role: "AI/ML Research",
+    period: "Jan 2024 – Apr 2024",
+    description:
+      "Built a healthcare chatbot using Azure AI, improving diagnosis accuracy by 30%. Optimized data workflows for patient recommendations.",
+    technologies: ["Azure AI", "JavaScript", "React"],
+  },
+];
 
 const Experience = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hasUserInteracted, setHasUserInteracted] = useState(false);
-  const experienceCardRef = useRef(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const cardRef = useRef(null);
 
-  // Smooth scroll to experience card when activeIndex changes (only after user interaction)
   useEffect(() => {
-    if (experienceCardRef.current && hasUserInteracted) {
-      // Small delay to allow the animation to start
+    if (cardRef.current && hasInteracted) {
       const timer = setTimeout(() => {
-        experienceCardRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-          inline: 'nearest'
-        });
+        cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 100);
-
       return () => clearTimeout(timer);
     }
-  }, [activeIndex, hasUserInteracted]);
+  }, [activeIndex, hasInteracted]);
 
-  const experiences = [
-    {
-      company: "WE Accelerate",
-      role: "AI/ML Research",
-      period: "Jan 2024 - Apr 2024",
-      description: "Researched and implemented a healthcare chatbot using Azure AI, integrating with a healthcare API to provide medical information and support.",
-      technologies: ["Javascript", "Healthcare Chatbot API", "React", "Azure AI"]
-    },
-    {
-      company: "Waterloo Electrical and Computer Eng Dept",
-      role: "Information Tech Engineer",
-      period: "Sep 2024 - Dec 2024",
-      description: "Installed and configured desktops, servers, and networking equipment across research labs. Automated computer deployment using Microsoft Deployment Services, reducing setup time by 50%. Recommended hardware and software solutions for graduate researchers' computing needs.",
-      technologies: ["Microsoft Deployment Services", "Networking", "Hardware Configuration", "System Administration"]
-    },
-    {
-      company: "University of Waterloo Aerial Robotics",
-      role: "Embedded Flight Systems",
-      period: "Apr 2025 - Present",
-      description: "Designed a motor tester system using STM32, SPI, and PWM to evaluate servo and continuous rotation motors. Configured SPI to interface with external ADCs reading analog potentiometer values. Controlled motor speed and direction by mapping ADC readings to PWM duty cycles.",
-      technologies: ["STM32", "SPI", "PWM", "ADC", "Embedded Systems", "C/C++"]
-    },
-    {
-      company: "Electrium Mobility Electric Skateboard",
-      role: "CF - Firmware Member",
-      period: "May 2025 - Sept 2025",
-      description: "Built a custom touchscreen dashboard with ESP32 and FreeRTOS to display real-time motor and battery stats, log data locally, and integrate BLE sensor feedback for responsive wireless communication with the VESC.",
-      technologies: ["FreeRTOS", "ESP32", "BLE","C/C++"]
-    },  
-    {
-      company: "Vitruvius Innovation",
-      role: "Embedded Systems Intern",
-      period: "Sep 2025 - Dec 2025",
-      description: "Designed and built custom low-noise PCBs with an ESP32-S3 and over seven environmental and biomedical sensors (IMU, SpO₂, CO₂, O₂, temperature, pressure) for a lightweight health-monitoring device. Developed FreeRTOS firmware using ESP-IDF to collect and stream multi-sensor data via BLE with sub-50 ms latency, implemented power-efficient dual-core task scheduling, and calibrated all sensors to within ±2 % of reference measurements.",
-      technologies: ["ESP32-S3", "FreeRTOS", "ESP-IDF", "I2C", "UART", "BLE", "PCB design"]
-    }
-  ];
+  const active = experiences[activeIndex];
 
   return (
-    <section id="work" className="min-h-screen py-20 bg-transparent">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
+    <section id="work" className="min-h-[70vh] py-20 bg-transparent">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        {/* heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-[var(--theme-primary)] text-4xl font-bold mb-20 text-center sm:text-3xl"
+          transition={{ duration: 0.4 }}
+          className="text-center mb-14"
         >
-          Work Experience
-        </motion.h2>
+          <p className="text-slate-500 text-sm font-medium tracking-widest uppercase mb-2">
+            Where I've Worked
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+            Experience
+          </h2>
+        </motion.div>
 
-        <TimelineContainer>
-          <Timeline>
-            {experiences.map((exp, index) => (
-              <TimelineItem 
-                key={index}
-                $isActive={index === activeIndex}
-                onClick={() => {
-                  setActiveIndex(index);
-                  setHasUserInteracted(true);
-                }}
-              >
-                <TimelineDot $isActive={index === activeIndex} />
-                <TimelineContent>
-                  <TimelineDate>{exp.period}</TimelineDate>
-                  <TimelineTitle>{exp.company}</TimelineTitle>
-                  <TimelineRole>{exp.role}</TimelineRole>
-                </TimelineContent>
-              </TimelineItem>
-            ))}
-          </Timeline>
+        {/* ── horizontal timeline (desktop) / vertical list (mobile) ── */}
+        <div className="relative mb-10">
+          {/* horizontal line (desktop) */}
+          <div className="hidden md:block absolute top-3 left-0 right-0 h-px bg-white/[0.06]" />
 
-          <ExperienceCardWrapper>
-            <ExperienceCard
-              ref={experienceCardRef}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              key={activeIndex}
-            >
-            <CardContent>
-              <CardHeader>
-                <CompanyName>{experiences[activeIndex].company}</CompanyName>
-                <RoleTitle>{experiences[activeIndex].role}</RoleTitle>
-                <Period>{experiences[activeIndex].period}</Period>
-              </CardHeader>
-              
-              <Description>{experiences[activeIndex].description}</Description>
-              
-              <TechStack>
-                {experiences[activeIndex].technologies.map((tech, index) => (
-                  <TechPill key={index}>{tech}</TechPill>
-                ))}
-              </TechStack>
+          <div className="flex flex-col md:flex-row md:justify-between gap-3 md:gap-0 relative">
+            {experiences.map((exp, i) => {
+              const isActive = i === activeIndex;
+              return (
+                <button
+                  key={i}
+                  onClick={() => { setActiveIndex(i); setHasInteracted(true); }}
+                  className={`group relative flex md:flex-col items-center md:items-center gap-3 md:gap-2 text-left md:text-center px-3 py-2 md:p-0 rounded-lg md:rounded-none transition-all duration-200
+                    ${isActive ? 'bg-white/[0.04] md:bg-transparent' : 'hover:bg-white/[0.02] md:hover:bg-transparent'}`}
+                >
+                  {/* dot */}
+                  <div
+                    className={`w-2.5 h-2.5 flex-shrink-0 rounded-full border-2 transition-all duration-300 ${
+                      isActive
+                        ? 'bg-[var(--theme-primary)] border-[var(--theme-primary)] shadow-[0_0_8px_var(--theme-glow)]'
+                        : 'bg-transparent border-white/20 group-hover:border-white/40'
+                    }`}
+                  />
+                  {/* label */}
+                  <div>
+                    <p className={`text-xs font-medium transition-colors ${
+                      isActive ? 'text-[var(--theme-primary)]' : 'text-slate-400 group-hover:text-slate-300'
+                    }`}>
+                      {exp.company}
+                    </p>
+                    <p className="text-[10px] text-slate-500 hidden md:block">{exp.period.split(' – ')[0]}</p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-              <CardGlow />
-              <CardLines>
-                <span /><span /><span /><span />
-              </CardLines>
-              <CornerElements>
-                <span /><span /><span /><span />
-              </CornerElements>
-            </CardContent>
-          </ExperienceCard>
-          </ExperienceCardWrapper>
-        </TimelineContainer>
+        {/* ── detail card ── */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            ref={cardRef}
+            key={activeIndex}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 sm:p-8 max-w-3xl mx-auto"
+          >
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-[var(--theme-primary)]">
+                {active.company}
+              </h3>
+              <p className="text-sm text-white font-medium">{active.role}</p>
+              <p className="text-xs text-slate-500 mt-0.5">{active.period}</p>
+            </div>
+
+            <p className="text-[14px] leading-relaxed text-slate-400 mb-5">
+              {active.description}
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {active.technologies.map((tech) => (
+                <span
+                  key={tech}
+                  className="px-2.5 py-1 text-[11px] font-medium rounded-md
+                             text-[var(--theme-primary)]/70 bg-[var(--theme-primary)]/[0.06] ring-1 ring-inset ring-[var(--theme-primary)]/10"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );
 };
-
-const TimelineContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-top: 2rem;
-
-  @media (min-width: 769px) {
-    gap: 2.5rem;
-  }
-`;
-
-const ExperienceCardWrapper = styled.div`
-  @media (min-width: 769px) {
-    margin-top: 1rem;
-    padding-top: 1rem;
-  }
-`;
-
-const Timeline = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  position: relative;
-  padding: 1rem 0;
-  margin: 2rem 0;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, 
-      transparent,
-      var(--theme-border),
-      var(--theme-border),
-      transparent
-    );
-    transform: translateY(-50%);
-  }
-
-  @media (min-width: 769px) {
-    margin: 2rem 0;
-    padding: 1.5rem 0;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 2rem 0;
-    
-    &::before {
-      display: none;
-    }
-  }
-
-  @media (max-width: 640px) {
-    gap: 1rem;
-    padding: 1rem 0;
-  }
-`;
-
-const TimelineItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1;
-  position: relative;
-  padding-top: 1rem;
-  min-width: 200px;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-
-  ${props => props.$isActive && `
-    transform: translateY(-5px);
-  `}
-
-  @media (max-width: 768px) {
-    min-width: auto;
-    width: 100%;
-    max-width: 300px;
-    padding: 1rem;
-    background: var(--theme-bg-card);
-    border-radius: 10px;
-    border: 1px solid var(--theme-border);
-    
-    &:hover {
-      background: var(--theme-bg-card-hover);
-      transform: translateY(-2px);
-    }
-
-    ${props => props.$isActive && `
-      background: var(--theme-bg-card-hover);
-      border-color: var(--theme-primary);
-      transform: translateY(-2px);
-    `}
-  }
-`;
-
-const TimelineDot = styled.div`
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: ${props => props.$isActive ? 'var(--theme-primary)' : 'var(--theme-primary-muted)'};
-  border: 2px solid ${props => props.$isActive ? 'var(--theme-primary)' : 'var(--theme-primary)'};
-  box-shadow: 0 0 10px ${props => props.$isActive ? 'var(--theme-glow)' : 'transparent'};
-  transition: all 0.3s ease;
-  position: absolute;
-  top: 0;
-  transform: translateY(-50%);
-
-  @media (max-width: 768px) {
-    position: static;
-    transform: none;
-    margin-bottom: 0.5rem;
-  }
-`;
-
-const TimelineContent = styled.div`
-  text-align: center;
-`;
-
-const TimelineDate = styled.div`
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
-`;
-
-const TimelineTitle = styled.div`
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  margin-top: 0.25rem;
-
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    line-height: 1.3;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 0.85rem;
-  }
-`;
-
-const TimelineRole = styled.div`
-  font-size: 0.875rem;
-  color: var(--theme-primary);
-
-  @media (max-width: 768px) {
-    font-size: 0.8rem;
-    line-height: 1.3;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 0.75rem;
-  }
-`;
-
-const ExperienceCard = styled(motion.div).withConfig({
-  shouldForwardProp: (prop) => prop !== 'ref',
-})`
-  background: linear-gradient(45deg, #1a1a1a, #262626);
-  border-radius: 15px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  position: relative;
-  box-shadow: 
-    0 0 20px rgba(0, 0, 0, 0.3),
-    inset 0 0 20px rgba(0, 0, 0, 0.2);
-`;
-
-const CardContent = styled.div`
-  padding: 2rem;
-  position: relative;
-
-  @media (max-width: 768px) {
-    padding: 1.5rem;
-  }
-
-  @media (max-width: 640px) {
-    padding: 1rem;
-  }
-`;
-
-const CardHeader = styled.div`
-  margin-bottom: 1.5rem;
-`;
-
-const CompanyName = styled.h3`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--theme-primary);
-  margin-bottom: 0.5rem;
-
-  @media (max-width: 768px) {
-    font-size: 1.25rem;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 1.1rem;
-  }
-`;
-
-const RoleTitle = styled.h4`
-  font-size: 1.25rem;
-  color: white;
-  margin-bottom: 0.25rem;
-
-  @media (max-width: 768px) {
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 1rem;
-  }
-`;
-
-const Period = styled.div`
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.6);
-
-  @media (max-width: 640px) {
-    font-size: 0.8rem;
-  }
-`;
-
-const Description = styled.p`
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 0.85rem;
-    line-height: 1.4;
-  }
-`;
-
-const TechStack = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-
-  @media (max-width: 640px) {
-    gap: 0.375rem;
-  }
-`;
-
-const TechPill = styled.span`
-  background: var(--theme-bg-card);
-  color: var(--theme-primary);
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  border: 1px solid var(--theme-border);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: var(--theme-bg-card-hover);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    font-size: 0.8rem;
-    padding: 0.2rem 0.6rem;
-  }
-
-  @media (max-width: 640px) {
-    font-size: 0.75rem;
-    padding: 0.15rem 0.5rem;
-  }
-`;
-
-const CardGlow = styled.div`
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    var(--theme-glow) 0%,
-    var(--theme-secondary-muted) 50%,
-    transparent 100%
-  );
-  filter: blur(20px);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-
-  ${ExperienceCard}:hover & {
-    opacity: 1;
-  }
-`;
-
-const CardLines = styled.div`
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  span {
-    position: absolute;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--theme-border),
-      transparent
-    );
-  }
-
-  span:nth-child(1) {
-    top: 20%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: lineGrow 3s linear infinite;
-  }
-
-  span:nth-child(2) {
-    top: 40%;
-    right: 0;
-    width: 100%;
-    height: 1px;
-    transform: scaleX(0);
-    transform-origin: right;
-    animation: lineGrow 3s linear infinite 1s;
-  }
-
-  span:nth-child(3) {
-    top: 60%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: lineGrow 3s linear infinite 2s;
-  }
-
-  span:nth-child(4) {
-    top: 80%;
-    right: 0;
-    width: 100%;
-    height: 1px;
-    transform: scaleX(0);
-    transform-origin: right;
-    animation: lineGrow 3s linear infinite 1.5s;
-  }
-`;
-
-const CornerElements = styled.div`
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  span {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    border: 2px solid var(--theme-border);
-    transition: all 0.3s ease;
-  }
-
-  span:nth-child(1) {
-    top: 8px;
-    left: 8px;
-    border-right: 0;
-    border-bottom: 0;
-  }
-
-  span:nth-child(2) {
-    top: 8px;
-    right: 8px;
-    border-left: 0;
-    border-bottom: 0;
-  }
-
-  span:nth-child(3) {
-    bottom: 8px;
-    left: 8px;
-    border-right: 0;
-    border-top: 0;
-  }
-
-  span:nth-child(4) {
-    bottom: 8px;
-    right: 8px;
-    border-left: 0;
-    border-top: 0;
-  }
-
-  ${ExperienceCard}:hover & span {
-    border-color: var(--theme-primary);
-    box-shadow: 0 0 10px var(--theme-glow);
-  }
-`;
 
 export default Experience;

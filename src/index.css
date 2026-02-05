@@ -7,26 +7,25 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --neon-mint: #64ffda;
   --soft-grey: #8892b0;
-  --pure-black: #000000;
-  --dark-bg: #000102;
-  --pure-white: #ffffff;
+  --pure-black: #0a0a0f;
+  --dark-bg: #0a0a0f;
+  --pure-white: #f1f5f9;
 
-  /* Theme variables (dynamically updated) */
-  --theme-primary: #64ffda;
-  --theme-secondary: #4db8ff;
-  --theme-bg: #000000;
-  --theme-text: #ffffff;
-  --theme-accent: rgba(100, 255, 218, 0.1);
+  /* Theme variables (dynamically set by ThemeProvider) */
+  --theme-primary: #94a3b8;
+  --theme-secondary: #60a5fa;
+  --theme-bg: #0a0a0f;
+  --theme-text: #f1f5f9;
+  --theme-accent: rgba(148, 163, 184, 0.08);
 
-  /* Additional theme variables for styled components */
-  --theme-primary-muted: rgba(100, 255, 218, 0.3);
-  --theme-border: rgba(100, 255, 218, 0.2);
-  --theme-bg-card: rgba(100, 255, 218, 0.1);
-  --theme-bg-card-hover: rgba(100, 255, 218, 0.15);
-  --theme-glow: rgba(100, 255, 218, 0.5);
-  --theme-secondary-muted: rgba(77, 184, 255, 0.05);
+  /* Derived theme variables */
+  --theme-primary-muted: rgba(148, 163, 184, 0.3);
+  --theme-border: rgba(148, 163, 184, 0.15);
+  --theme-bg-card: rgba(148, 163, 184, 0.06);
+  --theme-bg-card-hover: rgba(148, 163, 184, 0.1);
+  --theme-glow: rgba(148, 163, 184, 0.25);
+  --theme-secondary-muted: rgba(96, 165, 250, 0.05);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -68,8 +67,8 @@
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #0a0a0f;
+  color: #f1f5f9;
 }
 
 .hash-span {
@@ -80,7 +79,7 @@ body {
 
 /* Primary highlight color for interactive elements */
 .highlight {
-  color: var(--neon-mint);
+  color: var(--theme-primary);
 }
 
 /* All gradient backgrounds replaced with dark theme */
@@ -105,97 +104,37 @@ body {
 .midnight-text,
 .gold-text,
 .lava-text {
-  color: var(--neon-mint);
-  -webkit-text-fill-color: var(--neon-mint);
+  color: var(--theme-primary);
+  -webkit-text-fill-color: var(--theme-primary);
   background: none;
 }
 
-/* Canvas loader with neon mint */
+/* Canvas loader */
 .canvas-loader {
-  border-color: var(--neon-mint);
+  border-color: var(--theme-primary);
 }
 
 @keyframes mulShdSpin {
   0%,
   100% {
-    box-shadow: 0em -2.6em 0em 0em var(--neon-mint),
-      1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2),
-      2.5em 0em 0 0em rgba(100, 255, 218, 0.2),
-      1.75em 1.75em 0 0em rgba(100, 255, 218, 0.2),
-      0em 2.5em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em 1.8em 0 0em rgba(100, 255, 218, 0.2),
-      -2.6em 0em 0 0em rgba(100, 255, 218, 0.5),
-      -1.8em -1.8em 0 0em rgba(100, 255, 218, 0.7);
-  }
-  12.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(100, 255, 218, 0.7),
-      1.8em -1.8em 0 0em var(--neon-mint),
-      2.5em 0em 0 0em rgba(100, 255, 218, 0.2),
-      1.75em 1.75em 0 0em rgba(100, 255, 218, 0.2),
-      0em 2.5em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em 1.8em 0 0em rgba(100, 255, 218, 0.2),
-      -2.6em 0em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em -1.8em 0 0em rgba(100, 255, 218, 0.5);
-  }
-  25% {
-    box-shadow: 0em -2.6em 0em 0em rgba(100, 255, 218, 0.5),
-      1.8em -1.8em 0 0em rgba(100, 255, 218, 0.7),
-      2.5em 0em 0 0em var(--neon-mint),
-      1.75em 1.75em 0 0em rgba(100, 255, 218, 0.2),
-      0em 2.5em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em 1.8em 0 0em rgba(100, 255, 218, 0.2),
-      -2.6em 0em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2);
-  }
-  37.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(100, 255, 218, 0.2),
-      1.8em -1.8em 0 0em rgba(100, 255, 218, 0.5),
-      2.5em 0em 0 0em rgba(100, 255, 218, 0.7),
-      1.75em 1.75em 0 0em var(--neon-mint),
-      0em 2.5em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em 1.8em 0 0em rgba(100, 255, 218, 0.2),
-      -2.6em 0em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2);
+    box-shadow: 0em -2.6em 0em 0em var(--theme-primary),
+      1.8em -1.8em 0 0em var(--theme-primary-muted),
+      2.5em 0em 0 0em var(--theme-primary-muted),
+      1.75em 1.75em 0 0em var(--theme-primary-muted),
+      0em 2.5em 0 0em var(--theme-primary-muted),
+      -1.8em 1.8em 0 0em var(--theme-primary-muted),
+      -2.6em 0em 0 0em var(--theme-glow),
+      -1.8em -1.8em 0 0em var(--theme-glow);
   }
   50% {
-    box-shadow: 0em -2.6em 0em 0em rgba(100, 255, 218, 0.2),
-      1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2),
-      2.5em 0em 0 0em rgba(100, 255, 218, 0.5),
-      1.75em 1.75em 0 0em rgba(100, 255, 218, 0.7),
-      0em 2.5em 0 0em var(--neon-mint),
-      -1.8em 1.8em 0 0em rgba(100, 255, 218, 0.2),
-      -2.6em 0em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2);
-  }
-  62.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(100, 255, 218, 0.2),
-      1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2),
-      2.5em 0em 0 0em rgba(100, 255, 218, 0.2),
-      1.75em 1.75em 0 0em rgba(100, 255, 218, 0.5),
-      0em 2.5em 0 0em rgba(100, 255, 218, 0.7),
-      -1.8em 1.8em 0 0em var(--neon-mint),
-      -2.6em 0em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2);
-  }
-  75% {
-    box-shadow: 0em -2.6em 0em 0em rgba(100, 255, 218, 0.2),
-      1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2),
-      2.5em 0em 0 0em rgba(100, 255, 218, 0.2),
-      1.75em 1.75em 0 0em rgba(100, 255, 218, 0.2),
-      0em 2.5em 0 0em rgba(100, 255, 218, 0.5),
-      -1.8em 1.8em 0 0em rgba(100, 255, 218, 0.7),
-      -2.6em 0em 0 0em var(--neon-mint),
-      -1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2);
-  }
-  87.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(100, 255, 218, 0.2),
-      1.8em -1.8em 0 0em rgba(100, 255, 218, 0.2),
-      2.5em 0em 0 0em rgba(100, 255, 218, 0.2),
-      1.75em 1.75em 0 0em rgba(100, 255, 218, 0.2),
-      0em 2.5em 0 0em rgba(100, 255, 218, 0.2),
-      -1.8em 1.8em 0 0em rgba(100, 255, 218, 0.5),
-      -2.6em 0em 0 0em rgba(100, 255, 218, 0.7),
-      -1.8em -1.8em 0 0em var(--neon-mint);
+    box-shadow: 0em -2.6em 0em 0em var(--theme-primary-muted),
+      1.8em -1.8em 0 0em var(--theme-primary-muted),
+      2.5em 0em 0 0em var(--theme-glow),
+      1.75em 1.75em 0 0em var(--theme-glow),
+      0em 2.5em 0 0em var(--theme-primary),
+      -1.8em 1.8em 0 0em var(--theme-primary-muted),
+      -2.6em 0em 0 0em var(--theme-primary-muted),
+      -1.8em -1.8em 0 0em var(--theme-primary-muted);
   }
 }
 
