@@ -2,8 +2,12 @@ import React from "react";
 
 import { Navbar } from "../../components";
 import { styles } from "../../styles";
+import { projects } from "../../constants";
+import CADShowcase from "../../components/cad/CADShowcase";
 
 const ESP32MediaController = () => {
+  const project = projects.find((p) => p.route === "/projects/esp32-media-controller");
+
   return (
     <div className="relative bg-black/30 min-h-screen">
       <Navbar />
@@ -73,6 +77,9 @@ const ESP32MediaController = () => {
           <li>Built a reliable bidirectional communication protocol over Wi-Fi</li>
           <li>Gained experience debugging real-time embedded systems with tight timing constraints</li>
         </ul>
+
+        <h2 className="text-2xl font-semibold text-white mt-10 mb-3">CAD</h2>
+        <CADShowcase cad={project?.cad} />
       </section>
     </div>
   );
