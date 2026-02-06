@@ -33,9 +33,9 @@ export function Stars() {
       <primitive object={starsGeometry} />
       <pointsMaterial
         size={1.5}
-        color="#64ffda"
+        color="#c1c7ce"
         transparent
-        opacity={0.6}
+        opacity={0.42}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
       />

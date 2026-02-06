@@ -9,11 +9,11 @@ export const useTheme = () => useContext(ThemeContext);
 
 export const themes = {
   'arctic': {
-    primary: '#94a3b8',
-    secondary: '#60a5fa',
-    bg: '#0a0a0f',
+    primary: '#7dd3fc',
+    secondary: '#38bdf8',
+    bg: '#020617',
     text: '#f1f5f9',
-    accent: 'rgba(148, 163, 184, 0.08)',
+    accent: 'rgba(125, 211, 252, 0.1)',
   },
   'lavender': {
     primary: '#a78bfa',

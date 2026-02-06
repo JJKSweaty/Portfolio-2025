@@ -37,6 +37,7 @@ import truvote  from './truvote.png'
 import claudefirmwareai from './claudefirmwareai.png'
 import mnst from './mnst.png'
 import heartbeatpcb from './hearbeatsensor pcb.png'
+import resumePdf from './resumeJonathanFirmware26 (1).pdf'
 export {
   logo,
   backend,
@@ -77,4 +78,5 @@ export {
   claudefirmwareai,
   mnst,
   heartbeatpcb,
+  resumePdf,
 };

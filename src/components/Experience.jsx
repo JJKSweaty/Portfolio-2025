@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const experiences = [
   {
-    company: "Vitruvius Innovation",
+    company: "AeroCardia",
     role: "Embedded Systems Intern",
     period: "Sep 2025 – Dec 2025",
     description:
@@ -74,7 +74,7 @@ const Experience = () => {
           <p className="text-slate-500 text-sm font-medium tracking-widest uppercase mb-2">
             Where I've Worked
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white">
+          <h2 className="display-font text-3xl sm:text-4xl font-semibold text-white">
             Experience
           </h2>
         </motion.div>
@@ -159,3 +159,4 @@ const Experience = () => {
 };
 
 export default Experience;
+

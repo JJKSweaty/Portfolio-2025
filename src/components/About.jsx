@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionWrapper } from "../hoc";
 import { textVariant } from "../utils/motion";
@@ -8,7 +8,7 @@ import { faMicrochip, faCode } from "@fortawesome/free-solid-svg-icons";
 const skillGroups = {
   hardware: [
     { category: "Microcontrollers", skills: ["ESP32-S3", "STM32", "Arduino", "Raspberry Pi"] },
-    { category: "Protocols", skills: ["SPI", "I²C", "UART", "BLE", "USB"] },
+    { category: "Protocols", skills: ["SPI", "I2C", "UART", "BLE", "USB"] },
     { category: "Design Tools", skills: ["KiCad", "Altium", "Oscilloscope", "Logic Analyzer", "Multimeter"] },
     { category: "Frameworks", skills: ["ESP-IDF", "FreeRTOS", "PlatformIO", "STM32CubeIDE"] },
   ],
@@ -65,7 +65,7 @@ const Skills = () => {
         <p className="text-slate-500 text-sm font-medium tracking-widest uppercase mb-2">
           What I Work With
         </p>
-        <h2 className="text-3xl sm:text-4xl font-bold text-white">
+        <h2 className="display-font text-3xl sm:text-4xl font-semibold text-white">
           Skills
         </h2>
       </motion.div>
@@ -128,3 +128,4 @@ const Skills = () => {
 };
 
 export default SectionWrapper(Skills, "skills");
+
