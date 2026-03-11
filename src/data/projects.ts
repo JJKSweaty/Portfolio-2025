@@ -175,19 +175,20 @@ export const projects: Project[] = [
     status: 'completed',
   },
   {
-    slug: 'second-sight',
-    title: 'Second Sight – AI Indoor Object Finder',
+    slug: 'remembr',
+    title: 'remembR - AI-Powered Memory Assistance System',
     year: '2025',
-    summary: 'AI-powered indoor assistant using pan-tilt camera and on-device YOLO vision for hands-free object location',
+    summary: 'AI-powered memory assistant for object finding, routines, and medication support',
     description:
-      'AI-powered indoor assistant that finds everyday objects using a pan-tilt camera and on-device YOLO vision running on a Raspberry Pi. Scans a room, captures snapshots when target items are detected, and sends results to a web app that explains locations in natural language with voice guidance for hands-free use.',
-    image: null,
-    tags: ['Embedded', 'AI/ML', 'Computer Vision'],
-    stack: ['Raspberry Pi', 'YOLO', 'Python', 'Pan-Tilt', 'Web App', 'Voice UI'],
-    impact: 'Hands-free object location with natural language voice guidance',
+      'Built an assistive system for people with dementia that combines Raspberry Pi object detection, an ESP32 pan-tilt camera rig, and a companion app. remembR locates requested items, captures and sends location photos, and supports daily tasks with medication reminders and tracking.',
+    image: '/images/emberapp.jpg',
+    tags: ['Embedded', 'AI/ML', 'Assistive Tech'],
+    stack: ['Raspberry Pi', 'ESP32', 'YOLO', 'Python', 'Pan-Tilt', 'Mobile App', 'Tailscale'],
+    impact: 'Reduced object-search friction with real-time visual location feedback',
     category: 'embedded',
     links: {
-      github: 'https://github.com/mahadk28/SecondSight',
+      github: 'https://github.com/JJKSweaty/remembR',
+      demo: 'https://devpost.com/software/ember-n8m3yk',
     },
     status: 'completed',
   },
@@ -241,3 +242,4 @@ export const experiences: Experience[] = [
     links: {},
   },
 ];
+

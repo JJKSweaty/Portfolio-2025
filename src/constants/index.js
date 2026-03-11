@@ -28,6 +28,7 @@ import {
     claudefirmwareai,
     mnst,
     heartbeatpcb,
+    emberapp,
   } from "../assets";
   import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
   import { faLaptopCode, faServer,faCloudArrowUp,faGear,faEnvelope} from "@fortawesome/free-solid-svg-icons"; 
@@ -240,18 +241,19 @@ import {
       source_code_link: "https://github.com/18gen/hack-canada"
     },
     {
-      name: "Second Sight",
-      description: "AI indoor assistant using on-device YOLO and pan-tilt camera to locate objects with voice guidance.",
+      name: "remembR",
+      description: "AI-powered memory assistant for dementia support that scans for requested objects and sends found-item photos to a companion app with task and medication reminders.",
       type: "hardware",
       category: "embedded",
       tags: [
         { name: "Raspberry Pi" },
+        { name: "ESP32" },
         { name: "YOLO" },
-        { name: "Pan-Tilt" },
-        { name: "Voice UI" },
+        { name: "Tailscale" },
       ],
-      image: null,
-      source_code_link: "https://github.com/mahadk28/SecondSight"
+      image: emberapp,
+      source_code_link: "https://github.com/JJKSweaty/remembR",
+      devpost_link: "https://devpost.com/software/ember-n8m3yk",
     },
     {
       name: "Autonomous Disk Launcher",

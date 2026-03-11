@@ -8,6 +8,7 @@ import { textVariant } from "../utils/motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
+  faArrowUpRightFromSquare,
   faCode,
   faMagnifyingGlass,
   faMicrochip,
@@ -121,6 +122,19 @@ const ProjectCard = ({ project, index, onOpenDemo }) => {
               aria-label="View source on GitHub"
             >
               <img src={github} alt="" className="w-3.5 h-3.5" />
+            </a>
+          )}
+
+          {project.devpost_link && (
+            <a
+              href={project.devpost_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(event) => event.stopPropagation()}
+              className="absolute top-2.5 right-11 flex items-center justify-center w-7 h-7 rounded-full bg-black/50 backdrop-blur-sm border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-200 hover:border-[var(--theme-primary)]/50"
+              aria-label="View project on Devpost"
+            >
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-[11px] text-white/85" />
             </a>
           )}
         </div>
