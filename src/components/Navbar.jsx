@@ -1,25 +1,22 @@
-import React, { useEffect, useState, useCallback } from "react";
+﻿import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faBars } from "@fortawesome/free-solid-svg-icons";
 import { navLinks } from "../constants";
 import { logo } from "../assets";
-import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  /* ── track scroll position ── */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* ── highlight active section on scroll ── */
   useEffect(() => {
     const sections = navLinks.map((n) => document.getElementById(n.id)).filter(Boolean);
     if (!sections.length) return;
@@ -36,21 +33,17 @@ const Navbar = () => {
       { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
     );
 
-    sections.forEach((s) => observer.observe(s));
+    sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
-  const handleNav = useCallback(
-    (title) => {
-      setActive(title);
-      setMobileOpen(false);
-    },
-    []
-  );
+  const handleNav = useCallback((title) => {
+    setActive(title);
+    setMobileOpen(false);
+  }, []);
 
   return (
     <>
-      {/* ─── Desktop: floating centered pill ─── */}
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -64,7 +57,6 @@ const Navbar = () => {
               : "bg-white/[0.03] backdrop-blur-md border-white/[0.06]"
           }`}
         >
-          {/* logo */}
           <Link
             to="/"
             onClick={() => {
@@ -77,10 +69,8 @@ const Navbar = () => {
             <img src={logo} alt="" className="w-5 h-5" />
           </Link>
 
-          {/* divider */}
           <div className="w-px h-5 bg-white/[0.08] mx-1" />
 
-          {/* nav links */}
           {navLinks.map((nav) => {
             const isActive = active === nav.title;
             return (
@@ -89,9 +79,7 @@ const Navbar = () => {
                 href={`#${nav.id}`}
                 onClick={() => handleNav(nav.title)}
                 className={`relative px-4 py-1.5 rounded-full text-[13px] font-medium transition-colors duration-200 ${
-                  isActive
-                    ? "text-white"
-                    : "text-slate-400 hover:text-slate-200"
+                  isActive ? "text-white" : "text-slate-400 hover:text-slate-200"
                 }`}
               >
                 {isActive && (
@@ -105,18 +93,9 @@ const Navbar = () => {
               </a>
             );
           })}
-
-          {/* divider */}
-          <div className="w-px h-5 bg-white/[0.08] mx-1" />
-
-          {/* theme toggle */}
-          <div className="mr-0.5">
-            <ThemeToggle />
-          </div>
         </div>
       </motion.nav>
 
-      {/* ─── Mobile: top bar + drawer ─── */}
       <nav
         className={`sm:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 transition-all duration-300 ${
           scrolled
@@ -136,19 +115,15 @@ const Navbar = () => {
           <span className="text-white text-sm font-semibold tracking-tight">JJK</span>
         </Link>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex items-center justify-center w-9 h-9 rounded-lg text-slate-300 hover:text-white hover:bg-white/[0.06] transition-colors cursor-pointer"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            <FontAwesomeIcon icon={mobileOpen ? faClose : faBars} className="text-lg" />
-          </button>
-        </div>
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="flex items-center justify-center w-10 h-10 rounded-lg text-slate-300 hover:text-white hover:bg-white/[0.06] transition-colors cursor-pointer"
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+        >
+          <FontAwesomeIcon icon={mobileOpen ? faClose : faBars} className="text-lg" />
+        </button>
       </nav>
 
-      {/* mobile overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <>

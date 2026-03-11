@@ -1,5 +1,4 @@
 import {
-  About,
   Contact,
   Experience,
   Hero,
@@ -10,20 +9,17 @@ import {
 const Home = () => {
   return (
     <>
-      <div className="w-full min-h-screen relative bg-black/30">
+      <div className="w-full min-h-screen relative">
         <Navbar />
         <Hero />
       </div>
-      <div className="relative bg-black/30">
-        <About />
-      </div>
-      <div className="relative bg-black/25">
+      <div className="relative">
         <Experience />
       </div>
-      <div className="relative bg-black/30">
+      <div className="relative">
         <Works />
       </div>
-      <div className="relative bg-black/20">
+      <div className="relative">
         <Contact />
       </div>
     </>

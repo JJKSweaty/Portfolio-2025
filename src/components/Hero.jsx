@@ -5,18 +5,15 @@ import {
   faFileArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { AppleHelloEnglishEffect } from "./ui/shadcn-io/apple-hello-effect";
-import ParticleBackground from "./ParticleBackground";
 import { faceLogo, resumePdf } from "../assets";
 
 const Hero = () => {
   return (
-    <section className="relative w-full min-h-screen mx-auto overflow-hidden flex items-center justify-center pt-16 sm:pt-20">
-      <ParticleBackground />
+    <section className="relative w-full min-h-screen mx-auto overflow-hidden flex items-center justify-center pt-20 sm:pt-24">
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_-8%,rgba(140,160,182,0.18),transparent_44%),linear-gradient(180deg,#070b11_0%,#090d14_56%,#070b11_100%)]" />
+      <div className="absolute inset-0 pointer-events-none opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:72px_72px]" />
 
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_42%),linear-gradient(180deg,#070809_0%,#0a0b0d_58%,#070809_100%)]" />
-      <div className="absolute inset-0 pointer-events-none opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:44px_44px]" />
-
-      <div className="max-w-4xl mx-auto px-6 relative z-10 -translate-y-8 sm:-translate-y-10">
+      <div className="max-w-4xl mx-auto px-6 relative z-10 sm:-translate-y-6">
         <div className="text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -30,18 +27,18 @@ const Hero = () => {
               />
             </div>
 
-            <h1 className="display-font text-5xl sm:text-6xl md:text-7xl font-semibold text-white leading-none mb-4">
+            <h1 className="display-font text-4xl sm:text-6xl md:text-7xl font-semibold text-white leading-[0.95] mb-4">
               I&apos;m{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f7ebd2] via-[#d8c4a5] to-[#9de6c5]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e7edf5] via-[#b6c3d2] to-[#8ca0b6]">
                 Jonathan
               </span>
             </h1>
 
-            <p className="text-[#d9d2c6] text-lg sm:text-2xl font-medium mb-4">
+            <p className="text-slate-300 text-base sm:text-2xl font-medium mb-4">
               Electrical Engineering @ University of Waterloo
             </p>
 
-            <p className="text-slate-200 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-7">
+            <p className="text-slate-300 text-sm sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-7">
               I build embedded systems, design hardware, and tinker with GPU
               acceleration.
             </p>
@@ -50,7 +47,7 @@ const Hero = () => {
               <img
                 src={faceLogo}
                 alt="Jonathan Koshy"
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-[#9de6c5]/35 shadow-[0_0_40px_rgba(157,230,197,0.15)]"
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-[var(--theme-primary)]/35 shadow-[0_0_28px_var(--theme-glow)]"
               />
             </div>
 
@@ -59,17 +56,17 @@ const Hero = () => {
                 href={resumePdf}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg border border-[#d8c4a5]/45 bg-gradient-to-r from-[#d8c4a5]/20 to-[#9de6c5]/20 text-[#f2eadb] hover:from-[#d8c4a5]/30 hover:to-[#9de6c5]/30 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg border border-[var(--theme-primary)]/35 bg-[var(--theme-primary)]/12 text-slate-100 hover:bg-[var(--theme-primary)]/18 transition-all duration-300"
               >
                 <FontAwesomeIcon icon={faFileArrowDown} className="text-xs" />
                 View Resume
               </a>
               <a
-                href="#skills"
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border border-[#9de6c5]/30 bg-slate-900/55 text-slate-100 hover:text-white hover:border-[#9de6c5]/60 hover:bg-slate-900/80 transition-all duration-300"
+                href="#projects"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border border-white/[0.2] bg-black/30 text-slate-100 hover:text-white hover:border-[var(--theme-primary)]/45 hover:bg-black/45 transition-all duration-300"
               >
                 <FontAwesomeIcon icon={faBolt} className="text-xs" />
-                Explore Portfolio
+                View Projects
               </a>
             </div>
           </motion.div>

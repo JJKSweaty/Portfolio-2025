@@ -1,82 +1,52 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect } from "react";
+
+const FIXED_THEME = {
+  key: "professional-dark",
+  primary: "#8ca0b6",
+  secondary: "#6f8094",
+  bg: "#070b11",
+  text: "#e8edf3",
+  accent: "rgba(140, 160, 182, 0.08)",
+};
 
 const ThemeContext = createContext({
-  theme: 'cyber-green',
+  theme: FIXED_THEME.key,
   setTheme: () => {},
 });
 
 export const useTheme = () => useContext(ThemeContext);
+export const themes = { [FIXED_THEME.key]: FIXED_THEME };
 
-export const themes = {
-  'arctic': {
-    primary: '#7dd3fc',
-    secondary: '#38bdf8',
-    bg: '#020617',
-    text: '#f1f5f9',
-    accent: 'rgba(125, 211, 252, 0.1)',
-  },
-  'lavender': {
-    primary: '#a78bfa',
-    secondary: '#c084fc',
-    bg: '#0c0a14',
-    text: '#f1f5f9',
-    accent: 'rgba(167, 139, 250, 0.08)',
-  },
-  'ember': {
-    primary: '#fb923c',
-    secondary: '#f97316',
-    bg: '#0f0a06',
-    text: '#f1f5f9',
-    accent: 'rgba(251, 146, 60, 0.08)',
-  },
-  'ocean': {
-    primary: '#38bdf8',
-    secondary: '#22d3ee',
-    bg: '#060d14',
-    text: '#f1f5f9',
-    accent: 'rgba(56, 189, 248, 0.08)',
-  },
+const hexToRgb = (hex) => {
+  const normalized = hex.replace("#", "");
+  if (normalized.length !== 6) return "140, 160, 182";
+  const r = parseInt(normalized.substring(0, 2), 16);
+  const g = parseInt(normalized.substring(2, 4), 16);
+  const b = parseInt(normalized.substring(4, 6), 16);
+  return `${r}, ${g}, ${b}`;
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('arctic');
-
   useEffect(() => {
-    const savedTheme = localStorage.getItem('portfolio-theme') || 'arctic';
-    setTheme(savedTheme);
+    const primaryRgb = hexToRgb(FIXED_THEME.primary);
+    const secondaryRgb = hexToRgb(FIXED_THEME.secondary);
+
+    document.documentElement.style.setProperty("--theme-primary", FIXED_THEME.primary);
+    document.documentElement.style.setProperty("--theme-secondary", FIXED_THEME.secondary);
+    document.documentElement.style.setProperty("--theme-bg", FIXED_THEME.bg);
+    document.documentElement.style.setProperty("--theme-text", FIXED_THEME.text);
+    document.documentElement.style.setProperty("--theme-accent", FIXED_THEME.accent);
+    document.documentElement.style.setProperty("--theme-primary-muted", `rgba(${primaryRgb}, 0.28)`);
+    document.documentElement.style.setProperty("--theme-border", `rgba(${primaryRgb}, 0.18)`);
+    document.documentElement.style.setProperty("--theme-bg-card", `rgba(${primaryRgb}, 0.06)`);
+    document.documentElement.style.setProperty("--theme-bg-card-hover", `rgba(${primaryRgb}, 0.11)`);
+    document.documentElement.style.setProperty("--theme-glow", `rgba(${primaryRgb}, 0.22)`);
+    document.documentElement.style.setProperty("--theme-secondary-muted", `rgba(${secondaryRgb}, 0.06)`);
   }, []);
 
-  useEffect(() => {
-    const colors = themes[theme];
-    document.documentElement.style.setProperty('--theme-primary', colors.primary);
-    document.documentElement.style.setProperty('--theme-secondary', colors.secondary);
-    document.documentElement.style.setProperty('--theme-bg', colors.bg);
-    document.documentElement.style.setProperty('--theme-text', colors.text);
-    document.documentElement.style.setProperty('--theme-accent', colors.accent);
-    
-    // Calculate additional theme variables based on primary color
-    const primaryRgb = hexToRgb(colors.primary);
-    document.documentElement.style.setProperty('--theme-primary-muted', `rgba(${primaryRgb}, 0.3)`);
-    document.documentElement.style.setProperty('--theme-border', `rgba(${primaryRgb}, 0.2)`);
-    document.documentElement.style.setProperty('--theme-bg-card', `rgba(${primaryRgb}, 0.1)`);
-    document.documentElement.style.setProperty('--theme-bg-card-hover', `rgba(${primaryRgb}, 0.15)`);
-    document.documentElement.style.setProperty('--theme-glow', `rgba(${primaryRgb}, 0.5)`);
-    
-    const secondaryRgb = hexToRgb(colors.secondary);
-    document.documentElement.style.setProperty('--theme-secondary-muted', `rgba(${secondaryRgb}, 0.05)`);
-    
-    localStorage.setItem('portfolio-theme', theme);
-  }, [theme]);
-
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme: FIXED_THEME.key, setTheme: () => {} }}>
       {children}
     </ThemeContext.Provider>
   );
 };
-
-// Helper function to convert hex to RGB
-function hexToRgb(hex) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '100, 255, 218';
-}

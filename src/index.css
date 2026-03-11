@@ -7,25 +7,25 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --soft-grey: #8892b0;
-  --pure-black: #0a0a0f;
-  --dark-bg: #0a0a0f;
-  --pure-white: #f1f5f9;
+  --soft-grey: #8ca0b6;
+  --pure-black: #070b11;
+  --dark-bg: #070b11;
+  --pure-white: #e8edf3;
 
   /* Theme variables (dynamically set by ThemeProvider) */
-  --theme-primary: #94a3b8;
-  --theme-secondary: #60a5fa;
-  --theme-bg: #0a0a0f;
-  --theme-text: #f1f5f9;
-  --theme-accent: rgba(148, 163, 184, 0.08);
+  --theme-primary: #8ca0b6;
+  --theme-secondary: #6f8094;
+  --theme-bg: #070b11;
+  --theme-text: #e8edf3;
+  --theme-accent: rgba(140, 160, 182, 0.08);
 
   /* Derived theme variables */
-  --theme-primary-muted: rgba(148, 163, 184, 0.3);
-  --theme-border: rgba(148, 163, 184, 0.15);
-  --theme-bg-card: rgba(148, 163, 184, 0.06);
-  --theme-bg-card-hover: rgba(148, 163, 184, 0.1);
-  --theme-glow: rgba(148, 163, 184, 0.25);
-  --theme-secondary-muted: rgba(96, 165, 250, 0.05);
+  --theme-primary-muted: rgba(140, 160, 182, 0.3);
+  --theme-border: rgba(140, 160, 182, 0.15);
+  --theme-bg-card: rgba(140, 160, 182, 0.06);
+  --theme-bg-card-hover: rgba(140, 160, 182, 0.1);
+  --theme-glow: rgba(140, 160, 182, 0.22);
+  --theme-secondary-muted: rgba(111, 128, 148, 0.05);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -67,12 +67,12 @@
 }
 
 body {
-  background-color: #0a0a0f;
-  color: #f1f5f9;
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
 }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.3);
+  background: rgba(140, 160, 182, 0.3);
   color: #ffffff;
 }
 

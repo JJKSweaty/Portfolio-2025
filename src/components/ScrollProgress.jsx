@@ -39,7 +39,7 @@ const ScrollProgress = () => {
   return (
     <div className="fixed top-0 left-0 right-0 z-[70] h-[2px] bg-white/[0.06] pointer-events-none">
       <motion.div
-        className="h-full bg-gradient-to-r from-[var(--theme-primary)] via-[var(--theme-secondary)] to-[var(--theme-primary)] shadow-[0_0_16px_var(--theme-glow)]"
+        className="h-full bg-[var(--theme-primary)] shadow-[0_0_12px_var(--theme-glow)]"
         style={{ scaleX: smoothProgress, transformOrigin: "0% 50%" }}
       />
     </div>
