@@ -13,7 +13,7 @@ const Hero = () => {
       <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_-8%,rgba(140,160,182,0.18),transparent_44%),linear-gradient(180deg,#070b11_0%,#090d14_56%,#070b11_100%)]" />
       <div className="absolute inset-0 pointer-events-none opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:72px_72px]" />
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10 sm:-translate-y-6">
+      <div className="max-w-4xl mx-auto px-6 relative z-10 -translate-y-6">
         <div className="text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
