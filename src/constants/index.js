@@ -252,7 +252,7 @@ import {
       devpost_link: "https://devpost.com/software/ember-n8m3yk",
     },
     {
-      name: "Autonomous Disk Launcher",
+      name: "Autonomous Disk Launcher  (In Progress)",
       description: "Vision-guided launcher with PID tracking, LiDAR range-gating, and dual-flywheel actuation.",
       type: "hardware",
       category: "embedded",
