@@ -81,20 +81,6 @@ const experiences = [
 ];
 
 const Experience = () => {
-  const embeddedRoles = experiences.filter((item) =>
-    item.track.toLowerCase().includes("embedded")
-  ).length;
-  const hardwareRoles = experiences.filter((item) =>
-    item.track.toLowerCase().includes("hardware")
-  ).length;
-
-  const stats = [
-    { label: "Roles", value: experiences.length },
-    { label: "Embedded", value: embeddedRoles },
-    { label: "Hardware", value: hardwareRoles },
-    { label: "Latest", value: "2025" },
-  ];
-
   return (
     <section id="work" className="py-16 sm:py-24 bg-transparent">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -117,38 +103,7 @@ const Experience = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-10">
-          <motion.aside
-            initial={{ opacity: 0, x: -12 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.35 }}
-            className="h-fit lg:sticky lg:top-24 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 sm:p-6"
-          >
-            <p className="text-[11px] uppercase tracking-[0.16em] text-slate-500 mb-2">
-              Snapshot
-            </p>
-            <h3 className="text-xl font-semibold text-white mb-3">Hands-On Builder</h3>
-            <p className="text-sm leading-relaxed text-slate-400 mb-5">
-              End-to-end delivery from schematic and firmware to test tooling,
-              validation, and product-facing UX.
-            </p>
-
-            <div className="grid grid-cols-2 gap-2">
-              {stats.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-xl border border-white/[0.06] bg-black/20 px-3 py-2.5"
-                >
-                  <p className="text-lg font-semibold text-white leading-none">{item.value}</p>
-                  <p className="text-[10px] text-slate-500 mt-1 uppercase tracking-[0.12em]">
-                    {item.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.aside>
-
+        <div>
           <div className="relative">
             <div className="absolute left-[11px] top-2 bottom-2 w-px bg-gradient-to-b from-[var(--theme-primary)]/40 via-white/10 to-transparent" />
 
