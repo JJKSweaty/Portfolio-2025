@@ -339,7 +339,7 @@ const Works = () => {
         >
           <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-5 rounded-3xl border border-white/[0.08] bg-gradient-to-br from-white/[0.03] via-white/[0.01] to-transparent p-4 sm:p-5">
             <div className="rounded-2xl border border-white/[0.08] bg-black/35 p-3 sm:p-4">
-              <div className="relative mx-auto w-full max-w-[560px] aspect-[16/9] rounded-xl overflow-hidden bg-black/55">
+              <div className="relative mx-auto w-full max-w-[520px] aspect-[16/9] rounded-xl overflow-hidden bg-black/55">
                 {featuredProject.demoVideoMp4 ? (
                   <video
                     className="absolute inset-0 w-full h-full object-cover"

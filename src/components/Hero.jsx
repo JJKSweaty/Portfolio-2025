@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBolt,
-  faFileArrowDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import { AppleHelloEnglishEffect } from "./ui/shadcn-io/apple-hello-effect";
-import { faceLogo, resumePdf } from "../assets";
 
 const Hero = () => {
   return (
@@ -43,24 +39,7 @@ const Hero = () => {
               acceleration.
             </p>
 
-            <div className="flex justify-center mb-7">
-              <img
-                src={faceLogo}
-                alt="Jonathan Koshy"
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-[var(--theme-primary)]/35 shadow-[0_0_28px_var(--theme-glow)]"
-              />
-            </div>
-
             <div className="flex justify-center flex-wrap items-center gap-3">
-              <a
-                href={resumePdf}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg border border-[var(--theme-primary)]/35 bg-[var(--theme-primary)]/12 text-slate-100 hover:bg-[var(--theme-primary)]/18 transition-all duration-300"
-              >
-                <FontAwesomeIcon icon={faFileArrowDown} className="text-xs" />
-                View Resume
-              </a>
               <a
                 href="#projects"
                 className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border border-white/[0.2] bg-black/30 text-slate-100 hover:text-white hover:border-[var(--theme-primary)]/45 hover:bg-black/45 transition-all duration-300"

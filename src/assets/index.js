@@ -38,7 +38,6 @@ import claudefirmwareai from './claudefirmwareai.png'
 import mnst from './mnst.png'
 import heartbeatpcb from './hearbeatsensor pcb.png'
 import emberapp from "../emberapp.jpg";
-import resumePdf from './resumeJonathanArch.pdf'
 export {
   logo,
   backend,
@@ -80,5 +79,4 @@ export {
   mnst,
   heartbeatpcb,
   emberapp,
-  resumePdf,
 };
