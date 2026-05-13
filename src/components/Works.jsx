@@ -68,6 +68,13 @@ const ProjectCard = ({ project, index, onOpenDemo }) => {
               loading="lazy"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
             />
+          ) : project.gds_viewer_link ? (
+            <iframe
+              src={project.gds_viewer_link}
+              title={`${project.name} GDS viewer`}
+              loading="lazy"
+              className="w-full h-full border-0 bg-black"
+            />
           ) : youtubeId ? (
             <img
               src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
@@ -105,6 +112,20 @@ const ProjectCard = ({ project, index, onOpenDemo }) => {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-8 h-8 rounded-full bg-black/55 border border-white/15 hover:border-[var(--theme-primary)]/50 transition-colors"
                 aria-label="View project on Devpost"
+              >
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  className="text-xs text-white/85"
+                />
+              </a>
+            )}
+            {project.gds_viewer_link && (
+              <a
+                href={project.gds_viewer_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-8 h-8 rounded-full bg-black/55 border border-white/15 hover:border-[var(--theme-primary)]/50 transition-colors"
+                aria-label="Open GDS viewer"
               >
                 <FontAwesomeIcon
                   icon={faArrowUpRightFromSquare}
@@ -174,6 +195,16 @@ const ProjectCard = ({ project, index, onOpenDemo }) => {
                 className="inline-flex items-center gap-2 text-sm font-medium text-[var(--theme-primary)] hover:text-[var(--theme-primary)]/85 transition-colors"
               >
                 View source
+                <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-xs" />
+              </a>
+            ) : project.gds_viewer_link ? (
+              <a
+                href={project.gds_viewer_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-[var(--theme-primary)] hover:text-[var(--theme-primary)]/85 transition-colors"
+              >
+                View GDS
                 <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-xs" />
               </a>
             ) : null}
@@ -356,6 +387,13 @@ const Works = () => {
                     alt={featuredProject.name}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
+                ) : featuredProject.gds_viewer_link ? (
+                  <iframe
+                    src={featuredProject.gds_viewer_link}
+                    title={`${featuredProject.name} GDS viewer`}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full border-0 bg-black"
+                  />
                 ) : featuredVideoId ? (
                   <img
                     src={`https://img.youtube.com/vi/${featuredVideoId}/hqdefault.jpg`}
@@ -436,6 +474,17 @@ const Works = () => {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-white/[0.2] text-slate-200 hover:text-white hover:border-white/35 transition-colors"
                   >
                     Source
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-xs" />
+                  </a>
+                )}
+                {featuredProject.gds_viewer_link && (
+                  <a
+                    href={featuredProject.gds_viewer_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-white/[0.2] text-slate-200 hover:text-white hover:border-white/35 transition-colors"
+                  >
+                    View GDS
                     <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="text-xs" />
                   </a>
                 )}

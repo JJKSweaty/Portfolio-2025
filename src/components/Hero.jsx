@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt } from "@fortawesome/free-solid-svg-icons";
+import { faBolt, faFileLines } from "@fortawesome/free-solid-svg-icons";
 import { AppleHelloEnglishEffect } from "./ui/shadcn-io/apple-hello-effect";
 
 const Hero = () => {
@@ -46,6 +46,15 @@ const Hero = () => {
               >
                 <FontAwesomeIcon icon={faBolt} className="text-xs" />
                 View Projects
+              </a>
+              <a
+                href="/resumeJonathanEmbedded.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border border-[var(--theme-primary)]/35 bg-[var(--theme-primary)]/14 text-[var(--theme-primary)] hover:bg-[var(--theme-primary)]/20 hover:border-[var(--theme-primary)]/55 transition-all duration-300"
+              >
+                <FontAwesomeIcon icon={faFileLines} className="text-xs" />
+                View Resume
               </a>
             </div>
           </motion.div>
