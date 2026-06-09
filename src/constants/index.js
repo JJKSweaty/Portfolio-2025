@@ -28,6 +28,7 @@ import {
     claudefirmwareai,
     mnst,
     heartbeatpcb,
+    spiASICTinyTapeout,
     emberapp,
   } from "../assets";
   import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -179,6 +180,21 @@ import {
 
   
   const projects = [
+    {
+      name: "SPI Controlled PWM Peripheral",
+      description: "Verilog SPI-to-PWM ASIC peripheral for Tiny Tapeout, with Mode 0 packet decoding, memory-mapped control registers, clock-domain crossing, and Cocotb-verified PWM timing.",
+      type: "hardware",
+      category: "hardware",
+      tags: [
+        { name: "Verilog" },
+        { name: "SPI" },
+        { name: "PWM" },
+        { name: "CDC" },
+        { name: "Cocotb" },
+      ],
+      image: spiASICTinyTapeout,
+      gds_viewer_link: "https://gds-viewer.tinytapeout.com/?process=SKY130&model=https%3A%2F%2Fjjksweaty.github.io%2Fonboarding-start%2F%2Ftinytapeout.gds",
+    },
     {
       name: "SignToLearn",
       description: "Real-time ASL gesture recognition app with 90%+ accuracy using MediaPipe and TensorFlow.",

@@ -37,8 +37,8 @@ import truvote  from './truvote.png'
 import claudefirmwareai from './claudefirmwareai.png'
 import mnst from './mnst.png'
 import heartbeatpcb from './hearbeatsensor pcb.png'
+import spiASICTinyTapeout from './spiASICTinyTapeout.png'
 import emberapp from "../emberapp.jpg";
-import resumePdf from './resumeJonathanArch.pdf'
 export {
   logo,
   backend,
@@ -79,6 +79,6 @@ export {
   claudefirmwareai,
   mnst,
   heartbeatpcb,
+  spiASICTinyTapeout,
   emberapp,
-  resumePdf,
 };

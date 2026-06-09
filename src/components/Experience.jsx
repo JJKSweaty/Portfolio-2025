@@ -4,10 +4,32 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const experiences = [
   {
+    company: "Belimo",
+    role: "Firmware Development Intern",
+    period: "May 2026 - Aug 2026",
+    location: "Montreal, QC",
+    summary:
+      "Developed bare-metal Embedded C firmware for memory-constrained HVAC sensor and actuator controllers, with interrupt-driven control logic built around deterministic routines, global state, and binary flags. Validated CAN, UART, and I2C traffic while debugging controller state machines, sensor reads, actuator commands, PCB hardware behavior, and BACnet integration across system tests.",
+    highlights: [],
+    stack: ["Embedded C", "Bare Metal", "CAN", "UART", "I2C", "BACnet"],
+    track: "Firmware",
+  },
+  {
+    company: "UWASIC",
+    role: "ASIC Digital Member",
+    period: "Jan 2026 - Present",
+    location: "Waterloo, ON",
+    summary:
+      "Designed RTL for an SPI-controlled PWM peripheral using Mode 0 SPI transactions and memory-mapped registers. Implemented clock domain crossing, synchronized edge detection, bit counting, and address validation for SPI inputs, then verified PWM frequency, duty-cycle accuracy, and register behavior with Cocotb, Icarus Verilog, and GTKWave.",
+    highlights: [],
+    stack: ["Verilog", "RTL", "SPI", "PWM", "CDC", "Cocotb"],
+    track: "Digital Design",
+  },
+  {
     company: "AeroCardia",
     role: "Embedded Systems Intern",
     period: "Sep 2025 - Dec 2025",
-    location: "Toronto, ON",
+    location: "Montreal, QC",
     summary:
       "Built low-noise biomedical boards and real-time firmware pipelines for high-fidelity sensor acquisition.",
     highlights: [
@@ -141,20 +163,22 @@ const Experience = () => {
                       {exp.summary}
                     </p>
 
-                    <ul className="space-y-2 mb-5">
-                      {exp.highlights.map((point) => (
-                        <li
-                          key={point}
-                          className="text-sm text-slate-300/90 leading-relaxed break-words flex gap-2.5"
-                        >
-                          <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className="text-[10px] text-[var(--theme-primary)] mt-[7px]"
-                          />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    {exp.highlights.length > 0 && (
+                      <ul className="space-y-2 mb-5">
+                        {exp.highlights.map((point) => (
+                          <li
+                            key={point}
+                            className="text-sm text-slate-300/90 leading-relaxed break-words flex gap-2.5"
+                          >
+                            <FontAwesomeIcon
+                              icon={faArrowRight}
+                              className="text-[10px] text-[var(--theme-primary)] mt-[7px]"
+                            />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
                     <div className="flex flex-wrap gap-1.5">
                       {exp.stack.map((tech) => (
