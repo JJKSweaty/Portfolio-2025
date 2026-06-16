@@ -1,20 +1,29 @@
-# 🚀 My Portfolio Website  
+# Jonathan Koshy Portfolio
 
-This is my personal portfolio website, built to showcase my **projects, skills, and experience** as an engineer and developer.  
+Personal portfolio for firmware, embedded systems, robotics, edge-computing, and GPU systems work.
 
-## 🛠️ Tech Stack  
-- **Frontend:** React, Tailwind CSS
-- **Assets & Tools:** Vite, Three.js, Framer Motion  
+## Stack
 
-## 📂 Features  
-- ✨ **Smooth animations** using Framer Motion  
-- 🎨 **3D elements** with Three.js  
-- 📱 **Responsive design** with Tailwind CSS  
-- 🏗️ **Project showcase** with images and descriptions  
-- 📬 **Contact section** with social links  
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- Lucide icons
 
-## 📦 Setup & Installation  
-1. **Clone the repository:**  
-   ```bash
-   git clone https://github.com/JJKSweaty/Portfolio-2025.git
-   cd your-portfolio
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Validation
+
+```bash
+npm run lint
+npm run build
+```
+
+## Content
+
+Portfolio content is centralized in `src/data/portfolio.js`.

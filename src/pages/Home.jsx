@@ -1,30 +1,22 @@
-import {
-  Contact,
-  Experience,
-  Hero,
-  Navbar,
-  Works,
-} from "../components";
+import { useEffect } from "react";
+import { Contact, Experience, Hero, Navbar, Works } from "../components";
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Jonathan Koshy - Firmware & Embedded Systems Engineer";
+  }, []);
+
   return (
-    <>
-      <div className="w-full min-h-screen relative">
-        <Navbar />
+    <div className="app-shell">
+      <Navbar />
+      <main>
         <Hero />
-      </div>
-      <div className="relative">
         <Experience />
-      </div>
-      <div className="relative">
         <Works />
-      </div>
-      <div className="relative">
         <Contact />
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
 
 export default Home;
-

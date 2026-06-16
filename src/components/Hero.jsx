@@ -1,64 +1,72 @@
-import { motion } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt } from "@fortawesome/free-solid-svg-icons";
-import { AppleHelloEnglishEffect } from "./ui/shadcn-io/apple-hello-effect";
-import { faceLogo } from "../assets";
+import { ArrowRight, FileText, Github, Linkedin, Mail } from "lucide-react";
+import { portfolio } from "../data/portfolio";
+
+const socialIcons = {
+  GitHub: Github,
+  LinkedIn: Linkedin,
+  Email: Mail,
+};
 
 const Hero = () => {
+  const { person, socials } = portfolio;
+
   return (
-    <section className="relative w-full min-h-screen mx-auto overflow-hidden flex items-center justify-center pt-20 sm:pt-24">
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_-8%,rgba(140,160,182,0.18),transparent_44%),linear-gradient(180deg,#070b11_0%,#090d14_56%,#070b11_100%)]" />
-      <div className="absolute inset-0 pointer-events-none opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:72px_72px]" />
+    <section className="hero-section" aria-labelledby="hero-title">
+      <div className="site-container hero-grid">
+        <div className="hero-copy">
+          <p className="eyebrow">Firmware / Embedded Systems / Edge Compute</p>
+          <h1 id="hero-title">{person.name}</h1>
+          <p className="hero-title">{person.title}</p>
+          <p className="hero-summary">{person.summary}</p>
+          <p className="hero-focus">{person.focus}</p>
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10 -translate-y-6">
-        <div className="text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <div className="h-14 sm:h-20 flex justify-center items-center mb-1 text-[#d8c9b3]">
-              <AppleHelloEnglishEffect
-                speed={1.05}
-                className="h-10 sm:h-14 w-full max-w-[280px] sm:max-w-[360px]"
-              />
-            </div>
+          <div className="availability-panel" aria-label="Availability">
+            {person.availability.map((item) => (
+              <div key={item.label}>
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </div>
 
-            <h1 className="display-font text-4xl sm:text-6xl md:text-7xl font-semibold text-white leading-[0.95] mb-4">
-              I&apos;m{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e7edf5] via-[#b6c3d2] to-[#8ca0b6]">
-                Jonathan
-              </span>
-            </h1>
+          <div className="hero-actions">
+            <a className="button button-primary" href="#projects">
+              View Projects
+              <ArrowRight size={16} aria-hidden="true" />
+            </a>
+            <a className="button button-secondary" href={person.resumePath}>
+              <FileText size={16} aria-hidden="true" />
+              View Resume
+            </a>
+          </div>
 
-            <p className="text-slate-300 text-base sm:text-2xl font-medium mb-4">
-              Electrical Engineering @ University of Waterloo
-            </p>
-
-            <p className="text-slate-300 text-sm sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-7">
-              I build embedded systems, design hardware, and tinker with GPU
-              acceleration.
-            </p>
-
-            <div className="flex justify-center mb-7">
-              <img
-                src={faceLogo}
-                alt="Jonathan Koshy"
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-[var(--theme-primary)]/35 shadow-[0_0_28px_var(--theme-glow)]"
-              />
-            </div>
-
-            <div className="flex justify-center flex-wrap items-center gap-3">
-              <a
-                href="#projects"
-                className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg border border-white/[0.2] bg-black/30 text-slate-100 hover:text-white hover:border-[var(--theme-primary)]/45 hover:bg-black/45 transition-all duration-300"
-              >
-                <FontAwesomeIcon icon={faBolt} className="text-xs" />
-                View Projects
-              </a>
-            </div>
-          </motion.div>
+          <div className="hero-links" aria-label="External profile links">
+            {socials.map((link) => {
+              const Icon = socialIcons[link.label] || ArrowRight;
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                >
+                  <Icon size={16} aria-hidden="true" />
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
         </div>
+
+        <aside className="hero-aside" aria-label="Profile snapshot">
+          <img
+            src={person.headshot}
+            alt="Jonathan Koshy"
+            width="168"
+            height="168"
+            className="profile-photo"
+          />
+        </aside>
       </div>
     </section>
   );

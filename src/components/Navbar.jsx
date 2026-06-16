@@ -1,171 +1,159 @@
-﻿import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faBars } from "@fortawesome/free-solid-svg-icons";
-import { navLinks } from "../constants";
-import { logo } from "../assets";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { portfolio } from "../data/portfolio";
+import { useTheme } from "@/hooks/useTheme";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 48);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    const sections = navLinks.map((n) => document.getElementById(n.id)).filter(Boolean);
-    if (!sections.length) return;
+    if (!isHome) {
+      setActive("");
+      return undefined;
+    }
+
+    const sections = portfolio.navLinks
+      .map((nav) => document.getElementById(nav.id))
+      .filter(Boolean);
+
+    if (!sections.length) return undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const match = navLinks.find((n) => n.id === entry.target.id);
-            if (match) setActive(match.title);
-          }
+          if (entry.isIntersecting) setActive(entry.target.id);
         });
       },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      { rootMargin: "-35% 0px -55% 0px", threshold: 0.01 }
     );
 
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, []);
+  }, [isHome]);
 
-  const handleNav = useCallback((title) => {
-    setActive(title);
+  const handleSectionClick = (event, id) => {
     setMobileOpen(false);
-  }, []);
+    setActive(id);
+
+    if (!isHome) return;
+
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    event.preventDefault();
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const navItems = portfolio.navLinks.map((nav) => {
+    const isActive = active === nav.id;
+    const href = isHome ? `#${nav.id}` : `/#${nav.id}`;
+
+    return (
+      <a
+        key={nav.id}
+        href={href}
+        onClick={(event) => handleSectionClick(event, nav.id)}
+        className={`nav-link ${isActive ? "nav-link-active" : ""}`}
+      >
+        {nav.label}
+      </a>
+    );
+  });
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
 
   return (
-    <>
-      <motion.nav
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="fixed top-0 left-0 right-0 z-50 hidden sm:flex justify-center pointer-events-none pt-4"
-      >
-        <div
-          className={`pointer-events-auto flex items-center gap-1 px-1.5 py-1.5 rounded-full border transition-all duration-300 ${
-            scrolled
-              ? "bg-black/70 backdrop-blur-xl border-white/[0.08] shadow-lg shadow-black/20"
-              : "bg-white/[0.03] backdrop-blur-md border-white/[0.06]"
-          }`}
-        >
-          <Link
-            to="/"
-            onClick={() => {
-              setActive("");
-              window.scrollTo(0, 0);
-            }}
-            className="flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.1] transition-colors ml-0.5"
-            aria-label="Home"
-          >
-            <img src={logo} alt="" className="w-5 h-5" />
-          </Link>
-
-          <div className="w-px h-5 bg-white/[0.08] mx-1" />
-
-          {navLinks.map((nav) => {
-            const isActive = active === nav.title;
-            return (
-              <a
-                key={nav.id}
-                href={`#${nav.id}`}
-                onClick={() => handleNav(nav.title)}
-                className={`relative px-4 py-1.5 rounded-full text-[13px] font-medium transition-colors duration-200 ${
-                  isActive ? "text-white" : "text-slate-400 hover:text-slate-200"
-                }`}
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 rounded-full bg-white/[0.08] border border-white/[0.06]"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <span className="relative z-10">{nav.title}</span>
-              </a>
-            );
-          })}
-        </div>
-      </motion.nav>
-
-      <nav
-        className={`sm:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 transition-all duration-300 ${
-          scrolled
-            ? "bg-black/70 backdrop-blur-xl border-b border-white/[0.06]"
-            : "bg-transparent"
-        }`}
-      >
+    <header
+      className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}
+    >
+      <nav className="site-nav" aria-label="Primary navigation">
         <Link
           to="/"
           onClick={() => {
             setActive("");
-            window.scrollTo(0, 0);
+            setMobileOpen(false);
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="flex items-center gap-2.5"
+          className="brand-mark"
+          aria-label="Jonathan Koshy home"
         >
-          <img src={logo} alt="" className="w-7 h-7" />
-          <span className="text-white text-sm font-semibold tracking-tight">JJK</span>
+          <span>{portfolio.person.initials}</span>
         </Link>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex items-center justify-center w-10 h-10 rounded-lg text-slate-300 hover:text-white hover:bg-white/[0.06] transition-colors cursor-pointer"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-        >
-          <FontAwesomeIcon icon={mobileOpen ? faClose : faBars} className="text-lg" />
-        </button>
-      </nav>
+        <div className="desktop-nav">{navItems}</div>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="sm:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
-              onClick={() => setMobileOpen(false)}
-            />
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.2 }}
-              className="sm:hidden fixed top-14 left-4 right-4 z-50 rounded-2xl border border-white/[0.08] bg-black/90 backdrop-blur-xl p-5 shadow-2xl"
-            >
-              <ul className="flex flex-col gap-1">
-                {navLinks.map((nav) => {
-                  const isActive = active === nav.title;
-                  return (
-                    <li key={nav.id}>
-                      <a
-                        href={`#${nav.id}`}
-                        onClick={() => handleNav(nav.title)}
-                        className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                          isActive
-                            ? "text-white bg-white/[0.06]"
-                            : "text-slate-400 hover:text-white hover:bg-white/[0.03]"
-                        }`}
-                      >
-                        {nav.title}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </>
+        <div className="nav-actions">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="theme-toggle"
+                onClick={toggleTheme}
+                aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
+              >
+                {resolvedTheme === "dark" ? (
+                  <Sun aria-hidden="true" />
+                ) : (
+                  <Moon aria-hidden="true" />
+                )}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              {resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
+            </TooltipContent>
+          </Tooltip>
+
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="mobile-menu-button"
+                aria-label="Open navigation menu"
+              >
+                <Menu aria-hidden="true" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="mobile-nav-sheet">
+              <SheetTitle>Navigation</SheetTitle>
+              <div className="mobile-nav" aria-label="Mobile navigation">
+                {navItems}
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </nav>
+    </header>
   );
 };
 

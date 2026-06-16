@@ -1,200 +1,68 @@
-import { motion } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
-const experiences = [
-  {
-    company: "Belimo",
-    role: "Firmware Development Intern",
-    period: "May 2026 - Aug 2026",
-    location: "Montreal, QC",
-    summary:
-      "Developed bare-metal Embedded C firmware for memory-constrained HVAC sensor and actuator controllers, with interrupt-driven control logic built around deterministic routines, global state, and binary flags. Validated CAN, UART, and I2C traffic while debugging controller state machines, sensor reads, actuator commands, PCB hardware behavior, and BACnet integration across system tests.",
-    highlights: [],
-    stack: ["Embedded C", "Bare Metal", "CAN", "UART", "I2C", "BACnet"],
-    track: "Firmware",
-  },
-  {
-    company: "UWASIC",
-    role: "ASIC Digital Member",
-    period: "Jan 2026 - Present",
-    location: "Waterloo, ON",
-    summary:
-      "Designed RTL for an SPI-controlled PWM peripheral using Mode 0 SPI transactions and memory-mapped registers. Implemented clock domain crossing, synchronized edge detection, bit counting, and address validation for SPI inputs, then verified PWM frequency, duty-cycle accuracy, and register behavior with Cocotb, Icarus Verilog, and GTKWave.",
-    highlights: [],
-    stack: ["Verilog", "RTL", "SPI", "PWM", "CDC", "Cocotb"],
-    track: "Digital Design",
-  },
-  {
-    company: "AeroCardia",
-    role: "Embedded Systems Intern",
-    period: "Sep 2025 - Dec 2025",
-    location: "Montreal, QC",
-    summary:
-      "Built low-noise biomedical boards and real-time firmware pipelines for high-fidelity sensor acquisition.",
-    highlights: [
-      "Designed ESP32-S3 PCBs with 7+ sensors and noise-aware analog routing.",
-      "Implemented FreeRTOS firmware and BLE telemetry with sub-50 ms stream latency.",
-      "Calibrated signal chain to maintain approximately +/-2% measurement accuracy.",
-    ],
-    stack: ["ESP32-S3", "FreeRTOS", "ESP-IDF", "BLE", "PCB Design"],
-    track: "Embedded + Hardware",
-  },
-  {
-    company: "Electrium Mobility",
-    role: "Firmware Engineer",
-    period: "May 2025 - Sep 2025",
-    location: "Waterloo, ON",
-    summary:
-      "Delivered an embedded dashboard experience for motor and battery monitoring with responsive controls.",
-    highlights: [
-      "Built a touchscreen UI on ESP32 using FreeRTOS and modular driver architecture.",
-      "Integrated BLE feedback loops for wireless VESC communication and live telemetry.",
-      "Improved control responsiveness under rapid state changes and noisy sensor updates.",
-    ],
-    stack: ["ESP32", "FreeRTOS", "BLE", "VESC", "C/C++"],
-    track: "Firmware",
-  },
-  {
-    company: "UWARG",
-    role: "Embedded Flight Systems",
-    period: "Apr 2025 - Present",
-    location: "Waterloo, ON",
-    summary:
-      "Developing flight hardware test tools for safer and more repeatable actuator validation.",
-    highlights: [
-      "Designed STM32 motor tester architecture for closed-loop servo evaluation.",
-      "Configured external ADCs over SPI and mapped sensor values to PWM control curves.",
-      "Standardized test workflows to improve repeatability across hardware revisions.",
-    ],
-    stack: ["STM32", "SPI", "PWM", "ADC", "C/C++"],
-    track: "Aerospace Systems",
-  },
-  {
-    company: "UW ECE Department",
-    role: "IT Engineer",
-    period: "Sep 2024 - Dec 2024",
-    location: "Waterloo, ON",
-    summary:
-      "Maintained reliable infrastructure and automated deployment workflows for academic labs.",
-    highlights: [
-      "Sustained high-availability server operations and incident response coverage.",
-      "Automated workstation imaging pipelines to cut setup time by roughly 50%.",
-      "Provided hardware recommendations tailored to course and research workloads.",
-    ],
-    stack: ["Deployment Services", "Windows Imaging", "Networking", "System Admin"],
-    track: "Infrastructure",
-  },
-  {
-    company: "WE Accelerate",
-    role: "AI/ML Research",
-    period: "Jan 2024 - Apr 2024",
-    location: "Remote",
-    summary:
-      "Built a healthcare guidance assistant with Azure AI and data-driven recommendation flows.",
-    highlights: [
-      "Shipped chatbot workflows focused on higher diagnosis quality and triage speed.",
-      "Improved data processing paths for more consistent recommendation outputs.",
-      "Connected frontend interaction patterns to model-backed response pipelines.",
-    ],
-    stack: ["Azure AI", "JavaScript", "React", "Data Analysis"],
-    track: "Applied AI",
-  },
-];
+import { ChevronDown, ExternalLink } from "lucide-react";
+import { experiences } from "../data/portfolio";
 
 const Experience = () => {
   return (
-    <section id="work" className="py-16 sm:py-24 bg-transparent">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="text-center mb-12"
-        >
-          <p className="text-slate-500 text-sm font-medium tracking-widest uppercase mb-2">
-            Professional Journey
+    <section id="experience" className="section-block" aria-labelledby="experience-title">
+      <div className="site-container">
+        <div className="section-heading">
+          <p className="eyebrow">Experience</p>
+          <h2 id="experience-title">Firmware, hardware, and systems roles</h2>
+          <p>
+            Recent work across embedded firmware, real-time sensing, flight
+            systems, digital design, and lab infrastructure.
           </p>
-          <h2 className="display-font text-3xl sm:text-4xl font-semibold text-white">
-            Experience
-          </h2>
-          <p className="text-slate-400 text-sm sm:text-[15px] leading-relaxed max-w-2xl mx-auto mt-4">
-            Product-focused roles across embedded firmware, hardware prototyping,
-            and applied AI systems.
-          </p>
-        </motion.div>
+        </div>
 
-        <div>
-          <div className="relative">
-            <div className="absolute left-[11px] top-2 bottom-2 w-px bg-gradient-to-b from-[var(--theme-primary)]/40 via-white/10 to-transparent" />
+        <div className="timeline">
+          {experiences.map((experience) => (
+            <article className="timeline-item" key={`${experience.company}-${experience.period}`}>
+              <div className="timeline-date">{experience.period}</div>
 
-            <div className="space-y-5 sm:space-y-6">
-              {experiences.map((exp, index) => (
-                <motion.article
-                  key={`${exp.company}-${exp.period}`}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.35, delay: index * 0.05 }}
-                  className="relative pl-8 sm:pl-10"
-                >
-                  <span className="absolute left-[3px] top-7 w-4 h-4 rounded-full border border-[var(--theme-primary)]/40 bg-[#090b0d] shadow-[0_0_0_4px_rgba(7,8,9,0.9)]" />
-
-                  <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 sm:p-6 hover:border-[var(--theme-primary)]/30 transition-colors duration-300">
-                    <div className="flex flex-wrap items-center gap-2 mb-3">
-                      <span className="px-2.5 py-1 text-[11px] uppercase tracking-[0.12em] rounded-full bg-[var(--theme-primary)]/15 text-[var(--theme-primary)]/90 border border-[var(--theme-primary)]/25">
-                        {exp.period}
-                      </span>
-                      <span className="px-2.5 py-1 text-[11px] uppercase tracking-[0.12em] rounded-full bg-white/[0.04] text-slate-400 border border-white/[0.08]">
-                        {exp.track}
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg sm:text-xl font-semibold text-white leading-tight">
-                      {exp.role}
-                    </h3>
-                    <p className="text-sm text-slate-300 mt-1">
-                      {exp.company}
-                      <span className="text-slate-500"> | {exp.location}</span>
+              <div className="timeline-card">
+                <div className="timeline-card-header">
+                  <div>
+                    <h3>{experience.role}</h3>
+                    <p>
+                      {experience.company}
+                      <span> / {experience.location}</span>
                     </p>
-
-                    <p className="text-sm sm:text-[15px] text-slate-400 leading-relaxed mt-4 mb-4">
-                      {exp.summary}
-                    </p>
-
-                    {exp.highlights.length > 0 && (
-                      <ul className="space-y-2 mb-5">
-                        {exp.highlights.map((point) => (
-                          <li
-                            key={point}
-                            className="text-sm text-slate-300/90 leading-relaxed break-words flex gap-2.5"
-                          >
-                            <FontAwesomeIcon
-                              icon={faArrowRight}
-                              className="text-[10px] text-[var(--theme-primary)] mt-[7px]"
-                            />
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    <div className="flex flex-wrap gap-1.5">
-                      {exp.stack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2.5 py-1 text-[11px] font-medium rounded-md text-[var(--theme-primary)]/80 bg-[var(--theme-primary)]/[0.08] ring-1 ring-inset ring-[var(--theme-primary)]/20"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
                   </div>
-                </motion.article>
-              ))}
-            </div>
-          </div>
+                  {experience.companyUrl && (
+                    <a
+                      href={experience.companyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="icon-link"
+                      aria-label={`Open ${experience.company} website`}
+                    >
+                      <ExternalLink size={16} aria-hidden="true" />
+                    </a>
+                  )}
+                </div>
+
+                <p className="timeline-summary">{experience.summary}</p>
+
+                <div className="tag-row" aria-label={`${experience.company} domains`}>
+                  {experience.domains.map((domain) => (
+                    <span key={domain}>{domain}</span>
+                  ))}
+                </div>
+
+                <details className="experience-details">
+                  <summary>
+                    More detail
+                    <ChevronDown size={16} aria-hidden="true" />
+                  </summary>
+                  <ul>
+                    {experience.details.map((detail) => (
+                      <li key={detail}>{detail}</li>
+                    ))}
+                  </ul>
+                </details>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
