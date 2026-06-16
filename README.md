@@ -1,4 +1,4 @@
-# Jonathan Koshy Portfolio
+# Jonathan Jacob Koshy Portfolio
 
 Personal portfolio for firmware, embedded systems, robotics, edge-computing, and GPU systems work.
 

@@ -3,7 +3,7 @@ import { Contact, Experience, Hero, Navbar, Works } from "../components";
 
 const Home = () => {
   useEffect(() => {
-    document.title = "Jonathan Koshy - Firmware & Embedded Systems Engineer";
+    document.title = "Jonathan Jacob Koshy - Firmware & Embedded Systems Engineer";
   }, []);
 
   return (

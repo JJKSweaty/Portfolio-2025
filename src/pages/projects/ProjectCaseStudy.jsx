@@ -151,7 +151,7 @@ const ProjectCaseStudy = () => {
 
   useEffect(() => {
     if (!project) return;
-    document.title = `${project.title} - Jonathan Koshy`;
+    document.title = `${project.title} - ${portfolio.person.name}`;
   }, [project]);
 
   if (!project) {

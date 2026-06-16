@@ -102,7 +102,7 @@ const Navbar = () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           className="brand-mark"
-          aria-label="Jonathan Koshy home"
+          aria-label={`${portfolio.person.name} home`}
         >
           <span>{portfolio.person.initials}</span>
         </Link>

@@ -10,7 +10,7 @@ import truvote from "../assets/truvote.png";
 
 export const portfolio = {
   person: {
-    name: "Jonathan Koshy",
+    name: "Jonathan Jacob Koshy",
     initials: "JJK",
     title: "Firmware & Embedded Systems Engineer",
     location: "Waterloo, ON / Montreal, QC",
