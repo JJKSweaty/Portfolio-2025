@@ -224,7 +224,7 @@ export const projects = [
       "Moved hot matrix operations to custom CUDA kernels and cuBLAS where appropriate.",
       "Benchmarked end-to-end training behavior instead of only isolated micro-kernels.",
     ],
-    tags: ["CUDA", "cuBLAS", "C++", "PyTorch", "Profiling"],
+    tags: ["CUDA", "cuBLAS", "C++", "PyTorch"],
     image: {
       src: cudaMlpPreview,
       alt: "MNIST CUDA MLP project screenshot",

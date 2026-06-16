@@ -634,46 +634,118 @@ button {
 }
 
 .featured-projects {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
   align-items: stretch;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: calc(var(--radius) + 8px);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--card) 80%, transparent), transparent),
+    color-mix(in srgb, var(--muted) 46%, var(--background));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 58%, transparent);
 }
 
 .featured-project-wrap {
+  --cursor-x: 50%;
+  --cursor-y: 50%;
+  position: relative;
   min-width: 0;
   height: 100%;
+  perspective: 1200px;
 }
 
 .featured-project {
+  position: relative;
+  isolation: isolate;
   display: flex;
   min-width: 0;
   height: 100%;
   overflow: hidden;
   flex-direction: column;
-  border-color: color-mix(in srgb, var(--border) 88%, transparent);
-  background: color-mix(in srgb, var(--card) 96%, var(--background));
-  box-shadow: 0 14px 36px color-mix(in srgb, var(--foreground) 6%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 20%, var(--border));
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--card) 98%, transparent), var(--card)),
+    var(--card);
+  box-shadow:
+    0 18px 46px color-mix(in srgb, var(--foreground) 8%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 54%, transparent);
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
+.featured-project::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 34%,
+    color-mix(in srgb, var(--primary) 10%, transparent) 48%,
+    transparent 62%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  background-position: var(--cursor-x) 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-42%);
+  transition: opacity 180ms ease, transform 420ms ease, background-position 120ms ease;
+}
+
+.featured-project::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-top: 3px solid color-mix(in srgb, var(--primary) 48%, transparent);
+  pointer-events: none;
+}
+
 .featured-project:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--primary) 28%, var(--border));
-  box-shadow: 0 20px 44px color-mix(in srgb, var(--foreground) 9%, transparent);
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--primary) 44%, var(--border));
+  box-shadow:
+    0 28px 64px color-mix(in srgb, var(--foreground) 13%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 58%, transparent);
+}
+
+.featured-project:hover::before {
+  opacity: 1;
+  transform: translateX(42%);
+}
+
+.project-feature-index {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 3;
+  color: color-mix(in srgb, var(--foreground) 68%, transparent);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.featured-project-primary .project-feature-index {
+  color: var(--theme-primary-dark);
 }
 
 .project-media-panel {
   position: relative;
+  z-index: 2;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 14px;
+  padding: 18px;
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--accent) 64%, transparent), transparent),
-    color-mix(in srgb, var(--muted) 78%, var(--card));
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 74%, transparent), transparent 58%),
+    linear-gradient(135deg, color-mix(in srgb, var(--card) 76%, transparent), color-mix(in srgb, var(--muted) 84%, var(--card)));
   border-bottom: 1px solid var(--border);
 }
 
@@ -690,9 +762,11 @@ button {
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   background: var(--muted);
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--foreground) 8%, transparent);
+  box-shadow:
+    0 18px 38px color-mix(in srgb, var(--foreground) 12%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--border) 78%, transparent);
 }
 
 .dark .project-media-frame {
@@ -729,11 +803,13 @@ button {
 }
 
 .project-media-panel:hover img {
-  transform: scale(1.012);
+  transform: scale(1.025);
 }
 
 .project-card-header {
-  padding: 20px 20px 0;
+  position: relative;
+  z-index: 2;
+  padding: 22px 22px 0;
 }
 
 .project-kicker,
@@ -749,8 +825,8 @@ button {
 .project-card-header > div:nth-child(2),
 .project-card-header .font-semibold {
   color: var(--foreground);
-  font-size: 22px;
-  line-height: 1.16;
+  font-size: clamp(23px, 2.2vw, 30px);
+  line-height: 1.08;
   font-weight: 800;
 }
 
@@ -763,10 +839,12 @@ button {
 }
 
 .project-card-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 16px 20px 20px;
+  padding: 18px 22px 22px;
 }
 
 .project-summary,
@@ -783,6 +861,27 @@ button {
 
 .project-role strong {
   color: var(--foreground);
+}
+
+.project-signal-strip {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 0.66fr 0.38fr;
+  gap: 6px;
+}
+
+.project-signal-strip span {
+  height: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 52%, var(--border));
+}
+
+.project-signal-strip span:nth-child(2) {
+  background: color-mix(in srgb, var(--foreground) 22%, var(--border));
+}
+
+.project-signal-strip span:nth-child(3) {
+  background: color-mix(in srgb, var(--primary) 30%, var(--border));
 }
 
 .project-decisions p {
@@ -808,6 +907,115 @@ button {
 .project-card-content .project-actions {
   margin-top: auto;
   padding-top: 20px;
+}
+
+.supporting-projects {
+  margin-top: 48px;
+}
+
+.supporting-projects-heading {
+  max-width: 680px;
+  margin-bottom: 18px;
+}
+
+.supporting-projects-heading h3 {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.supporting-projects-heading p {
+  margin: 8px 0 0;
+  color: var(--muted-foreground);
+  font-size: 16px;
+}
+
+.supporting-project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.supporting-project-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--foreground) 5%, transparent);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.supporting-project-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--primary) 26%, var(--border));
+  box-shadow: 0 16px 34px color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.supporting-project-card .project-media-frame {
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.supporting-project-card .project-media-contain {
+  padding: 10px;
+}
+
+.supporting-project-body {
+  padding: 16px;
+}
+
+.supporting-project-body .project-kicker {
+  margin-bottom: 10px;
+}
+
+.supporting-project-body h3 {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.supporting-project-body p {
+  margin: 10px 0 0;
+  color: var(--muted-foreground);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.supporting-project-body .tag-row {
+  margin-top: 14px;
+}
+
+.supporting-project-links {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.supporting-project-links a {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--theme-primary-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.supporting-project-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.supporting-project-links svg {
+  width: 15px;
+  height: 15px;
 }
 
 .contact-section {
@@ -1072,6 +1280,10 @@ button {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .supporting-project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .featured-project .project-media-frame {
     min-height: 0;
     aspect-ratio: 16 / 10;
@@ -1170,6 +1382,10 @@ button {
   }
 
   .featured-projects {
+    grid-template-columns: 1fr;
+  }
+
+  .supporting-project-grid {
     grid-template-columns: 1fr;
   }
 
