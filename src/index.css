@@ -30,20 +30,20 @@
 }
 
 :root {
-  --background: #f8f8f5;
-  --foreground: #18181b;
+  --background: #f7f8f7;
+  --foreground: #17191b;
   --card: #ffffff;
-  --card-foreground: #18181b;
+  --card-foreground: #17191b;
   --popover: #ffffff;
-  --popover-foreground: #18181b;
-  --primary: #315b72;
+  --popover-foreground: #17191b;
+  --primary: #2f6264;
   --primary-foreground: #ffffff;
-  --secondary: #ededeb;
-  --secondary-foreground: #252527;
-  --muted: #f0f0ed;
-  --muted-foreground: #686863;
-  --accent: #e6eef1;
-  --accent-foreground: #173f53;
+  --secondary: #ecefed;
+  --secondary-foreground: #232628;
+  --muted: #eff2ef;
+  --muted-foreground: #626a67;
+  --accent: #e3eeec;
+  --accent-foreground: #173f40;
   --destructive: #b42318;
   --destructive-foreground: #ffffff;
   --border: #d9d9d4;
@@ -57,7 +57,7 @@
   --theme-muted: var(--muted-foreground);
   --theme-border: var(--border);
   --theme-primary: var(--primary);
-  --theme-primary-dark: #244455;
+  --theme-primary-dark: #234d4f;
   --theme-soft: var(--muted);
   --theme-focus: var(--ring);
 }
@@ -497,6 +497,7 @@ button {
 .not-found h1 {
   margin: 0;
   color: var(--foreground);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 40px;
   line-height: 1.1;
   font-weight: 800;
@@ -909,6 +910,596 @@ button {
   padding-top: 20px;
 }
 
+.project-lab-console {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid color-mix(in srgb, var(--primary) 24%, var(--border));
+  border-radius: 14px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--primary) 10%, transparent) 1px, transparent 1px),
+    linear-gradient(0deg, color-mix(in srgb, var(--primary) 8%, transparent) 1px, transparent 1px),
+    radial-gradient(circle at 18% 0%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 34%),
+    linear-gradient(135deg, color-mix(in srgb, var(--card) 96%, transparent), color-mix(in srgb, var(--muted) 72%, var(--background)));
+  background-size: 44px 44px, 44px 44px, auto, auto;
+  box-shadow:
+    0 24px 60px color-mix(in srgb, var(--foreground) 10%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 58%, transparent);
+}
+
+.project-lab-console::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 42%,
+    color-mix(in srgb, var(--primary) 8%, transparent) 50%,
+    transparent 58%,
+    transparent 100%
+  );
+  animation: labSweep 7s linear infinite;
+  pointer-events: none;
+}
+
+.lab-console-header,
+.console-spec-strip,
+.debug-port-row,
+.project-module-dock {
+  position: relative;
+  z-index: 2;
+}
+
+.lab-console-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  padding-bottom: 18px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+}
+
+.console-eyebrow,
+.console-status,
+.module-index,
+.module-meta,
+.debug-port,
+.layer-labels button,
+.terminal-topline,
+.build-note span,
+.result-panel span,
+.console-spec-strip,
+.console-tech-row span {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.console-eyebrow,
+.console-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--theme-primary-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.console-eyebrow svg,
+.console-status svg {
+  width: 15px;
+  height: 15px;
+}
+
+.lab-console-header h3 {
+  margin: 10px 0 0;
+  max-width: 760px;
+  color: var(--foreground);
+  font-size: 48px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.console-status {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--primary) 28%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--card) 74%, transparent);
+  color: var(--foreground);
+}
+
+.lab-console-body {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 22px;
+}
+
+.console-layer-rail {
+  min-height: 500px;
+  display: grid;
+  grid-template-columns: 24px minmax(80px, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 14px 10px;
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.console-layer-rail input[type="range"] {
+  width: 440px;
+  height: 28px;
+  margin: 0;
+  accent-color: var(--primary);
+  transform: rotate(-90deg) translateX(-50%);
+  transform-origin: left center;
+}
+
+.layer-labels {
+  display: grid;
+  gap: 12px;
+}
+
+.layer-labels button {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.layer-labels button.active {
+  border-color: color-mix(in srgb, var(--primary) 34%, var(--border));
+  background: color-mix(in srgb, var(--accent) 78%, transparent);
+  color: var(--foreground);
+}
+
+.console-preview-screen {
+  --tilt-x: 0px;
+  --tilt-y: 0px;
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  padding: clamp(16px, 3vw, 28px);
+  border: 1px solid color-mix(in srgb, var(--primary) 26%, var(--border));
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--foreground) 5%, transparent), transparent 42%),
+    color-mix(in srgb, var(--card) 86%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, white 30%, transparent);
+}
+
+.console-preview-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 13px,
+    color-mix(in srgb, var(--primary) 5%, transparent) 14px
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.console-preview-booting {
+  background: #10161b;
+}
+
+.console-preview-booting::before {
+  opacity: 0.12;
+}
+
+.console-terminal {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 640px);
+  margin: 0 auto;
+  padding: 24px;
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--border));
+  border-radius: 10px;
+  background: #071014;
+  color: #d6f7e5;
+  opacity: 1;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.terminal-topline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: color-mix(in srgb, #d6f7e5 80%, white);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.terminal-topline svg {
+  width: 15px;
+  height: 15px;
+}
+
+.console-terminal p {
+  margin: 8px 0 0;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 14px;
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 9px;
+  height: 18px;
+  margin-top: 12px;
+  background: #d6f7e5;
+  animation: cursorBlink 900ms steps(2, end) infinite;
+}
+
+.console-active-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.34fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.console-device-column {
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.console-device-panel {
+  position: relative;
+  min-height: clamp(300px, 42vw, 480px);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--primary) 34%, var(--border));
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--card) 72%, transparent), color-mix(in srgb, var(--foreground) 7%, var(--muted))),
+    var(--muted);
+  box-shadow:
+    0 22px 56px color-mix(in srgb, var(--foreground) 13%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 56%, transparent);
+}
+
+.console-device-panel img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  transform: translate3d(var(--tilt-x), var(--tilt-y), 0) scale(1.035);
+  transition: transform 180ms ease;
+}
+
+.console-device-panel img {
+  object-fit: cover;
+}
+
+.device-scanline {
+  position: absolute;
+  inset: -20% 0 auto;
+  height: 35%;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--primary) 13%, transparent), transparent);
+  animation: scanline 4.4s linear infinite;
+  pointer-events: none;
+}
+
+.console-system-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.console-system-overlay svg {
+  position: absolute;
+  inset: 8%;
+  width: 84%;
+  height: 84%;
+  fill: none;
+}
+
+.console-system-overlay circle {
+  fill: var(--primary);
+  filter: drop-shadow(0 0 9px color-mix(in srgb, var(--primary) 60%, transparent));
+}
+
+.system-line {
+  stroke: var(--primary);
+  stroke-width: 2.5;
+  stroke-dasharray: 8 12;
+  animation: dashFlow 1.7s linear infinite;
+}
+
+.system-line-two {
+  stroke: color-mix(in srgb, var(--foreground) 44%, var(--primary));
+  animation-duration: 2.2s;
+}
+
+.system-flow {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.system-flow span {
+  min-height: 58px;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+  padding: 10px;
+  border: 1px solid color-mix(in srgb, var(--primary) 38%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--card) 84%, transparent);
+  color: var(--foreground);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+}
+
+.system-flow small {
+  color: var(--muted-foreground);
+  font-size: 10px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.console-tech-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.console-tech-row span {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  background: color-mix(in srgb, var(--card) 72%, transparent);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.console-readout,
+.build-note-grid,
+.result-panel {
+  min-width: 0;
+}
+
+.console-readout h3 {
+  margin: 16px 0 0;
+  color: var(--foreground);
+  font-size: 32px;
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.console-readout p {
+  margin: 12px 0 0;
+  color: var(--muted-foreground);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.build-note-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.build-note {
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--card) 76%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.build-note span,
+.result-panel span {
+  color: var(--theme-primary-dark);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.build-note p,
+.result-panel p {
+  margin: 7px 0 0;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.result-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.result-panel div {
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--primary) 22%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--card) 78%, transparent);
+}
+
+.debug-port-row {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.debug-port-row-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.debug-port {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 13px;
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--card) 74%, transparent);
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+  transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+
+.debug-port:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--accent) 82%, transparent);
+}
+
+.debug-port svg {
+  width: 15px;
+  height: 15px;
+}
+
+.project-module-dock {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.project-module {
+  position: relative;
+  min-width: 0;
+  min-height: 144px;
+  overflow: hidden;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--card) 88%, transparent), color-mix(in srgb, var(--muted) 72%, transparent)),
+    var(--card);
+  color: var(--foreground);
+  text-align: left;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 48%, transparent);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.project-module:hover,
+.project-module-active {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--primary) 48%, var(--border));
+  box-shadow:
+    0 16px 34px color-mix(in srgb, var(--foreground) 9%, transparent),
+    inset 0 1px 0 color-mix(in srgb, white 52%, transparent);
+}
+
+.module-index {
+  color: var(--theme-primary-dark);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.module-chip {
+  width: 34px;
+  height: 34px;
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, var(--border));
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.module-chip svg {
+  width: 18px;
+  height: 18px;
+}
+
+.module-title {
+  margin-top: 14px;
+  color: var(--foreground);
+  font-size: 16px;
+  line-height: 1.18;
+  font-weight: 800;
+}
+
+.module-meta {
+  margin-top: 6px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.module-pins {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  gap: 5px;
+}
+
+.module-pins i {
+  width: 4px;
+  height: 18px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--primary) 42%, var(--border));
+}
+
+.console-spec-strip {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.console-spec-strip span {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--card) 55%, transparent);
+}
+
+.console-spec-strip svg {
+  width: 14px;
+  height: 14px;
+}
+
 .supporting-projects {
   margin-top: 48px;
 }
@@ -1251,6 +1842,44 @@ button {
   padding: 148px 0 96px;
 }
 
+@keyframes labSweep {
+  from {
+    transform: translateX(-60%);
+  }
+
+  to {
+    transform: translateX(60%);
+  }
+}
+
+@keyframes cursorBlink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scanline {
+  from {
+    transform: translateY(-80%);
+  }
+
+  to {
+    transform: translateY(360%);
+  }
+}
+
+@keyframes dashFlow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
 @media (max-width: 900px) {
   .hero-grid,
   .case-hero,
@@ -1274,6 +1903,35 @@ button {
 
   .case-sidebar {
     position: static;
+  }
+
+  .lab-console-header h3 {
+    font-size: 40px;
+  }
+
+  .lab-console-body {
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .console-active-content {
+    grid-template-columns: 1fr;
+  }
+
+  .console-device-panel {
+    min-height: 380px;
+  }
+
+  .system-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-module {
+    min-height: 132px;
+  }
+
+  .module-title {
+    font-size: 14px;
   }
 
   .featured-projects {
@@ -1348,6 +2006,101 @@ button {
     font-size: 32px;
   }
 
+  .project-lab-console {
+    padding: 14px;
+  }
+
+  .lab-console-header {
+    display: grid;
+  }
+
+  .lab-console-header h3 {
+    font-size: 30px;
+  }
+
+  .lab-console-body {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .console-layer-rail {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .console-layer-rail input[type="range"] {
+    width: 100%;
+    transform: none;
+  }
+
+  .layer-labels {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .layer-labels button {
+    min-height: 34px;
+    padding: 0 4px;
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .console-preview-screen {
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .console-terminal {
+    padding: 16px;
+  }
+
+  .console-active-content {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .console-device-panel {
+    min-height: 260px;
+  }
+
+  .console-readout h3 {
+    font-size: 26px;
+  }
+
+  .system-flow {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .system-flow span {
+    min-height: 46px;
+    padding: 7px;
+    font-size: 10px;
+  }
+
+  .debug-port,
+  .project-module {
+    width: 100%;
+  }
+
+  .debug-port {
+    justify-content: center;
+  }
+
+  .project-module-dock,
+  .supporting-project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .console-spec-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .availability-panel {
     grid-template-columns: 1fr;
   }
@@ -1379,14 +2132,6 @@ button {
 
   .project-card-header .font-semibold {
     font-size: 26px;
-  }
-
-  .featured-projects {
-    grid-template-columns: 1fr;
-  }
-
-  .supporting-project-grid {
-    grid-template-columns: 1fr;
   }
 
   .project-media-panel {
@@ -1428,6 +2173,10 @@ button {
   }
 
   .project-media-panel:hover img {
+    transform: none;
+  }
+
+  .console-device-panel img {
     transform: none;
   }
 }
