@@ -124,9 +124,6 @@ const ProjectStory = ({ project, index }) => {
         <motion.div className="project-story-image" style={{ y: imageY }}>
           <ProjectImage project={project} priority={index === 0} />
         </motion.div>
-        <span className="project-story-number" aria-hidden="true">
-          {String(index + 1).padStart(2, "0")}
-        </span>
       </div>
 
       <div className="project-story-content">
