@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import {
-  Activity,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import {
   ArrowRight,
   ArrowUpRight,
-  Cable,
-  Cpu,
   Github,
-  Layers3,
   Play,
-  Terminal,
 } from "lucide-react";
 import { projects } from "../data/portfolio";
 import { Badge } from "@/components/ui/badge";
@@ -29,14 +29,6 @@ const supportingProjects = projects.filter(
   (project) => !showcaseProjectSlugs.includes(project.slug)
 );
 
-const labLayers = ["Overview", "System", "Build", "Result"];
-
-const bootLines = [
-  "> loading project...",
-  "> initializing stack...",
-  "> opening system preview...",
-];
-
 const getPrimaryLink = (project, label) =>
   project.links?.find((link) => link.label.toLowerCase() === label.toLowerCase());
 
@@ -50,10 +42,12 @@ const mediaStyle = (image, fit) => ({
   objectPosition: image.position || "center",
 });
 
-const consoleMediaStyle = (image) => ({
-  objectFit: "cover",
-  objectPosition: image.position || "center",
-});
+const getLinkIcon = (label) => {
+  const normalized = label.toLowerCase();
+  if (normalized === "github") return Github;
+  if (["demo", "video"].includes(normalized)) return Play;
+  return ArrowUpRight;
+};
 
 const ProjectImage = ({ project, priority = false }) => {
   const fit = project.image.fit || "cover";
@@ -70,403 +64,112 @@ const ProjectImage = ({ project, priority = false }) => {
   );
 };
 
-const getProjectText = (project) =>
-  [
-    project.title,
-    project.subtitle,
-    project.category,
-    project.role,
-    project.summary,
-    ...(project.tags || []),
-    ...(project.caseStudy?.components || []),
-    ...(project.caseStudy?.engineering || []),
-  ]
-    .join(" ")
-    .toLowerCase();
+const ProjectLinks = ({ project, className }) => (
+  <div className={className}>
+    {project.caseStudy && (
+      <Link to={`/projects/${project.slug}`}>
+        Explore case study
+        <ArrowRight aria-hidden="true" />
+      </Link>
+    )}
 
-const hasAnyTerm = (text, terms) => terms.some((term) => text.includes(term));
+    {project.links?.map((link) => {
+      const Icon = getLinkIcon(link.label);
+      const external = !link.href.startsWith("/");
 
-const getBuildNotes = (project) => {
-  const text = getProjectText(project);
-  const engineering = project.caseStudy?.engineering || project.decisions || [];
-  const components = project.caseStudy?.components || [];
-  const validation = project.caseStudy?.validation || [];
-
-  return [
-    {
-      label: "Firmware",
-      active: hasAnyTerm(text, [
-        "firmware",
-        "esp32",
-        "freertos",
-        "lvgl",
-        "spi",
-        "pwm",
-        "verilog",
-        "rtl",
-      ]),
-      value: engineering[0] || project.role,
-    },
-    {
-      label: "Hardware",
-      active: hasAnyTerm(text, [
-        "hardware",
-        "asic",
-        "gpu",
-        "cuda",
-        "sensor",
-        "touchscreen",
-        "peripheral",
-        "raspberry",
-        "pcb",
-      ]),
-      value: components.slice(0, 3).join(" / ") || project.category,
-    },
-    {
-      label: "Software",
-      active: Boolean(project.tags?.length || project.caseStudy?.architecture?.length),
-      value:
-        project.caseStudy?.ownership ||
-        project.tags?.slice(0, 4).join(" / ") ||
-        project.summary,
-    },
-    {
-      label: "Testing",
-      active: Boolean(validation.length),
-      value: validation[0],
-    },
-  ].filter((note) => note.active && note.value);
-};
-
-const getPortIcon = (label) => {
-  const normalized = label.toLowerCase();
-  if (normalized === "github") return Github;
-  if (["demo", "video"].includes(normalized)) return Play;
-  return ArrowUpRight;
-};
-
-const getDebugPorts = (project) => {
-  const ports = [];
-
-  if (project.caseStudy) {
-    ports.push({
-      label: "Case Study",
-      href: `/projects/${project.slug}`,
-      internal: true,
-      Icon: ArrowRight,
-    });
-  }
-
-  project.links?.forEach((link) => {
-    ports.push({
-      ...link,
-      internal: link.href.startsWith("/"),
-      Icon: getPortIcon(link.label),
-    });
-  });
-
-  return ports;
-};
-
-const SystemOverlay = ({ project }) => {
-  const stack = project.tags?.slice(0, 4) || [];
-
-  return (
-    <div className="console-system-overlay" aria-hidden="true">
-      <svg viewBox="0 0 900 430" role="presentation">
-        <path className="system-line system-line-one" d="M88 260 C 210 106, 372 128, 456 216 S 668 336, 812 182" />
-        <path className="system-line system-line-two" d="M96 132 C 248 196, 334 310, 456 250 S 662 98, 792 286" />
-        <circle cx="88" cy="260" r="8" />
-        <circle cx="456" cy="216" r="8" />
-        <circle cx="812" cy="182" r="8" />
-      </svg>
-
-      <div className="system-flow">
-        {["Input", "Processing", "Control", "Output"].map((step, index) => (
-          <span key={step}>
-            {step}
-            {stack[index] && <small>{stack[index]}</small>}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const ActivePreview = ({ project, layer, isBooting }) => {
-  const fit = project.image.fit || "cover";
-
-  return (
-    <div
-      className={`console-preview-screen console-layer-${layer.toLowerCase()} ${
-        isBooting ? "console-preview-booting" : ""
-      }`}
-      onPointerMove={(event) => {
-        const rect = event.currentTarget.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        event.currentTarget.style.setProperty("--tilt-x", `${x * 12}px`);
-        event.currentTarget.style.setProperty("--tilt-y", `${y * 10}px`);
-      }}
-      onPointerLeave={(event) => {
-        event.currentTarget.style.setProperty("--tilt-x", "0px");
-        event.currentTarget.style.setProperty("--tilt-y", "0px");
-      }}
-    >
-      <AnimatePresence mode="wait">
-        {isBooting ? (
-          <motion.div
-            key={`${project.slug}-boot`}
-            className="console-terminal"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="terminal-topline">
-              <Terminal aria-hidden="true" />
-              PROJECT_BOOT::{project.slug}
-            </div>
-            {bootLines.map((line, index) => (
-              <motion.p
-                key={line}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.22, duration: 0.18 }}
-              >
-                {line}
-              </motion.p>
-            ))}
-            <span className="terminal-cursor" />
-          </motion.div>
-        ) : (
-          <motion.div
-            key={`${project.slug}-${layer}`}
-            className="console-active-content"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.24 }}
-          >
-            <div className="console-device-column">
-              <div className={`console-device-panel project-media-${fit}`}>
-                <img
-                  src={project.image.src}
-                  alt={project.image.alt}
-                  style={consoleMediaStyle(project.image)}
-                />
-                <span className="device-scanline" aria-hidden="true" />
-                {layer === "System" && <SystemOverlay project={project} />}
-              </div>
-
-              <div className="console-tech-row" aria-label={`${project.title} technologies`}>
-                {project.tags.slice(0, 6).map((tag) => (
-                  <Badge key={tag} variant="outline">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-
-            {layer === "Overview" && (
-              <div className="console-readout">
-                <Badge variant="secondary">{project.category}</Badge>
-                <h3>{project.title}</h3>
-                <p>{project.subtitle}</p>
-              </div>
-            )}
-
-            {layer === "Build" && (
-              <div className="build-note-grid">
-                {getBuildNotes(project).map((note) => (
-                  <article key={note.label} className="build-note">
-                    <span>{note.label}</span>
-                    <p>{note.value}</p>
-                  </article>
-                ))}
-              </div>
-            )}
-
-            {layer === "Result" && (
-              <div className="result-panel">
-                <div>
-                  <span>Result</span>
-                  <p>{project.caseStudy?.results?.[0] || project.status}</p>
-                </div>
-                <div>
-                  <span>Status</span>
-                  <p>{project.status}</p>
-                </div>
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
-const LayerRail = ({ layerIndex, setLayerIndex }) => (
-  <div className="console-layer-rail" aria-label="Project preview layer selector">
-    <input
-      type="range"
-      min="0"
-      max={labLayers.length - 1}
-      step="1"
-      value={layerIndex}
-      aria-label="Project layer"
-      onChange={(event) => setLayerIndex(Number(event.target.value))}
-    />
-    <div className="layer-labels">
-      {labLayers.map((layer, index) => (
-        <button
-          type="button"
-          key={layer}
-          className={index === layerIndex ? "active" : ""}
-          onClick={() => setLayerIndex(index)}
+      return (
+        <a
+          key={`${project.slug}-${link.label}`}
+          href={link.href}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener noreferrer" : undefined}
         >
-          {layer}
-        </button>
-      ))}
-    </div>
+          <Icon aria-hidden="true" />
+          {link.label}
+        </a>
+      );
+    })}
   </div>
 );
 
-const DebugPorts = ({ project, isBooting }) => {
-  const ports = getDebugPorts(project);
-
-  return (
-    <div className={`debug-port-row ${isBooting ? "debug-port-row-disabled" : ""}`}>
-      {ports.map(({ label, href, internal, Icon }) =>
-        internal ? (
-          <Link key={`${label}-${href}`} to={href} className="debug-port">
-            <Icon aria-hidden="true" />
-            {label} Port
-          </Link>
-        ) : (
-          <a
-            key={`${label}-${href}`}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="debug-port"
-          >
-            <Icon aria-hidden="true" />
-            {label} Port
-          </a>
-        )
-      )}
-    </div>
+const ProjectStory = ({ project, index }) => {
+  const storyRef = useRef(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: storyRef,
+    offset: ["start end", "end start"],
+  });
+  const imageY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reducedMotion ? [0, 0] : [34, -34]
   );
-};
-
-const ProjectModule = ({ project, index, isActive, onSelect }) => (
-  <button
-    type="button"
-    className={`project-module ${isActive ? "project-module-active" : ""}`}
-    onClick={onSelect}
-  >
-    <span className="module-index">MOD-{String(index + 1).padStart(2, "0")}</span>
-    <span className="module-chip">
-      <Cpu aria-hidden="true" />
-    </span>
-    <span className="module-title">{project.title}</span>
-    <span className="module-meta">{project.category}</span>
-    <span className="module-pins" aria-hidden="true">
-      <i />
-      <i />
-      <i />
-      <i />
-    </span>
-  </button>
-);
-
-const ProjectLabConsole = () => {
-  const [activeSlug, setActiveSlug] = useState(showcaseProjects[0]?.slug);
-  const [layerIndex, setLayerIndex] = useState(0);
-  const [isBooting, setIsBooting] = useState(true);
-
-  const activeProject =
-    showcaseProjects.find((project) => project.slug === activeSlug) ||
-    showcaseProjects[0];
-  const activeLayer = labLayers[layerIndex];
-
-  useEffect(() => {
-    setIsBooting(true);
-    const bootTimer = window.setTimeout(() => setIsBooting(false), 1050);
-    return () => window.clearTimeout(bootTimer);
-  }, [activeSlug]);
-
-  if (!activeProject) return null;
+  const highlights = (
+    project.caseStudy?.engineering ||
+    project.decisions ||
+    []
+  ).slice(0, 2);
+  const result = project.caseStudy?.results?.[0];
 
   return (
-    <motion.div
-      className="project-lab-console"
-      initial={{ opacity: 0, y: 18 }}
+    <motion.article
+      ref={storyRef}
+      className={`project-story ${index % 2 === 1 ? "project-story-reverse" : ""}`}
+      initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 34 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-90px" }}
-      transition={{ duration: 0.28 }}
-      onWheel={(event) => {
-        if (Math.abs(event.deltaY) < 28) return;
-        setLayerIndex((current) => {
-          if (event.deltaY > 0) return Math.min(labLayers.length - 1, current + 1);
-          return Math.max(0, current - 1);
-        });
-      }}
+      viewport={{ amount: 0.24, once: true }}
+      transition={{ duration: reducedMotion ? 0.01 : 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="lab-console-header">
+      <div className="project-story-media">
+        <motion.div className="project-story-image" style={{ y: imageY }}>
+          <ProjectImage project={project} priority={index === 0} />
+        </motion.div>
+        <span className="project-story-number" aria-hidden="true">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+      </div>
+
+      <div className="project-story-content">
+        <div className="project-story-meta">
+          <Badge variant="secondary">{project.category}</Badge>
+          <span>{project.year}</span>
+          <span>{project.status}</span>
+        </div>
+
         <div>
-          <span className="console-eyebrow">
-            <Terminal aria-hidden="true" />
-            PROJECT LAB
-          </span>
-          <h3>{activeProject.title}</h3>
+          <p className="project-story-label">Featured system</p>
+          <h3>{project.title}</h3>
+          <p className="project-story-subtitle">{project.subtitle}</p>
         </div>
-        <div className="console-status">
-          <Activity aria-hidden="true" />
-          {isBooting ? "Booting" : activeLayer}
+
+        <p className="project-story-summary">{project.summary}</p>
+
+        {highlights.length > 0 && (
+          <ul className="project-story-highlights">
+            {highlights.map((highlight) => (
+              <li key={highlight}>{highlight}</li>
+            ))}
+          </ul>
+        )}
+
+        {result && (
+          <div className="project-story-result">
+            <span>Outcome</span>
+            <p>{result}</p>
+          </div>
+        )}
+
+        <div className="tag-row" aria-label={`${project.title} technologies`}>
+          {project.tags.slice(0, 6).map((tag) => (
+            <Badge key={tag} variant="outline">
+              {tag}
+            </Badge>
+          ))}
         </div>
-      </div>
 
-      <div className="lab-console-body">
-        <LayerRail layerIndex={layerIndex} setLayerIndex={setLayerIndex} />
-        <ActivePreview
-          project={activeProject}
-          layer={activeLayer}
-          isBooting={isBooting}
-        />
+        <ProjectLinks project={project} className="project-story-links" />
       </div>
-
-      <DebugPorts project={activeProject} isBooting={isBooting} />
-
-      <div className="project-module-dock" aria-label="Project modules">
-        {showcaseProjects.map((project, index) => (
-          <ProjectModule
-            key={project.slug}
-            project={project}
-            index={index}
-            isActive={project.slug === activeProject.slug}
-            onSelect={() => {
-              setActiveSlug(project.slug);
-              setLayerIndex(0);
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="console-spec-strip" aria-hidden="true">
-        <span>
-          <Cable />
-          input
-        </span>
-        <span>processing</span>
-        <span>control</span>
-        <span>
-          output
-          <Layers3 />
-        </span>
-      </div>
-    </motion.div>
+    </motion.article>
   );
 };
 
@@ -478,10 +181,10 @@ const SupportingProjectCard = ({ project, index }) => {
   return (
     <motion.article
       className="supporting-project-card"
-      initial={{ opacity: 0, y: 14 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-70px" }}
-      transition={{ duration: 0.22, delay: index * 0.025 }}
+      transition={{ duration: 0.32, delay: index * 0.035 }}
     >
       <ProjectImage project={project} />
 
@@ -545,44 +248,47 @@ const SupportingProjectCard = ({ project, index }) => {
   );
 };
 
-const Works = () => {
-  return (
-    <section id="projects" className="section-block" aria-labelledby="projects-title">
-      <div className="site-container">
-        <div className="section-heading project-section-heading">
-          <div>
-            <p className="eyebrow">Projects</p>
-            <h2 id="projects-title">Interactive Project Console</h2>
-            <p>
-              Three systems-heavy builds loaded as inspectable project modules
-              with live layers, boot states, and debug-port links.
-            </p>
-          </div>
+const Works = () => (
+  <section id="projects" className="section-block project-section" aria-labelledby="projects-title">
+    <div className="site-container">
+      <div className="section-heading project-section-heading">
+        <div>
+          <p className="eyebrow">Selected work</p>
+          <h2 id="projects-title">Systems built from signal to software</h2>
+          <p>
+            A closer look at three projects where firmware, hardware, and
+            performance constraints shaped the final system.
+          </p>
+        </div>
+      </div>
+
+      <div className="project-story-list">
+        {showcaseProjects.map((project, index) => (
+          <ProjectStory key={project.slug} project={project} index={index} />
+        ))}
+      </div>
+
+      <section className="supporting-projects" aria-labelledby="supporting-projects-title">
+        <div className="supporting-projects-heading">
+          <p className="eyebrow">Project archive</p>
+          <h3 id="supporting-projects-title">Additional projects</h3>
+          <p>
+            More firmware, hardware, AI, robotics, and full-stack work.
+          </p>
         </div>
 
-        <ProjectLabConsole />
-
-        <section className="supporting-projects" aria-labelledby="supporting-projects-title">
-          <div className="supporting-projects-heading">
-            <h3 id="supporting-projects-title">Additional projects</h3>
-            <p>
-              More firmware, hardware, AI, and full-stack work kept compact for quick scanning.
-            </p>
-          </div>
-
-          <div className="supporting-project-grid">
-            {supportingProjects.map((project, index) => (
-              <SupportingProjectCard
-                key={project.slug}
-                project={project}
-                index={index}
-              />
-            ))}
-          </div>
-        </section>
-      </div>
-    </section>
-  );
-};
+        <div className="supporting-project-grid">
+          {supportingProjects.map((project, index) => (
+            <SupportingProjectCard
+              key={project.slug}
+              project={project}
+              index={index}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+  </section>
+);
 
 export default Works;

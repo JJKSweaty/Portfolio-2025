@@ -15,6 +15,8 @@ const bootSequence = [
   "ready",
 ];
 
+const BOOT_STORAGE_KEY = "portfolio-boot-complete";
+
 const contentVariants = {
   booting: { opacity: 0, y: 18 },
   ready: {
@@ -26,19 +28,23 @@ const contentVariants = {
 
 const Hero = () => {
   const { person, socials } = portfolio;
-  const [bootComplete, setBootComplete] = useState(false);
+  const [bootComplete, setBootComplete] = useState(
+    () => window.sessionStorage.getItem(BOOT_STORAGE_KEY) === "true"
+  );
 
   useEffect(() => {
+    if (bootComplete) return undefined;
+
     const prefersReducedMotion = window.matchMedia?.(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const bootTimer = window.setTimeout(
-      () => setBootComplete(true),
-      prefersReducedMotion ? 80 : 1900
-    );
+    const bootTimer = window.setTimeout(() => {
+      window.sessionStorage.setItem(BOOT_STORAGE_KEY, "true");
+      setBootComplete(true);
+    }, prefersReducedMotion ? 80 : 1900);
 
     return () => window.clearTimeout(bootTimer);
-  }, []);
+  }, [bootComplete]);
 
   return (
     <section className="hero-section" aria-labelledby="hero-title">
@@ -82,24 +88,10 @@ const Hero = () => {
 
       <motion.div
         className="site-container hero-shell"
-        initial="booting"
+        initial={bootComplete ? false : "booting"}
         animate={bootComplete ? "ready" : "booting"}
         variants={contentVariants}
       >
-        <div className="hero-terminal-strip terminal-window">
-          <div className="terminal-window-bar">
-            <span className="traffic-lights" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-            <span>jjk@portfolio: ready</span>
-          </div>
-          <div className="hero-terminal-strip-body">
-            <span>$</span> firmware_profile --load
-          </div>
-        </div>
-
         <div className="hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">Firmware / Embedded Systems</p>
