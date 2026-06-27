@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { projects } from "../data/portfolio";
 import { Badge } from "@/components/ui/badge";
+import { ImagesBadge } from "@/components/ui/images-badge";
+import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 
 const showcaseProjectSlugs = [
   "spi-controlled-pwm-peripheral",
@@ -29,6 +31,25 @@ const supportingProjects = projects.filter(
   (project) => !showcaseProjectSlugs.includes(project.slug)
 );
 
+const marqueeProjectSlugs = [
+  "spi-controlled-pwm-peripheral",
+  "esp32-media-controller",
+  "cuda-mlp-mnist",
+  "vision-guided-autonomous-disk-launcher",
+  "heartbeat-monitor-pcb",
+  "signtolearn",
+  "claude-firmware-assistant",
+  "truvote",
+];
+
+const projectMediaItems = marqueeProjectSlugs
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter(Boolean)
+  .map((project) => ({
+    src: project.image.src,
+    alt: project.image.alt,
+  }));
+
 const getPrimaryLink = (project, label) =>
   project.links?.find((link) => link.label.toLowerCase() === label.toLowerCase());
 
@@ -36,6 +57,16 @@ const getSupportingLink = (project) =>
   project.links?.find((link) =>
     ["video", "demo", "devpost", "gds viewer"].includes(link.label.toLowerCase())
   );
+
+const getProjectBadgeImages = (project) => {
+  const supportingImages = project.media
+    ?.filter((item) => item.type === "image" && item.src)
+    .map((item) => item.src) || [];
+  const cadImages = project.cad?.thumbnail ? [project.cad.thumbnail] : [];
+  const images = [project.image.src, ...cadImages, ...supportingImages];
+
+  return images.length > 1 ? images.slice(0, 3) : [];
+};
 
 const mediaStyle = (image, fit) => ({
   objectFit: fit,
@@ -58,9 +89,99 @@ const ProjectImage = ({ project, priority = false }) => {
         src={project.image.src}
         alt={project.image.alt}
         loading={priority ? "eager" : "lazy"}
+        decoding="async"
         style={mediaStyle(project.image, fit)}
       />
     </div>
+  );
+};
+
+const ProjectMediaBadge = ({ project }) => {
+  const images = getProjectBadgeImages(project);
+  if (!images.length) return null;
+
+  const badge = (
+    <ImagesBadge
+      text={project.cad ? "CAD + build media" : "Build media"}
+      images={images}
+      className="project-media-badge"
+      folderSize={{ width: 34, height: 25 }}
+      teaserImageSize={{ width: 21, height: 15 }}
+      hoverImageSize={{ width: 58, height: 38 }}
+      hoverTranslateY={-40}
+      hoverSpread={24}
+      ariaLabel={`${project.title} media preview`}
+    />
+  );
+
+  if (!project.caseStudy) {
+    return <div className="project-media-badge-wrap">{badge}</div>;
+  }
+
+  return (
+    <Link
+      to={`/projects/${project.slug}`}
+      className="project-media-badge-wrap"
+      aria-label={`Open ${project.title} case study media`}
+    >
+      {badge}
+    </Link>
+  );
+};
+
+const useProjectMediaMobile = () => {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia("(max-width: 640px)").matches
+      : false
+  );
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 640px)");
+    const update = () => setIsMobile(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return isMobile;
+};
+
+const ProjectMediaShowcase = () => {
+  const reducedMotion = useReducedMotion();
+  const isMobile = useProjectMediaMobile();
+
+  if (!projectMediaItems.length) return null;
+
+  return (
+    <section className="project-media-showcase" aria-labelledby="project-media-title">
+      <div className="project-media-showcase-copy">
+        <p className="eyebrow">Build gallery</p>
+        <h3 id="project-media-title">Boards, traces, dashboards, and prototypes</h3>
+      </div>
+
+      {isMobile ? (
+        <div className="project-marquee-mobile-grid">
+          {projectMediaItems.slice(0, 4).map((image) => (
+            <img
+              key={image.src}
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
+        </div>
+      ) : (
+        <ThreeDMarquee
+          images={projectMediaItems}
+          reducedMotion={reducedMotion}
+          className="project-marquee-canvas"
+        />
+      )}
+    </section>
   );
 };
 
@@ -165,6 +286,7 @@ const ProjectStory = ({ project, index }) => {
         </div>
 
         <ProjectLinks project={project} className="project-story-links" />
+        <ProjectMediaBadge project={project} />
       </div>
     </motion.article>
   );
@@ -240,6 +362,7 @@ const SupportingProjectCard = ({ project, index }) => {
             </a>
           )}
         </div>
+        <ProjectMediaBadge project={project} />
       </div>
     </motion.article>
   );
@@ -258,6 +381,8 @@ const Works = () => (
           </p>
         </div>
       </div>
+
+      <ProjectMediaShowcase />
 
       <div className="project-story-list">
         {showcaseProjects.map((project, index) => (
