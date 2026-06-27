@@ -21,7 +21,6 @@ import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
 import Microsoft_Azure from './company/Microsoft_Azure.png';
 import waterloo from './company/waterloo.png';
-import waterloooRocketry from './company/waterlooRocketry.png';
 import faceLogo from './jonathanFace.png';
 import cpp from './tech/cpp.png';
 import flask from './tech/flask.png';
@@ -62,7 +61,6 @@ export {
   jobit,
   tripguide,
   waterloo,
-  waterloooRocketry,
   Microsoft_Azure,
   faceLogo,
   cpp,

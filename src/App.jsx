@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import { ScrollProgress } from "./components";
+import { PortfolioCursor, ScrollProgress } from "./components";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Home from "./pages/Home";
 import ProjectCaseStudy from "./pages/projects/ProjectCaseStudy";
@@ -29,6 +29,7 @@ const App = () => {
       <BrowserRouter>
         <ScrollToLocation />
         <ScrollProgress />
+        <PortfolioCursor />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects/:slug" element={<ProjectCaseStudy />} />

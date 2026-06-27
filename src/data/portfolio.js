@@ -74,6 +74,7 @@ export const experiences = [
     role: "Embedded Systems Intern",
     location: "Montreal, QC",
     period: "Sep 2025 - Dec 2025",
+    companyUrl: "https://www.aerocardia.com/",
     domains: ["FreeRTOS", "Sensors", "BLE", "PCB"],
     summary:
       "Built firmware and hardware for a biosensor platform with PPG, IMU, temperature, and related sensing. Contributed across sensor drivers, FreeRTOS streaming, BLE telemetry, secure OTA updates, PCB work, and signal-chain validation.",
@@ -103,6 +104,7 @@ export const experiences = [
     role: "Firmware Member",
     location: "Waterloo, ON",
     period: "May 2025 - Sep 2025",
+    companyUrl: "https://electriummobility.com/",
     domains: ["ESP32", "BLE", "VESC", "Embedded UI"],
     summary:
       "Built ESP32 firmware for vehicle dashboard and controller integration. Work included event-driven BLE communication, VESC telemetry over UART, and embedded display flows for motor and battery state.",
@@ -117,6 +119,7 @@ export const experiences = [
     role: "ASIC Digital Member",
     location: "Waterloo, ON",
     period: "Jan 2026 - Present",
+    companyUrl: "https://uwasic.com/",
     domains: ["Verilog", "SPI", "PWM", "Cocotb"],
     summary:
       "Designed RTL for an SPI-controlled PWM peripheral using Mode 0 SPI transactions and memory-mapped registers. Verified edge detection, clock-domain crossing, register behavior, and PWM timing with Cocotb, Icarus Verilog, and GTKWave.",

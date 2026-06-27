@@ -9,8 +9,11 @@ const getSystemTheme = () =>
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "system";
-    return localStorage.getItem(STORAGE_KEY) || "system";
+    if (typeof window === "undefined") return "light";
+    const storedTheme = localStorage.getItem(STORAGE_KEY);
+    return storedTheme === "dark" || storedTheme === "light"
+      ? storedTheme
+      : "light";
   });
   const [systemTheme, setSystemTheme] = useState(() => {
     if (typeof window === "undefined") return "light";

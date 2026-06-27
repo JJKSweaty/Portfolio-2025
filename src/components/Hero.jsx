@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, FileText, Github, Linkedin, Mail } from "lucide-react";
 import { portfolio } from "../data/portfolio";
+import { DitherShader } from "./ui/dither-shader";
 
 const socialIcons = {
   GitHub: Github,
@@ -16,6 +17,7 @@ const bootSequence = [
 ];
 
 const BOOT_STORAGE_KEY = "portfolio-boot-complete";
+const skylineImage = "/images/torontophoto.jpg";
 
 const contentVariants = {
   booting: { opacity: 0, y: 18 },
@@ -92,9 +94,8 @@ const Hero = () => {
         animate={bootComplete ? "ready" : "booting"}
         variants={contentVariants}
       >
-        <div className="hero-grid">
+        <div className="hero-composition">
           <div className="hero-copy">
-            <p className="eyebrow">Firmware / Embedded Systems</p>
             <h1 id="hero-title">{person.name}</h1>
             <p className="hero-title">{person.title}</p>
             <div className="hero-two-line">
@@ -107,47 +108,65 @@ const Hero = () => {
                 and hardware-software integration.
               </p>
             </div>
+
           </div>
 
-          <aside className="hero-aside" aria-label="Profile photo">
-            <div className="portrait-card">
-              <img
-                src={person.headshot}
-                alt={person.name}
-                width="420"
-                height="520"
-                className="profile-photo"
+          <div className="hero-visual-system" aria-label="Toronto skyline and profile photo">
+            <div className="hero-image-frame hero-skyline-frame">
+              <DitherShader
+                src={skylineImage}
+                gridSize={1}
+                ditherMode="bayer"
+                colorMode="color"
+                primaryColor="#2f2a26"
+                secondaryColor="#fbf8f2"
+                threshold={0.46}
+                objectFit="cover"
+                className="hero-dither-canvas hero-skyline-canvas"
+                ariaLabel="Dithered Toronto skyline with the CN Tower"
               />
             </div>
-          </aside>
 
-          <div className="hero-connect">
-            <div className="hero-actions">
-              <a className="button button-primary" href="#projects">
-                View Projects
-                <ArrowRight size={16} aria-hidden="true" />
-              </a>
-              <a className="button button-secondary" href={person.resumePath}>
-                <FileText size={16} aria-hidden="true" />
-                View Resume
-              </a>
-            </div>
+            <div className="hero-profile-row">
+              <div className="hero-image-frame hero-portrait-frame">
+                <img
+                  src={person.headshot}
+                  alt={person.name}
+                  width="280"
+                  height="280"
+                  className="hero-portrait-photo"
+                />
+              </div>
 
-            <div className="hero-links" aria-label="External profile links">
-              {socials.map((link) => {
-                const Icon = socialIcons[link.label] || ArrowRight;
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                    rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                  >
-                    <Icon size={16} aria-hidden="true" />
-                    {link.label}
+              <div className="hero-connect">
+                <div className="hero-actions">
+                  <a className="button button-primary" href="#projects">
+                    View Projects
+                    <ArrowRight size={16} aria-hidden="true" />
                   </a>
-                );
-              })}
+                  <a className="button button-secondary" href={person.resumePath}>
+                    <FileText size={16} aria-hidden="true" />
+                    View Resume
+                  </a>
+                </div>
+
+                <div className="hero-links" aria-label="External profile links">
+                  {socials.map((link) => {
+                    const Icon = socialIcons[link.label] || ArrowRight;
+                    return (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                        rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                      >
+                        <Icon size={16} aria-hidden="true" />
+                        {link.label}
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
