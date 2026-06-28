@@ -109,24 +109,6 @@ const Hero = () => {
               </p>
             </div>
 
-          </div>
-
-          <div className="hero-visual-system" aria-label="Toronto skyline and profile photo">
-            <div className="hero-image-frame hero-skyline-frame">
-              <DitherShader
-                src={skylineImage}
-                gridSize={1}
-                ditherMode="bayer"
-                colorMode="color"
-                primaryColor="#2f2a26"
-                secondaryColor="#fbf8f2"
-                threshold={0.46}
-                objectFit="cover"
-                className="hero-dither-canvas hero-skyline-canvas"
-                ariaLabel="Dithered Toronto skyline with the CN Tower"
-              />
-            </div>
-
             <div className="hero-profile-row">
               <div className="hero-image-frame hero-portrait-frame">
                 <img
@@ -167,6 +149,23 @@ const Hero = () => {
                   })}
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div className="hero-visual-system" aria-label="Toronto skyline">
+            <div className="hero-image-frame hero-skyline-frame">
+              <DitherShader
+                src={skylineImage}
+                gridSize={1}
+                ditherMode="bayer"
+                colorMode="color"
+                primaryColor="#2f2a26"
+                secondaryColor="#fbf8f2"
+                threshold={0.46}
+                objectFit="cover"
+                className="hero-dither-canvas hero-skyline-canvas"
+                ariaLabel="Dithered Toronto skyline with the CN Tower"
+              />
             </div>
           </div>
         </div>

@@ -172,74 +172,13 @@ button {
 @media (hover: hover) and (pointer: fine) {
   .custom-cursor-enabled,
   .custom-cursor-enabled * {
-    cursor: none !important;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath fill='%23f08a64' stroke='%23171412' stroke-width='1.8' stroke-linejoin='round' d='M4 3l16.9 9.4-7.4 2-3.2 7.1L4 3z'/%3E%3Cpath fill='none' stroke='%23713a28' stroke-width='1.5' stroke-linecap='round' d='M10.2 9.6l5.2 2.9'/%3E%3C/svg%3E") 4 3, auto;
   }
-}
 
-.portfolio-cursor {
-  position: fixed;
-  top: -17px;
-  left: -17px;
-  z-index: 9999;
-  width: 34px;
-  height: 34px;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-}
-
-.dark .portfolio-cursor {
-  mix-blend-mode: screen;
-}
-
-.portfolio-cursor-ring,
-.portfolio-cursor-core,
-.portfolio-cursor-spark {
-  position: absolute;
-  display: block;
-  border-radius: 999px;
-}
-
-.portfolio-cursor-ring {
-  inset: 0;
-  border: 1px solid color-mix(in srgb, var(--primary) 72%, var(--foreground));
-  background:
-    radial-gradient(circle, transparent 44%, color-mix(in srgb, var(--accent) 42%, transparent) 46%, transparent 70%);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--card) 44%, transparent),
-    0 10px 24px color-mix(in srgb, var(--primary) 20%, transparent);
-}
-
-.portfolio-cursor-core {
-  left: 50%;
-  top: 50%;
-  width: 7px;
-  height: 7px;
-  background: var(--primary);
-  box-shadow: 0 0 18px color-mix(in srgb, var(--primary) 48%, transparent);
-  transform: translate(-50%, -50%);
-}
-
-.portfolio-cursor-spark {
-  right: 4px;
-  top: 3px;
-  width: 9px;
-  height: 2px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--primary) 76%, white);
-  transform: rotate(-34deg);
-  transform-origin: 100% 50%;
-}
-
-.portfolio-cursor-active .portfolio-cursor-ring {
-  border-color: var(--primary);
-  background:
-    radial-gradient(circle, color-mix(in srgb, var(--primary) 12%, transparent), transparent 52%),
-    color-mix(in srgb, var(--accent) 28%, transparent);
-}
-
-.portfolio-cursor-active .portfolio-cursor-core {
-  width: 10px;
-  height: 10px;
+  .dark.custom-cursor-enabled,
+  .dark.custom-cursor-enabled * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath fill='%23f08a64' stroke='%23fff7ed' stroke-width='1.8' stroke-linejoin='round' d='M4 3l16.9 9.4-7.4 2-3.2 7.1L4 3z'/%3E%3Cpath fill='none' stroke='%23713a28' stroke-width='1.5' stroke-linecap='round' d='M10.2 9.6l5.2 2.9'/%3E%3C/svg%3E") 4 3, auto;
+  }
 }
 
 .site-header {
@@ -538,38 +477,21 @@ button {
   z-index: 2;
 }
 
-.hero-composition {
-  position: relative;
-  isolation: isolate;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.88fr);
-  gap: clamp(18px, 2.8vw, 34px);
-  align-items: center;
-  overflow: visible;
-  padding: clamp(28px, 4.2vw, 54px);
-  border: 1px solid color-mix(in srgb, var(--hero-border) 92%, transparent);
-  border-radius: 18px;
-  background:
-    linear-gradient(115deg, color-mix(in srgb, var(--hero-surface) 97%, var(--accent) 3%) 0%, color-mix(in srgb, var(--hero-surface) 86%, transparent) 52%, transparent 74%),
-    radial-gradient(circle at 78% 18%, color-mix(in srgb, var(--hero-accent) 14%, transparent), transparent 28rem),
-    linear-gradient(180deg, color-mix(in srgb, var(--card) 82%, var(--background)), color-mix(in srgb, var(--muted) 42%, var(--background)));
-  box-shadow:
-    0 26px 70px color-mix(in srgb, var(--foreground) 8%, transparent),
-    inset 0 1px 0 color-mix(in srgb, white 54%, transparent);
+@media (min-width: 901px) {
+  .hero-shell {
+    width: min(100% - clamp(48px, 8vw, 160px), 1540px);
+  }
 }
 
-.hero-composition::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  z-index: -1;
-  border-radius: 17px;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--hero-accent) 11%, transparent), transparent 34%, color-mix(in srgb, var(--hero-accent) 8%, transparent)),
-    linear-gradient(180deg, color-mix(in srgb, white 34%, transparent), transparent 46%);
-  opacity: 0.78;
-  pointer-events: none;
+.hero-composition {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(380px, 1fr);
+  column-gap: clamp(36px, 6vw, 104px);
+  row-gap: clamp(22px, 3vw, 34px);
+  align-items: center;
+  overflow: visible;
 }
 
 .hero-copy {
@@ -830,10 +752,12 @@ button {
 
 .hero-profile-row {
   min-width: 0;
+  width: min(100%, 620px);
+  margin-top: 28px;
   display: grid;
-  grid-template-columns: clamp(112px, 10vw, 136px) minmax(0, 1fr);
-  gap: 14px;
+  grid-template-columns: clamp(112px, 9vw, 134px) minmax(0, max-content);
   align-items: center;
+  gap: 14px;
 }
 
 .hero-image-frame {
@@ -866,6 +790,7 @@ button {
   min-width: 0;
   min-height: 0;
   aspect-ratio: 16 / 10;
+  background: #171412;
 }
 
 .hero-skyline-frame::after {
@@ -873,14 +798,20 @@ button {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--hero-surface) 24%, transparent), transparent 22%, transparent 78%, color-mix(in srgb, var(--hero-surface) 12%, transparent)),
-    linear-gradient(0deg, color-mix(in srgb, var(--hero-surface) 18%, transparent), transparent 42%);
+  background: linear-gradient(180deg, rgba(18, 15, 13, 0.12), rgba(18, 15, 13, 0.24));
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
+.dark .hero-skyline-frame::after {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--hero-surface) 24%, transparent), transparent 22%, transparent 78%, color-mix(in srgb, var(--hero-surface) 12%, transparent)),
+    linear-gradient(0deg, color-mix(in srgb, var(--hero-surface) 18%, transparent), transparent 42%);
+  mix-blend-mode: normal;
+}
+
 .hero-portrait-frame {
-  width: clamp(112px, 10vw, 136px);
+  width: clamp(112px, 9vw, 134px);
   aspect-ratio: 1;
   margin-top: 0;
   border-radius: 10px;
@@ -889,6 +820,7 @@ button {
 .hero-connect .hero-actions,
 .hero-connect .hero-links {
   margin-top: 0;
+  justify-content: flex-start;
 }
 
 .hero-connect .hero-actions {
@@ -913,6 +845,10 @@ button {
 }
 
 .hero-skyline-canvas {
+  filter: saturate(1.12) contrast(1.18) brightness(0.82);
+}
+
+.dark .hero-skyline-canvas {
   filter: saturate(1.04) contrast(1.03) brightness(1.04);
 }
 
@@ -2818,7 +2754,6 @@ button {
 
   .hero-composition {
     gap: 30px;
-    padding: clamp(24px, 5vw, 38px);
   }
 
   .hero-section .hero-copy h1 {
@@ -2996,12 +2931,6 @@ button {
 
   .hero-composition {
     gap: 24px;
-    padding: 22px 18px 20px;
-    border-radius: 14px;
-  }
-
-  .hero-composition::before {
-    border-radius: 13px;
   }
 
   .hero-visual-system {

@@ -53,6 +53,26 @@ export const portfolio = {
   ],
 };
 
+const monthIndexes = {
+  Jan: 0,
+  Feb: 1,
+  Mar: 2,
+  Apr: 3,
+  May: 4,
+  Jun: 5,
+  Jul: 6,
+  Aug: 7,
+  Sep: 8,
+  Oct: 9,
+  Nov: 10,
+  Dec: 11,
+};
+
+const periodStartTime = (period) => {
+  const [, month, year] = period.match(/^([A-Z][a-z]{2}) (\d{4})/) ?? [];
+  return new Date(Number(year), monthIndexes[month] ?? 0).getTime();
+};
+
 export const experiences = [
   {
     company: "Belimo",
@@ -143,7 +163,7 @@ export const experiences = [
       "Recommended and configured workstation hardware for research and specialized course workloads.",
     ],
   },
-];
+].sort((a, b) => periodStartTime(b.period) - periodStartTime(a.period));
 
 export const projects = [
   {
