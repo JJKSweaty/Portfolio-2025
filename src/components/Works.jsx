@@ -18,9 +18,9 @@ import { ImagesBadge } from "@/components/ui/images-badge";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 
 const showcaseProjectSlugs = [
+  "userspace-tcp-ip-stack",
   "spi-controlled-pwm-peripheral",
   "cuda-mlp-mnist",
-  "esp32-media-controller",
 ];
 
 const showcaseProjects = showcaseProjectSlugs
@@ -33,6 +33,7 @@ const supportingProjects = projects.filter(
 
 const marqueeProjectSlugs = [
   "spi-controlled-pwm-peripheral",
+  "userspace-tcp-ip-stack",
   "esp32-media-controller",
   "cuda-mlp-mnist",
   "vision-guided-autonomous-disk-launcher",
@@ -80,6 +81,12 @@ const getLinkIcon = (label) => {
   return ArrowUpRight;
 };
 
+const getCaseStudyHref = (project) =>
+  project.caseStudy?.href || `/projects/${project.slug}`;
+
+const getCaseStudyLabel = (project) =>
+  project.caseStudy?.label || "Explore case study";
+
 const ProjectImage = ({ project, priority = false }) => {
   const fit = project.image.fit || "cover";
 
@@ -120,7 +127,7 @@ const ProjectMediaBadge = ({ project }) => {
 
   return (
     <Link
-      to={`/projects/${project.slug}`}
+      to={getCaseStudyHref(project)}
       className="project-media-badge-wrap"
       aria-label={`Open ${project.title} case study media`}
     >
@@ -188,8 +195,8 @@ const ProjectMediaShowcase = () => {
 const ProjectLinks = ({ project, className }) => (
   <div className={className}>
     {project.caseStudy && (
-      <Link to={`/projects/${project.slug}`}>
-        Explore case study
+      <Link to={getCaseStudyHref(project)}>
+        {getCaseStudyLabel(project)}
         <ArrowRight aria-hidden="true" />
       </Link>
     )}
@@ -326,8 +333,8 @@ const SupportingProjectCard = ({ project, index }) => {
 
         <div className="supporting-project-links">
           {project.caseStudy && (
-            <Link to={`/projects/${project.slug}`}>
-              Case Study
+            <Link to={getCaseStudyHref(project)}>
+              {project.caseStudy?.label || "Case Study"}
               <ArrowRight aria-hidden="true" />
             </Link>
           )}

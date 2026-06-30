@@ -6,6 +6,7 @@ import heartbeatpcb from "../assets/hearbeatsensor pcb.png";
 import roboticsPlatformPreview from "../assets/project-previews/robotics-platform-preview.jpg";
 import signtolearn from "../assets/signtolearn.png";
 import spiPwmPreview from "../assets/project-previews/spi-pwm-preview.png";
+import tcpIpStackPreview from "../assets/project-previews/tcp-ip-stack-preview.svg";
 import truvote from "../assets/truvote.png";
 
 export const portfolio = {
@@ -35,6 +36,7 @@ export const portfolio = {
   navLinks: [
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
+    { id: "blog", label: "Blog" },
     { id: "contact", label: "Contact" },
   ],
   socials: [
@@ -166,6 +168,42 @@ export const experiences = [
 ].sort((a, b) => periodStartTime(b.period) - periodStartTime(a.period));
 
 export const projects = [
+  {
+    slug: "userspace-tcp-ip-stack",
+    title: "Userspace TCP/IP Stack",
+    subtitle: "Raw Ethernet frames to ARP, IPv4, ICMP, UDP, and TCP",
+    year: "2026",
+    category: "Systems Software",
+    status: "In progress",
+    featured: true,
+    role: "Built an educational C networking stack around a Linux TAP device, packet parsing, checksums, TCP state, and terminal-driven demos.",
+    summary:
+      "C userspace TCP/IP stack that reads raw Ethernet frames from a TAP device and implements the packet path without kernel sockets for stack logic.",
+    decisions: [
+      "Kept the packet path explicit: TAP -> Ethernet -> ARP or IPv4 -> ICMP / UDP / TCP.",
+      "Paired terminal demos with packet fields so the stack is understandable from bytes to C structs.",
+      "Documented current limits instead of implying production TCP behavior.",
+    ],
+    tags: ["C", "Linux TAP", "Ethernet", "ARP", "IPv4", "TCP"],
+    image: {
+      src: tcpIpStackPreview,
+      alt: "Userspace TCP/IP stack packet path visualization",
+      fit: "contain",
+      position: "center",
+    },
+    links: [{ label: "GitHub", href: "https://github.com/JJKSweaty/tcpip-stack" }],
+    caseStudy: {
+      label: "Read CodeCrafters guide",
+      href: "/blog/tcp-ip-stack",
+      overview:
+        "Interactive article and packet visualizer for a userspace TCP/IP stack written in C.",
+      engineering: [
+        "Linux TAP device supplies raw Ethernet frames.",
+        "Ethernet dispatches ARP or IPv4, then IPv4 dispatches ICMP, UDP, or TCP.",
+      ],
+      results: ["Built an explorable project page around packet flow, terminal demos, and source-file callouts."],
+    },
+  },
   {
     slug: "remembr",
     title: "remembR",
@@ -626,6 +664,7 @@ export const projects = [
 ];
 
 const featuredProjectOrder = [
+  "userspace-tcp-ip-stack",
   "spi-controlled-pwm-peripheral",
   "cuda-mlp-mnist",
   "esp32-media-controller",

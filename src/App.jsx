@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { PortfolioCursor, ScrollProgress } from "./components";
 import { ThemeProvider } from "./components/ThemeProvider";
+import CodeCraftersTcpIpPost from "./pages/CodeCraftersTcpIpPost";
 import Home from "./pages/Home";
 import ProjectCaseStudy from "./pages/projects/ProjectCaseStudy";
+import TcpIpStackPage from "./pages/projects/TcpIpStackPage";
 
 const ScrollToLocation = () => {
   const location = useLocation();
@@ -32,6 +34,9 @@ const App = () => {
         <PortfolioCursor />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/blog/tcp-ip-stack" element={<CodeCraftersTcpIpPost />} />
+          <Route path="/code-crafters/tcp-ip-stack" element={<CodeCraftersTcpIpPost />} />
+          <Route path="/projects/userspace-tcp-ip-stack" element={<TcpIpStackPage />} />
           <Route path="/projects/:slug" element={<ProjectCaseStudy />} />
         </Routes>
       </BrowserRouter>

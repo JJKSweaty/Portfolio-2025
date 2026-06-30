@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">Userspace TCP/IP stack packet path</title>
+  <desc id="desc">A centered diagram showing TAP to Ethernet to ARP or IPv4, then ICMP, UDP, and TCP.</desc>
+  <rect width="960" height="600" rx="0" fill="#101820"/>
+  <rect x="80" y="80" width="800" height="440" rx="18" fill="#13232d" stroke="#39596a" stroke-width="2"/>
+
+  <g fill="#d8f3ff" font-family="Inter, Segoe UI, sans-serif">
+    <text x="480" y="139" text-anchor="middle" font-size="34" font-weight="800">Userspace TCP/IP Stack</text>
+    <text x="480" y="172" text-anchor="middle" font-size="17" fill="#8fb8c8">raw Ethernet frames parsed in C</text>
+  </g>
+
+  <g stroke="#62d6a6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M215 292h118"/>
+    <path d="M454 292h84"/>
+    <path d="M655 270h88"/>
+    <path d="M655 314h88"/>
+    <path d="M655 358h88"/>
+    <path d="M538 292c42 0 50-44 88-44h26"/>
+    <path d="M538 292h114"/>
+    <path d="M538 292c42 0 50 44 88 44h26"/>
+  </g>
+
+  <g font-family="JetBrains Mono, Consolas, monospace" font-weight="800">
+    <rect x="116" y="244" width="132" height="96" rx="10" fill="#182f36" stroke="#62d6a6" stroke-width="2"/>
+    <text x="182" y="287" text-anchor="middle" fill="#d8f3ff" font-size="24">tap0</text>
+    <text x="182" y="316" text-anchor="middle" fill="#8fb8c8" font-size="13">TAP fd</text>
+
+    <rect x="333" y="244" width="150" height="96" rx="10" fill="#182f36" stroke="#8fb8ff" stroke-width="2"/>
+    <text x="408" y="287" text-anchor="middle" fill="#d8f3ff" font-size="22">Ethernet</text>
+    <text x="408" y="316" text-anchor="middle" fill="#8fb8c8" font-size="13">0x0806 / 0x0800</text>
+
+    <rect x="538" y="206" width="116" height="72" rx="10" fill="#19362f" stroke="#62d6a6" stroke-width="2"/>
+    <text x="596" y="249" text-anchor="middle" fill="#d8f3ff" font-size="22">ARP</text>
+
+    <rect x="538" y="306" width="116" height="72" rx="10" fill="#182f36" stroke="#8fb8ff" stroke-width="2"/>
+    <text x="596" y="349" text-anchor="middle" fill="#d8f3ff" font-size="22">IPv4</text>
+
+    <rect x="744" y="196" width="96" height="58" rx="10" fill="#182f36" stroke="#d8f3ff" stroke-width="2"/>
+    <text x="792" y="232" text-anchor="middle" fill="#d8f3ff" font-size="18">ICMP</text>
+
+    <rect x="744" y="263" width="96" height="58" rx="10" fill="#2f2a18" stroke="#e9b44c" stroke-width="2"/>
+    <text x="792" y="299" text-anchor="middle" fill="#fff2c7" font-size="18">UDP</text>
+
+    <rect x="744" y="330" width="96" height="58" rx="10" fill="#192945" stroke="#8fb8ff" stroke-width="2"/>
+    <text x="792" y="366" text-anchor="middle" fill="#d8f3ff" font-size="18">TCP</text>
+  </g>
+
+  <g fill="#8fb8c8" font-family="JetBrains Mono, Consolas, monospace" font-size="16">
+    <text x="480" y="454" text-anchor="middle">10.0.0.2 at 02:00:00:00:00:02</text>
+    <text x="480" y="484" text-anchor="middle">ping, UDP echo, TCP handshake, payload ACK, RTO retry</text>
+  </g>
+</svg>
