@@ -246,6 +246,93 @@ udp->checksum = udp_checksum(ip, udp, udp_len);`,
   },
 ];
 
+export const guideChapters = [
+  {
+    id: "overview",
+    nav: "Overview",
+    title: "The stack in one packet path",
+    summary:
+      "Start here for the mental model: Linux writes raw Ethernet frames to tap0, then the C program chooses ARP or IPv4 and finally ICMP, UDP, or TCP.",
+    points: [
+      "TAP is used instead of TUN so the guide can show Ethernet headers, not just IP packets.",
+      "The stack answers only 10.0.0.2, which keeps every demo packet easy to reason about.",
+      "The interactive model below mirrors the source dispatch path without needing root access in the browser.",
+    ],
+    sourceIds: ["event-loop"],
+    walkthroughIds: [],
+  },
+  {
+    id: "setup-tap",
+    nav: "Setup/TAP",
+    title: "Run Linux traffic through tap0",
+    summary:
+      "This chapter covers the local workflow, the TAP allocation, and the select() loop that keeps packet input and TCP timers moving.",
+    points: [
+      "The stack creates tap0 with IFF_TAP and IFF_NO_PI, so reads return raw layer-2 frames.",
+      "Normal tools like ping and nc generate real traffic through the virtual device.",
+      "select() uses a short timeout so retransmission checks still run when no new frame arrives.",
+    ],
+    sourceIds: ["event-loop", "tap"],
+    walkthroughIds: [],
+  },
+  {
+    id: "ethernet-arp",
+    nav: "Ethernet/ARP",
+    title: "Resolve a MAC before IP traffic works",
+    summary:
+      "Ethernet is the first branch. ARP is the first protocol that makes the demos possible because Linux needs a destination MAC for 10.0.0.2.",
+    points: [
+      "EtherType 0x0806 routes to ARP; 0x0800 routes to IPv4.",
+      "ARP replies are sent only for Ethernet/IPv4 requests targeting the stack IP.",
+      "The fake stack MAC is stable, so packet traces stay predictable.",
+    ],
+    sourceIds: ["ethernet", "arp"],
+    walkthroughIds: ["arp"],
+  },
+  {
+    id: "ipv4-icmp-udp",
+    nav: "IPv4/ICMP/UDP",
+    title: "Validate IPv4 before simple protocol handlers",
+    summary:
+      "IPv4 validates the header shape, total length, and truncation before dispatching ping and UDP echo traffic.",
+    points: [
+      "IPv4 protocol 1 selects ICMP, 17 selects UDP, and unsupported protocols are only logged.",
+      "ICMP ping is a controlled packet rewrite: swap endpoints, change type 8 to type 0, recompute checksums.",
+      "UDP stays stateless: validate length, swap ports, checksum, echo the payload.",
+    ],
+    sourceIds: ["ipv4", "icmp", "udp"],
+    walkthroughIds: ["icmp", "udp"],
+  },
+  {
+    id: "tcp-state",
+    nav: "TCP State",
+    title: "Track enough state to answer one TCP client",
+    summary:
+      "TCP is where the project stops mirroring packets and starts tracking connection state, sequence numbers, acknowledgments, and close behavior.",
+    points: [
+      "A SYN creates SYN_RECEIVED, stores peer/local ports, and sends SYN-ACK.",
+      "A pure ACK covering SND.NXT moves the connection to ESTABLISHED.",
+      "Payload advances RCV.NXT, sends the hardcoded response, and queues that segment for ACK tracking.",
+    ],
+    sourceIds: ["tcp"],
+    walkthroughIds: ["tcp-handshake", "tcp-payload"],
+  },
+  {
+    id: "retransmission-limits",
+    nav: "RTO/Limits",
+    title: "Retransmit one saved TCP segment",
+    summary:
+      "The retransmission model is intentionally small: one queued payload segment, one timeout, exponential backoff, ACK clearing, and Karn's rule.",
+    points: [
+      "The queue stores the outbound frame plus seq_start and seq_end.",
+      "Timeout writes the saved frame again and doubles RTO up to the configured cap.",
+      "ACKs clear the queue; retransmitted segments skip RTT sampling.",
+    ],
+    sourceIds: ["retransmission"],
+    walkthroughIds: ["tcp-rto"],
+  },
+];
+
 export const walkthroughs = [
   {
     id: "arp",
@@ -581,33 +668,6 @@ export const articleCodeExamples = [
 
 tcp_retransmit_queue_save((uint8_t *)eth, frame_len,
                           reply_seq, tcp_conn.snd_nxt);`,
-  },
-];
-
-export const agentQuestions = [
-  {
-    question: "What should I update when the C repo adds a new protocol feature?",
-    answer:
-      "Add or revise the matching entries in src/data/tcpipStack.js first. The project page and blog both read from that file, so future tutorial updates stay centralized.",
-    refs: ["src/data/tcpipStack.js"],
-  },
-  {
-    question: "Why does ARP happen before ping?",
-    answer:
-      "Ping is ICMP over IPv4, but the host still needs an Ethernet destination MAC before it can put the IPv4 packet on tap0. ARP resolves 10.0.0.2 to the stack MAC.",
-    refs: ["src/ethernet.c", "src/arp.c", "src/icmp.c"],
-  },
-  {
-    question: "Why does TCP need retransmission but UDP does not?",
-    answer:
-      "TCP promises ordered bytes, so it tracks sequence numbers, ACKs, unacknowledged data, RTO, and retry state. UDP is just datagrams; this stack echoes them but does not retry them.",
-    refs: ["src/udp.c", "src/tcp.c"],
-  },
-  {
-    question: "Where is the TCP checksum calculated?",
-    answer:
-      "src/tcp.c builds a pseudo-header from IPv4 source, destination, protocol, and TCP length, appends the TCP header/payload, then calls checksum() from src/checksum.c.",
-    refs: ["src/tcp.c", "src/checksum.c"],
   },
 ];
 

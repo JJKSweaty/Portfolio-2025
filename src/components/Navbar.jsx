@@ -22,6 +22,11 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const isReaderRoute = [
+    "/blog/tcp-ip-stack",
+    "/tutorials/tcp-ip-stack",
+    "/code-crafters/tcp-ip-stack",
+  ].some((path) => location.pathname.startsWith(path));
   const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -110,27 +115,29 @@ const Navbar = () => {
         <div className="desktop-nav">{navItems}</div>
 
         <div className="nav-actions">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="theme-toggle"
-                onClick={toggleTheme}
-                aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
-              >
-                {resolvedTheme === "dark" ? (
-                  <Sun aria-hidden="true" />
-                ) : (
-                  <Moon aria-hidden="true" />
-                )}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              {resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
-            </TooltipContent>
-          </Tooltip>
+          {!isReaderRoute && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="theme-toggle"
+                  onClick={toggleTheme}
+                  aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
+                >
+                  {resolvedTheme === "dark" ? (
+                    <Sun aria-hidden="true" />
+                  ) : (
+                    <Moon aria-hidden="true" />
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                {resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
+              </TooltipContent>
+            </Tooltip>
+          )}
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>

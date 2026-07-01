@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
+  ArrowRight,
   BookOpen,
+  Check,
   CheckCircle2,
+  Copy,
   Github,
   Play,
   Terminal,
@@ -11,8 +14,8 @@ import {
 import { Navbar } from "../components";
 import { portfolio } from "../data/portfolio";
 import {
-  agentQuestions,
   articleCodeExamples,
+  guideChapters,
   packetLayers,
   retransmissionSteps,
   roadmap,
@@ -24,6 +27,9 @@ import {
 } from "../data/tcpipStack";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
+const chapterHref = (id) =>
+  id === "overview" ? "/blog/tcp-ip-stack" : `/blog/tcp-ip-stack/${id}`;
 
 const isIPv4 = (value) =>
   /^(\d{1,3}\.){3}\d{1,3}$/.test(value) &&
@@ -169,15 +175,43 @@ ${logs.join("\n")}`}</pre>
   );
 };
 
-const CodeBlock = ({ example }) => (
-  <figure className="craft-code">
-    <figcaption>
-      <span>{example.title}</span>
-      <code>{example.file}</code>
-    </figcaption>
-    <pre>{example.code}</pre>
-  </figure>
-);
+const CodeBlock = ({ example }) => {
+  const [copied, setCopied] = useState(false);
+
+  const copyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(example.code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1400);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <figure className="craft-code">
+      <figcaption>
+        <div className="craft-code-title">
+          <span>{example.title}</span>
+          <code>{example.file}</code>
+        </div>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="craft-copy-button"
+          onClick={copyCode}
+        >
+          {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+          {copied ? "Copied" : "Copy"}
+        </Button>
+      </figcaption>
+      <pre>
+        <code>{example.code}</code>
+      </pre>
+    </figure>
+  );
+};
 
 const SourceSection = ({ section }) => (
   <article className="craft-source-card" id={section.id}>
@@ -313,15 +347,223 @@ const Walkthrough = ({ item }) => {
   );
 };
 
-const TcpIpStackTutorial = () => {
-  useEffect(() => {
-    document.title = `TCP/IP Stack Tutorial - ${portfolio.person.name}`;
-  }, []);
+const SourceSections = ({ ids, sectionsById }) => (
+  <div className="craft-source-list">
+    {ids.map((id) => {
+      const section = sectionsById[id];
+      return section ? <SourceSection key={id} section={section} /> : null;
+    })}
+  </div>
+);
 
+const WalkthroughList = ({ ids, walkthroughsById }) => (
+  <div className="craft-walkthrough-list">
+    {ids.map((id) => {
+      const item = walkthroughsById[id];
+      return item ? <Walkthrough key={id} item={item} /> : null;
+    })}
+  </div>
+);
+
+const ChapterLead = ({ chapter }) => (
+  <section className="craft-section craft-chapter-lead">
+    <Badge variant="secondary">Chapter</Badge>
+    <h2>{chapter.title}</h2>
+    <p>{chapter.summary}</p>
+    <ul className="craft-chapter-points">
+      {chapter.points.map((point) => (
+        <li key={point}>
+          <CheckCircle2 aria-hidden="true" />
+          <span>{point}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+);
+
+const ChapterContent = ({ chapter, sectionsById, walkthroughsById, keyFiles }) => (
+  <>
+    <ChapterLead chapter={chapter} />
+
+    {chapter.id === "overview" && (
+      <>
+        <section className="craft-section craft-intro">
+          <h2>The whole project in one path</h2>
+          <p>
+            Linux sends frames through <code>{tcpipFacts.tapDevice}</code>. The C program
+            parses those bytes directly instead of using kernel TCP or UDP sockets for
+            the stack behavior.
+          </p>
+          <PacketPath
+            className="craft-path-large"
+            path={["TAP", "Ethernet", "ARP or IPv4", "ICMP / UDP / TCP"]}
+          />
+          <div className="craft-facts">
+            <span>Stack IP: {tcpipFacts.stackIp}</span>
+            <span>Host IP: {tcpipFacts.hostIp}</span>
+            <span>Stack MAC: {tcpipFacts.stackMac}</span>
+          </div>
+        </section>
+
+        <section className="craft-section" id="playground">
+          <h2>Interactive packet demo</h2>
+          <p>
+            Change the target IP or protocol and watch where the packet path stops. The
+            stack answers only <code>{tcpipFacts.stackIp}</code>.
+          </p>
+          <TerminalDemo />
+        </section>
+
+        <section className="craft-section">
+          <h2>Layer inspector</h2>
+          <p>
+            Each protocol layer has one job. Click through the stack to see which source
+            files own each decision.
+          </p>
+          <LayerInspector />
+        </section>
+
+        <section className="craft-section">
+          <h2>Core snippets to read first</h2>
+          <div className="craft-code-grid">
+            {articleCodeExamples.map((example) => (
+              <CodeBlock key={example.title} example={example} />
+            ))}
+          </div>
+        </section>
+
+        <section className="craft-section">
+          <h2>Files this guide is built from</h2>
+          <p>
+            Future updates should start in <code>src/data/tcpipStack.js</code> so the
+            portfolio overview and blog stay aligned.
+          </p>
+          <div className="tag-row">
+            {keyFiles.map((file) => (
+              <Badge key={file} variant="outline">
+                {file}
+              </Badge>
+            ))}
+          </div>
+        </section>
+      </>
+    )}
+
+    {chapter.id === "setup-tap" && (
+      <section className="craft-section">
+        <h2>Run it locally</h2>
+        <p>These commands exercise real Linux traffic against the userspace C stack.</p>
+        <div className="craft-steps">
+          {setupSteps.map((step, index) => (
+            <section key={step.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+              <pre>{step.command}</pre>
+            </section>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {chapter.sourceIds.length > 0 && (
+      <section className="craft-section" id="source-walkthrough">
+        <h2>Source walkthrough</h2>
+        <p>
+          The implementation is intentionally readable: one packet path, small protocol
+          handlers, and explicit state where TCP needs it.
+        </p>
+        <SourceSections ids={chapter.sourceIds} sectionsById={sectionsById} />
+      </section>
+    )}
+
+    {chapter.walkthroughIds.length > 0 && (
+      <section className="craft-section">
+        <h2>Command, packet, code walkthroughs</h2>
+        <p>Reproduce these demos while watching the stack logs.</p>
+        <WalkthroughList ids={chapter.walkthroughIds} walkthroughsById={walkthroughsById} />
+      </section>
+    )}
+
+    {chapter.id === "tcp-state" && (
+      <section className="craft-section">
+        <h2>TCP state machine</h2>
+        <p>
+          The current stack supports one connection. That keeps the state visible enough
+          for a learning project.
+        </p>
+        <StateMachine />
+      </section>
+    )}
+
+    {chapter.id === "retransmission-limits" && (
+      <>
+        <section className="craft-section">
+          <h2>Retransmission model</h2>
+          <p>
+            The RTO logic is deliberately narrow: one saved segment and a timer. That is
+            enough to teach ACK coverage, timeout, backoff, and Karn&apos;s rule without
+            hiding the mechanics.
+          </p>
+          <RetransmissionFlow />
+        </section>
+
+        <section className="craft-section">
+          <h2>Current limits</h2>
+          <p>This is an educational stack, not production networking. The limits are part of the tutorial.</p>
+          <div className="craft-limits">
+            {roadmap.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
+          </div>
+        </section>
+      </>
+    )}
+  </>
+);
+
+const TcpIpStackTutorial = () => {
+  const { chapterId = "overview" } = useParams();
+  const chapterIndex = guideChapters.findIndex((item) => item.id === chapterId);
+  const chapter = guideChapters[chapterIndex];
+  const previous = guideChapters[chapterIndex - 1];
+  const next = guideChapters[chapterIndex + 1];
+
+  const sectionsById = useMemo(
+    () => Object.fromEntries(sourceSections.map((section) => [section.id, section])),
+    []
+  );
+  const walkthroughsById = useMemo(
+    () => Object.fromEntries(walkthroughs.map((item) => [item.id, item])),
+    []
+  );
   const keyFiles = useMemo(
     () => [...new Set(sourceSections.flatMap((section) => section.files))],
     []
   );
+
+  useEffect(() => {
+    if (!chapter) return;
+    document.title = `${chapter.nav} - TCP/IP Stack Tutorial - ${portfolio.person.name}`;
+  }, [chapter]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const hadDark = root.classList.contains("dark");
+    const previousColorScheme = root.style.colorScheme;
+
+    root.classList.remove("dark");
+    root.style.colorScheme = "light";
+
+    return () => {
+      root.classList.toggle("dark", hadDark);
+      root.style.colorScheme = previousColorScheme;
+    };
+  }, []);
+
+  if (!chapter) {
+    return <Navigate to="/blog/tcp-ip-stack" replace />;
+  }
 
   return (
     <div className="app-shell craft-page">
@@ -338,9 +580,9 @@ const TcpIpStackTutorial = () => {
             <p className="eyebrow">Interactive tutorial</p>
             <h1>Build a TCP/IP stack from raw Ethernet frames</h1>
             <p>
-              A source-grounded guide to the C userspace stack: TAP setup,
-              Ethernet dispatch, ARP, IPv4, ICMP ping, UDP echo, TCP state, and
-              one-segment retransmission.
+              A source-grounded guide to the C userspace stack: TAP setup, Ethernet
+              dispatch, ARP, IPv4, ICMP ping, UDP echo, TCP state, and one-segment
+              retransmission.
             </p>
             <div className="craft-actions">
               <Button asChild>
@@ -350,183 +592,76 @@ const TcpIpStackTutorial = () => {
                 </a>
               </Button>
               <Button asChild variant="outline">
-                <a href="#playground">
+                <Link to={chapterHref("overview")}>
                   <Play aria-hidden="true" />
-                  Try packet demo
-                </a>
+                  Packet demo
+                </Link>
               </Button>
               <Button asChild variant="outline">
-                <a href="#source-walkthrough">
+                <Link to={chapterHref("setup-tap")}>
                   <BookOpen aria-hidden="true" />
-                  Read code path
-                </a>
+                  Start chapters
+                </Link>
               </Button>
             </div>
           </header>
 
-          <section className="craft-section craft-intro">
-            <h2>The whole project in one path</h2>
-            <p>
-              Linux sends frames through <code>{tcpipFacts.tapDevice}</code>.
-              The C program parses those bytes directly instead of using kernel
-              TCP or UDP sockets for the stack behavior.
-            </p>
-            <PacketPath
-              className="craft-path-large"
-              path={["TAP", "Ethernet", "ARP or IPv4", "ICMP / UDP / TCP"]}
-            />
-            <div className="craft-facts">
-              <span>Stack IP: {tcpipFacts.stackIp}</span>
-              <span>Host IP: {tcpipFacts.hostIp}</span>
-              <span>Stack MAC: {tcpipFacts.stackMac}</span>
-            </div>
-          </section>
+          <div className="craft-reader-layout">
+            <aside className="craft-sidebar" aria-label="Guide chapters">
+              <p>Guide chapters</p>
+              <nav className="craft-chapter-nav">
+                {guideChapters.map((item, index) => (
+                  <Link
+                    key={item.id}
+                    to={chapterHref(item.id)}
+                    className={item.id === chapter.id ? "active" : ""}
+                  >
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <strong>{item.nav}</strong>
+                  </Link>
+                ))}
+              </nav>
+            </aside>
 
-          <section className="craft-section">
-            <h2>Run it locally</h2>
-            <p>
-              These commands exercise real Linux traffic against the userspace C
-              stack.
-            </p>
-            <div className="craft-steps">
-              {setupSteps.map((step, index) => (
-                <section key={step.title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                  <pre>{step.command}</pre>
-                </section>
-              ))}
-            </div>
-          </section>
-
-          <section className="craft-section" id="playground">
-            <h2>Interactive packet demo</h2>
-            <p>
-              Change the target IP or protocol and watch where the packet path
-              stops. The stack answers only <code>{tcpipFacts.stackIp}</code>.
-            </p>
-            <TerminalDemo />
-          </section>
-
-          <section className="craft-section">
-            <h2>Layer inspector</h2>
-            <p>
-              Each protocol layer has one job. Click through the stack to see
-              which source files own each decision.
-            </p>
-            <LayerInspector />
-          </section>
-
-          <section className="craft-section" id="source-walkthrough">
-            <h2>Source walkthrough</h2>
-            <p>
-              The implementation is intentionally readable: one packet path,
-              small protocol handlers, and explicit state where TCP needs it.
-            </p>
-            <div className="craft-source-list">
-              {sourceSections.map((section) => (
-                <SourceSection key={section.id} section={section} />
-              ))}
-            </div>
-          </section>
-
-          <section className="craft-section">
-            <h2>TCP state machine</h2>
-            <p>
-              The current stack supports one connection. That keeps the state
-              visible enough for a learning project.
-            </p>
-            <StateMachine />
-          </section>
-
-          <section className="craft-section">
-            <h2>Retransmission model</h2>
-            <p>
-              The RTO logic is deliberately narrow: one saved segment and a
-              timer. That is enough to teach ACK coverage, timeout, backoff, and
-              Karn&apos;s rule without hiding the mechanics.
-            </p>
-            <RetransmissionFlow />
-          </section>
-
-          <section className="craft-section">
-            <h2>Command, packet, code walkthroughs</h2>
-            <p>
-              These are the demos a reader can reproduce while watching the
-              stack logs.
-            </p>
-            <div className="craft-walkthrough-list">
-              {walkthroughs.map((item) => (
-                <Walkthrough key={item.id} item={item} />
-              ))}
-            </div>
-          </section>
-
-          <section className="craft-section">
-            <h2>Core snippets to read first</h2>
-            <div className="craft-code-grid">
-              {articleCodeExamples.map((example) => (
-                <CodeBlock key={example.title} example={example} />
-              ))}
-            </div>
-          </section>
-
-          <section className="craft-section">
-            <h2>Files this guide is built from</h2>
-            <p>
-              Future updates should start in <code>src/data/tcpipStack.js</code>
-              so the portfolio overview, blog, and agent prompts stay aligned.
-            </p>
-            <div className="tag-row">
-              {keyFiles.map((file) => (
-                <Badge key={file} variant="outline">
-                  {file}
-                </Badge>
-              ))}
-            </div>
-          </section>
-
-          <section className="craft-section">
-            <h2>Current limits</h2>
-            <p>
-              This is an educational stack, not production networking. The
-              limits are part of the tutorial.
-            </p>
-            <div className="craft-limits">
-              {roadmap.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </div>
-          </section>
-
-          <section className="craft-section">
-            <h2>Questions the portfolio agent can answer</h2>
-            <div className="craft-agent-list">
-              {agentQuestions.map((item) => (
-                <div key={item.question}>
-                  <strong>{item.question}</strong>
-                  <p>{item.answer}</p>
-                  <div className="tag-row">
-                    {item.refs.map((ref) => (
-                      <Badge key={ref} variant="outline">
-                        {ref}
-                      </Badge>
-                    ))}
-                  </div>
+            <div className="craft-reader-main">
+              <div className="craft-progress">
+                Chapter {chapterIndex + 1} of {guideChapters.length}
+              </div>
+              <ChapterContent
+                chapter={chapter}
+                sectionsById={sectionsById}
+                walkthroughsById={walkthroughsById}
+                keyFiles={keyFiles}
+              />
+              <footer className="craft-footer">
+                <div className="craft-pager">
+                  {previous ? (
+                    <Button asChild variant="outline">
+                      <Link to={chapterHref(previous.id)}>
+                        <ArrowLeft aria-hidden="true" />
+                        {previous.nav}
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button asChild variant="outline">
+                      <Link to="/#projects">
+                        <ArrowLeft aria-hidden="true" />
+                        Back to portfolio
+                      </Link>
+                    </Button>
+                  )}
+                  {next && (
+                    <Button asChild>
+                      <Link to={chapterHref(next.id)}>
+                        {next.nav}
+                        <ArrowRight aria-hidden="true" />
+                      </Link>
+                    </Button>
+                  )}
                 </div>
-              ))}
+              </footer>
             </div>
-          </section>
-
-          <footer className="craft-footer">
-            <Button asChild variant="outline">
-              <Link to="/#projects">
-                <ArrowLeft aria-hidden="true" />
-                Back to portfolio
-              </Link>
-            </Button>
-          </footer>
+          </div>
         </article>
       </main>
     </div>

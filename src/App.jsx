@@ -35,6 +35,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/blog/tcp-ip-stack" element={<TcpIpStackTutorial />} />
+          <Route path="/blog/tcp-ip-stack/:chapterId" element={<TcpIpStackTutorial />} />
           <Route path="/tutorials/tcp-ip-stack" element={<TcpIpStackTutorial />} />
           <Route path="/code-crafters/tcp-ip-stack" element={<TcpIpStackTutorial />} />
           <Route path="/projects/userspace-tcp-ip-stack" element={<TcpIpStackPage />} />

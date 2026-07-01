@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Bot, BookOpen, ChevronRight, Code2, Cpu, Github, Terminal } from "lucide-react";
+import { ArrowLeft, BookOpen, ChevronRight, Code2, Cpu, Github, Terminal } from "lucide-react";
 import { Navbar } from "../../components";
 import { portfolio } from "../../data/portfolio";
 import {
-  agentQuestions,
   packetLayers,
   roadmap,
   walkthroughs,
@@ -161,56 +160,6 @@ const WalkthroughCard = ({ walkthrough }) => {
   );
 };
 
-const AgentPanel = () => {
-  const [activeQuestion, setActiveQuestion] = useState(agentQuestions[0]);
-  const instruction = useMemo(
-    () =>
-      "You are an educational networking guide for John's userspace TCP/IP stack project. Ground answers in TAP -> Ethernet -> ARP or IPv4 -> ICMP / UDP / TCP.",
-    []
-  );
-
-  return (
-    <section className="tcp-section agent-section" id="ask-agent">
-      <div className="section-copy">
-        <p className="eyebrow">Ask the agent</p>
-        <h2>Questions grounded in this stack</h2>
-        <p>
-          The live integration can use this project instruction and the same data
-          powering the walkthroughs.
-        </p>
-      </div>
-      <div className="agent-grid">
-        <div className="agent-questions">
-          {agentQuestions.map((item) => (
-            <button
-              key={item.question}
-              className={activeQuestion.question === item.question ? "active" : ""}
-              type="button"
-              onClick={() => setActiveQuestion(item)}
-            >
-              <Bot aria-hidden="true" />
-              {item.question}
-            </button>
-          ))}
-        </div>
-        <div className="agent-answer">
-          <span>agent instruction</span>
-          <p className="agent-instruction">{instruction}</p>
-          <h3>{activeQuestion.question}</h3>
-          <p>{activeQuestion.answer}</p>
-          <div className="tag-row">
-            {activeQuestion.refs.map((file) => (
-              <Badge key={file} variant="outline">
-                {file}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const TcpIpStackPage = () => {
   useEffect(() => {
     document.title = `Userspace TCP/IP Stack - ${portfolio.person.name}`;
@@ -294,8 +243,6 @@ const TcpIpStackPage = () => {
               ))}
             </div>
           </section>
-
-          <AgentPanel />
 
           <section className="tcp-section roadmap-section">
             <div className="section-copy">
