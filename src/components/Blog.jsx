@@ -18,7 +18,7 @@ const Blog = () => {
             <p className="eyebrow">Blog</p>
             <h2 id="blog-title">Networking notes built from real code</h2>
             <p>
-              A detailed CodeCrafters-facing guide for the userspace TCP/IP stack.
+              A portfolio-hosted tutorial you can submit anywhere that accepts external learning resources.
             </p>
           </div>
         </div>
@@ -26,7 +26,7 @@ const Blog = () => {
         <article className="blog-feature">
           <div className="blog-feature-copy">
             <BookOpen aria-hidden="true" />
-            <p className="project-story-label">CodeCrafters tutorial</p>
+            <p className="project-story-label">Interactive tutorial</p>
             <h3>{tcpProject.title}</h3>
             <p>
               Walk through TAP, Ethernet, ARP, IPv4, ICMP, UDP, TCP state, and

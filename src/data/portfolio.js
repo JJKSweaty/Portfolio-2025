@@ -193,7 +193,7 @@ export const projects = [
     },
     links: [{ label: "GitHub", href: "https://github.com/JJKSweaty/tcpip-stack" }],
     caseStudy: {
-      label: "Read CodeCrafters guide",
+      label: "Interactive tutorial",
       href: "/blog/tcp-ip-stack",
       overview:
         "Interactive article and packet visualizer for a userspace TCP/IP stack written in C.",

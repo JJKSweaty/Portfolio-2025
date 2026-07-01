@@ -313,9 +313,9 @@ const Walkthrough = ({ item }) => {
   );
 };
 
-const CodeCraftersTcpIpPost = () => {
+const TcpIpStackTutorial = () => {
   useEffect(() => {
-    document.title = `CodeCrafters TCP/IP Stack Guide - ${portfolio.person.name}`;
+    document.title = `TCP/IP Stack Tutorial - ${portfolio.person.name}`;
   }, []);
 
   const keyFiles = useMemo(
@@ -335,7 +335,7 @@ const CodeCraftersTcpIpPost = () => {
                 Back to portfolio
               </Link>
             </Button>
-            <p className="eyebrow">CodeCrafters tutorial</p>
+            <p className="eyebrow">Interactive tutorial</p>
             <h1>Build a TCP/IP stack from raw Ethernet frames</h1>
             <p>
               A source-grounded guide to the C userspace stack: TAP setup,
@@ -533,4 +533,4 @@ const CodeCraftersTcpIpPost = () => {
   );
 };
 
-export default CodeCraftersTcpIpPost;
+export default TcpIpStackTutorial;

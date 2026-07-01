@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { PortfolioCursor, ScrollProgress } from "./components";
 import { ThemeProvider } from "./components/ThemeProvider";
-import CodeCraftersTcpIpPost from "./pages/CodeCraftersTcpIpPost";
 import Home from "./pages/Home";
+import TcpIpStackTutorial from "./pages/TcpIpStackTutorial";
 import ProjectCaseStudy from "./pages/projects/ProjectCaseStudy";
 import TcpIpStackPage from "./pages/projects/TcpIpStackPage";
 
@@ -34,8 +34,9 @@ const App = () => {
         <PortfolioCursor />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/blog/tcp-ip-stack" element={<CodeCraftersTcpIpPost />} />
-          <Route path="/code-crafters/tcp-ip-stack" element={<CodeCraftersTcpIpPost />} />
+          <Route path="/blog/tcp-ip-stack" element={<TcpIpStackTutorial />} />
+          <Route path="/tutorials/tcp-ip-stack" element={<TcpIpStackTutorial />} />
+          <Route path="/code-crafters/tcp-ip-stack" element={<TcpIpStackTutorial />} />
           <Route path="/projects/userspace-tcp-ip-stack" element={<TcpIpStackPage />} />
           <Route path="/projects/:slug" element={<ProjectCaseStudy />} />
         </Routes>

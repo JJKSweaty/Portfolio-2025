@@ -246,7 +246,7 @@ const TcpIpStackPage = () => {
                 <Button asChild variant="outline">
                   <Link to="/blog/tcp-ip-stack">
                     <BookOpen aria-hidden="true" />
-                    Read the guide
+                    Open tutorial
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
