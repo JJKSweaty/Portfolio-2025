@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
@@ -14,8 +14,8 @@ import {
 } from "lucide-react";
 import { projects } from "../data/portfolio";
 import { Badge } from "@/components/ui/badge";
+import { ProjectMarquee } from "@/components/ui/3d-marquee";
 import { ImagesBadge } from "@/components/ui/images-badge";
-import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 
 const showcaseProjectSlugs = [
   "custom-vr-headset",
@@ -31,26 +31,28 @@ const supportingProjects = projects.filter(
   (project) => !showcaseProjectSlugs.includes(project.slug)
 );
 
-const marqueeProjectSlugs = [
-  "custom-vr-headset",
-  "esp32-media-controller",
+const marqueeFeaturedProjectSlugs = [
   "remembr",
-  "spi-controlled-pwm-peripheral",
+  "custom-vr-headset",
   "userspace-tcp-ip-stack",
+  "esp32-media-controller",
   "vision-guided-autonomous-disk-launcher",
-  "cuda-mlp-mnist",
-  "heartbeat-monitor-pcb",
-  "signtolearn",
-  "claude-firmware-assistant",
-  "truvote",
 ];
 
-const projectMediaItems = marqueeProjectSlugs
+const marqueeProjects = [
+  ...marqueeFeaturedProjectSlugs,
+  ...projects.map((project) => project.slug).filter((slug) => !marqueeFeaturedProjectSlugs.includes(slug)),
+]
   .map((slug) => projects.find((project) => project.slug === slug))
   .filter(Boolean)
   .map((project) => ({
     src: project.image.src,
     alt: project.image.alt,
+    title: project.title,
+    category: project.category,
+    featured: marqueeFeaturedProjectSlugs.includes(project.slug),
+    fit: project.image.fit,
+    position: project.image.position,
   }));
 
 const getPrimaryLink = (project, label) =>
@@ -138,58 +140,18 @@ const ProjectMediaBadge = ({ project }) => {
   );
 };
 
-const useProjectMediaMobile = () => {
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined"
-      ? window.matchMedia("(max-width: 640px)").matches
-      : false
-  );
-
-  useEffect(() => {
-    const query = window.matchMedia("(max-width: 640px)");
-    const update = () => setIsMobile(query.matches);
-
-    update();
-    query.addEventListener("change", update);
-
-    return () => query.removeEventListener("change", update);
-  }, []);
-
-  return isMobile;
-};
-
-const ProjectMediaShowcase = () => {
+const FeaturedProjectMarquee = () => {
   const reducedMotion = useReducedMotion();
-  const isMobile = useProjectMediaMobile();
-
-  if (!projectMediaItems.length) return null;
 
   return (
-    <section className="project-media-showcase" aria-labelledby="project-media-title">
-      <div className="project-media-showcase-copy">
-        <p className="eyebrow">Build gallery</p>
-        <h3 id="project-media-title">Boards, traces, dashboards, and prototypes</h3>
+    <section className="project-marquee-section" aria-labelledby="project-marquee-title">
+      <div className="project-marquee-heading">
+        <p className="eyebrow">Project showcase</p>
+        <h3 id="project-marquee-title">Featured Projects</h3>
+        <p>Firmware, embedded systems, edge AI, and low-level systems projects.</p>
       </div>
 
-      {isMobile ? (
-        <div className="project-marquee-mobile-grid">
-          {projectMediaItems.slice(0, 4).map((image) => (
-            <img
-              key={image.src}
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
-              decoding="async"
-            />
-          ))}
-        </div>
-      ) : (
-        <ThreeDMarquee
-          images={projectMediaItems}
-          reducedMotion={reducedMotion}
-          className="project-marquee-canvas"
-        />
-      )}
+      <ProjectMarquee items={marqueeProjects} reducedMotion={reducedMotion} />
     </section>
   );
 };
@@ -301,10 +263,15 @@ const ProjectStory = ({ project, index }) => {
   );
 };
 
+const getProjectHref = (project) =>
+  project.caseStudy ? getCaseStudyHref(project) : project.links?.[0]?.href;
+
 const SupportingProjectCard = ({ project, index }) => {
   const github = getPrimaryLink(project, "GitHub");
   const supporting = getSupportingLink(project);
   const fallbackLink = !github && !supporting ? project.links?.[0] : null;
+  const href = getProjectHref(project);
+  const external = href && !href.startsWith("/");
 
   return (
     <motion.article
@@ -312,14 +279,27 @@ const SupportingProjectCard = ({ project, index }) => {
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-70px" }}
-      transition={{ duration: 0.32, delay: index * 0.035 }}
+      transition={{ duration: 0.32, delay: index * 0.025 }}
     >
-      <ProjectImage project={project} />
+      {href ? (
+        external ? (
+          <a href={href} target="_blank" rel="noopener noreferrer" className="supporting-project-media-link">
+            <ProjectImage project={project} />
+          </a>
+        ) : (
+          <Link to={href} className="supporting-project-media-link">
+            <ProjectImage project={project} />
+          </Link>
+        )
+      ) : (
+        <ProjectImage project={project} />
+      )}
 
       <div className="supporting-project-body">
         <div className="project-kicker">
           <Badge variant="secondary">{project.category}</Badge>
           <span>{project.year}</span>
+          <span>{project.status}</span>
         </div>
 
         <h3>{project.title}</h3>
@@ -336,7 +316,7 @@ const SupportingProjectCard = ({ project, index }) => {
         <div className="supporting-project-links">
           {project.caseStudy && (
             <Link to={getCaseStudyHref(project)}>
-              {project.caseStudy?.label || "Case Study"}
+              {project.caseStudy?.label || "Case study"}
               <ArrowRight aria-hidden="true" />
             </Link>
           )}
@@ -371,11 +351,28 @@ const SupportingProjectCard = ({ project, index }) => {
             </a>
           )}
         </div>
+
         <ProjectMediaBadge project={project} />
       </div>
     </motion.article>
   );
 };
+
+const AdditionalProjects = () => (
+  <section className="supporting-projects" aria-labelledby="supporting-projects-title">
+    <div className="supporting-projects-heading">
+      <p className="eyebrow">Project archive</p>
+      <h3 id="supporting-projects-title">Additional projects</h3>
+      <p>More firmware, hardware, AI, robotics, and full-stack work.</p>
+    </div>
+
+    <div className="supporting-project-grid">
+      {supportingProjects.map((project, index) => (
+        <SupportingProjectCard key={project.slug} project={project} index={index} />
+      ))}
+    </div>
+  </section>
+);
 
 const Works = () => (
   <section id="projects" className="section-block project-section" aria-labelledby="projects-title">
@@ -391,7 +388,7 @@ const Works = () => (
         </div>
       </div>
 
-      <ProjectMediaShowcase />
+      <FeaturedProjectMarquee />
 
       <div className="project-story-list">
         {showcaseProjects.map((project, index) => (
@@ -399,25 +396,7 @@ const Works = () => (
         ))}
       </div>
 
-      <section className="supporting-projects" aria-labelledby="supporting-projects-title">
-        <div className="supporting-projects-heading">
-          <p className="eyebrow">Project archive</p>
-          <h3 id="supporting-projects-title">Additional projects</h3>
-          <p>
-            More firmware, hardware, AI, robotics, and full-stack work.
-          </p>
-        </div>
-
-        <div className="supporting-project-grid">
-          {supportingProjects.map((project, index) => (
-            <SupportingProjectCard
-              key={project.slug}
-              project={project}
-              index={index}
-            />
-          ))}
-        </div>
-      </section>
+      <AdditionalProjects />
     </div>
   </section>
 );

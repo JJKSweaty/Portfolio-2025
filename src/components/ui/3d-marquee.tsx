@@ -3,156 +3,110 @@
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
-export type MarqueeImage = string | { src: string; alt?: string };
+export type ProjectMarqueeItem = {
+  src: string;
+  alt: string;
+  title: string;
+  category: string;
+  featured?: boolean;
+  fit?: "cover" | "contain";
+  position?: string;
+};
 
-const normalizeImage = (image: MarqueeImage) =>
-  typeof image === "string" ? { src: image, alt: "Project preview" } : image;
+const distributeProjects = (items: ProjectMarqueeItem[]) => {
+  const featured = items.filter((item) => item.featured);
+  const supporting = items.filter((item) => !item.featured);
 
-export const ThreeDMarquee = ({
-  images,
+  return [
+    [supporting[0], supporting[5], supporting[8]],
+    [supporting[1], featured[1], supporting[6]],
+    [featured[2], featured[0], supporting[7]],
+    [supporting[2], featured[3], featured[4]],
+    [supporting[3], supporting[4], supporting[9]],
+  ].map((column) => column.filter(Boolean) as ProjectMarqueeItem[]);
+};
+
+export const ProjectMarquee = ({
+  items,
   className,
   reducedMotion = false,
 }: {
-  images: MarqueeImage[];
+  items: ProjectMarqueeItem[];
   className?: string;
   reducedMotion?: boolean;
 }) => {
-  const normalizedImages = images.map(normalizeImage);
-  // Split the images array into 4 equal parts
-  const chunkSize = Math.ceil(normalizedImages.length / 4);
-  const chunks = Array.from({ length: 4 }, (_, colIndex) => {
-    const start = colIndex * chunkSize;
-    return normalizedImages.slice(start, start + chunkSize);
-  });
+  const columns = distributeProjects(items);
+  const mobileItems = [
+    ...items.filter((item) => item.featured),
+    ...items.filter((item) => !item.featured),
+  ];
+
   return (
-    <div
-      className={cn(
-        "relative mx-auto block h-[600px] overflow-hidden rounded-2xl max-sm:h-100",
-        className,
-      )}
-    >
-      <div
-        className="absolute inset-0 flex items-center justify-center px-8"
-        style={{ perspective: "1200px" }}
-      >
-        <div
-          style={{
-            width: "min(1180px, 142vw)",
-            transform: "rotateX(58deg) rotateY(0deg) rotateZ(-34deg)",
-            transformStyle: "preserve-3d",
-          }}
-          className="grid shrink-0 origin-center grid-cols-4 gap-5 sm:gap-6"
-        >
-          {chunks.map((subarray, colIndex) => (
+    <div className={cn("project-marquee", className)}>
+      <div className="project-marquee-stage" aria-hidden="true">
+        <div className="project-marquee-plane">
+          {columns.map((column, colIndex) => (
             <motion.div
-              animate={{ y: reducedMotion ? 0 : colIndex % 2 === 0 ? 30 : -30 }}
+              key={`project-marquee-col-${colIndex}`}
+              className="project-marquee-column"
+              animate={{ y: reducedMotion ? 0 : colIndex % 2 === 0 ? 24 : -24 }}
               transition={
                 reducedMotion
                   ? { duration: 0 }
                   : {
-                      duration: colIndex % 2 === 0 ? 10 : 15,
+                      duration: colIndex % 2 === 0 ? 8 : 10,
                       repeat: Infinity,
                       repeatType: "reverse",
+                      ease: "easeInOut",
                     }
               }
-              key={colIndex + "marquee"}
-              className="relative flex flex-col items-start gap-5 sm:gap-6"
             >
-              <GridLineVertical className="-left-3" offset="52px" />
-              {subarray.map((image, imageIndex) => (
-                <div className="relative w-full" key={imageIndex + image.src}>
-                  <GridLineHorizontal className="-top-3" offset="18px" />
-                  <motion.img
-                    whileHover={reducedMotion ? undefined : { y: -8 }}
-                    transition={{
-                      duration: 0.3,
-                      ease: "easeInOut",
-                    }}
-                    key={imageIndex + image.src}
-                    src={image.src}
-                    alt={image.alt || `Project preview ${imageIndex + 1}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="aspect-[970/700] w-full rounded-lg object-cover shadow-xl ring ring-gray-950/5 hover:shadow-2xl"
-                    width={970}
-                    height={700}
-                  />
-                </div>
+              {column.map((item) => (
+                <ProjectMarqueeCard key={`${colIndex}-${item.title}`} item={item} reducedMotion={reducedMotion} />
               ))}
             </motion.div>
           ))}
         </div>
       </div>
+
+      <div className="project-marquee-mobile" aria-label="Featured project previews">
+        {mobileItems.map((item) => (
+          <ProjectMarqueeCard key={`mobile-${item.title}`} item={item} reducedMotion />
+        ))}
+      </div>
     </div>
   );
 };
 
-const GridLineHorizontal = ({
-  className,
-  offset,
+const ProjectMarqueeCard = ({
+  item,
+  reducedMotion,
 }: {
-  className?: string;
-  offset?: string;
-}) => {
-  return (
-    <div
-      style={
-        {
-          "--background": "#ffffff",
-          "--color": "rgba(0, 0, 0, 0.2)",
-          "--height": "1px",
-          "--width": "5px",
-          "--fade-stop": "90%",
-          "--offset": offset || "200px", //-100px if you want to keep the line inside
-          "--color-dark": "rgba(255, 255, 255, 0.2)",
-          maskComposite: "exclude",
-        } as React.CSSProperties
-      }
-      className={cn(
-        "absolute left-[calc(var(--offset)/2*-1)] h-[var(--height)] w-[calc(100%+var(--offset))]",
-        "bg-[linear-gradient(to_right,var(--color),var(--color)_50%,transparent_0,transparent)]",
-        "[background-size:var(--width)_var(--height)]",
-        "[mask:linear-gradient(to_left,var(--background)_var(--fade-stop),transparent),_linear-gradient(to_right,var(--background)_var(--fade-stop),transparent),_linear-gradient(black,black)]",
-        "[mask-composite:exclude]",
-        "z-30",
-        "dark:bg-[linear-gradient(to_right,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)]",
-        className,
-      )}
-    ></div>
-  );
-};
+  item: ProjectMarqueeItem;
+  reducedMotion: boolean;
+}) => (
+  <motion.figure
+    className={cn("project-marquee-card", item.featured && "project-marquee-card-featured")}
+    whileHover={reducedMotion ? undefined : { y: -5 }}
+    transition={{ duration: 0.22, ease: "easeOut" }}
+  >
+    <div className="project-marquee-image">
+      <img
+        src={item.src}
+        alt={item.alt}
+        loading="lazy"
+        decoding="async"
+        style={{
+          objectFit: "cover",
+          objectPosition: item.position || "center",
+        }}
+      />
+    </div>
+    <figcaption>
+      <span>{item.category}</span>
+      <strong>{item.title}</strong>
+    </figcaption>
+  </motion.figure>
+);
 
-const GridLineVertical = ({
-  className,
-  offset,
-}: {
-  className?: string;
-  offset?: string;
-}) => {
-  return (
-    <div
-      style={
-        {
-          "--background": "#ffffff",
-          "--color": "rgba(0, 0, 0, 0.2)",
-          "--height": "5px",
-          "--width": "1px",
-          "--fade-stop": "90%",
-          "--offset": offset || "150px", //-100px if you want to keep the line inside
-          "--color-dark": "rgba(255, 255, 255, 0.2)",
-          maskComposite: "exclude",
-        } as React.CSSProperties
-      }
-      className={cn(
-        "absolute top-[calc(var(--offset)/2*-1)] h-[calc(100%+var(--offset))] w-[var(--width)]",
-        "bg-[linear-gradient(to_bottom,var(--color),var(--color)_50%,transparent_0,transparent)]",
-        "[background-size:var(--width)_var(--height)]",
-        "[mask:linear-gradient(to_top,var(--background)_var(--fade-stop),transparent),_linear-gradient(to_bottom,var(--background)_var(--fade-stop),transparent),_linear-gradient(black,black)]",
-        "[mask-composite:exclude]",
-        "z-30",
-        "dark:bg-[linear-gradient(to_bottom,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)]",
-        className,
-      )}
-    ></div>
-  );
-};
+export const ThreeDMarquee = ProjectMarquee;

@@ -16,9 +16,9 @@ const Blog = () => {
         <div className="section-heading blog-heading">
           <div>
             <p className="eyebrow">Blog</p>
-            <h2 id="blog-title">Things I want to document...</h2>
+            <h2 id="blog-title">Things I want to document</h2>
             <p>
-             a list of different projects that I wrote tutorials for others and future ones soon to come
+              A list of projects I wrote tutorials for, with more coming soon.
             </p>
           </div>
         </div>
