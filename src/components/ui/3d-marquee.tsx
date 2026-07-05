@@ -18,11 +18,11 @@ const distributeProjects = (items: ProjectMarqueeItem[]) => {
   const supporting = items.filter((item) => !item.featured);
 
   return [
-    [supporting[0], supporting[5], supporting[8]],
-    [supporting[1], featured[1], supporting[6]],
-    [featured[2], featured[0], supporting[7]],
-    [supporting[2], featured[3], featured[4]],
-    [supporting[3], supporting[4], supporting[9]],
+    [supporting[0], supporting[3]],
+    [supporting[1], featured[1]],
+    [featured[2], featured[0]],
+    [featured[3], featured[4]],
+    [supporting[2], supporting[4]],
   ].map((column) => column.filter(Boolean) as ProjectMarqueeItem[]);
 };
 

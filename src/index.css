@@ -2005,7 +2005,7 @@ button {
 
 .project-marquee {
   position: relative;
-  min-height: clamp(520px, 48vw, 620px);
+  min-height: clamp(560px, 50vw, 660px);
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
   border-radius: 14px;
@@ -2014,7 +2014,6 @@ button {
     linear-gradient(180deg, color-mix(in srgb, var(--foreground) 4%, transparent) 1px, transparent 1px),
     color-mix(in srgb, var(--muted) 34%, var(--card));
   background-size: 72px 72px;
-  mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
 }
 
 .project-marquee::before,
@@ -2027,10 +2026,7 @@ button {
 }
 
 .project-marquee::before {
-  background:
-    linear-gradient(90deg, var(--card), transparent 12%, transparent 88%, var(--card)),
-    linear-gradient(180deg, var(--card), transparent 12%, transparent 88%, var(--card));
-  opacity: 0.48;
+  display: none;
 }
 
 .project-marquee::after {
@@ -2040,7 +2036,7 @@ button {
 
 .project-marquee-stage {
   position: absolute;
-  inset: clamp(26px, 3.4vw, 46px);
+  inset: clamp(22px, 3vw, 40px);
   z-index: 1;
   display: grid;
   place-items: center;
@@ -2048,11 +2044,11 @@ button {
 }
 
 .project-marquee-plane {
-  width: min(1080px, 108%);
+  width: min(1180px, 118%);
   display: grid;
-  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  grid-template-columns: repeat(5, minmax(170px, 1fr));
   gap: clamp(14px, 1.5vw, 20px);
-  transform: rotateX(50deg) rotateZ(-18deg) translateY(1%) scale(1.04);
+  transform: rotateX(50deg) rotateZ(-18deg) translateY(1%) scale(1.08);
   transform-style: preserve-3d;
 }
 
@@ -2063,7 +2059,7 @@ button {
 
 .project-marquee-card {
   margin: 0;
-  height: clamp(150px, 13vw, 188px);
+  height: clamp(170px, 14.5vw, 214px);
   display: grid;
   grid-template-rows: minmax(0, 1fr) 42px;
   overflow: hidden;
@@ -4128,12 +4124,12 @@ button {
   }
 
   .project-marquee {
-    min-height: 540px;
+    min-height: 560px;
   }
 
   .project-marquee-plane {
-    width: min(940px, 118%);
-    transform: rotateX(52deg) rotateZ(-20deg) translateY(0) scale(0.86);
+    width: min(1040px, 128%);
+    transform: rotateX(52deg) rotateZ(-20deg) translateY(0) scale(0.98);
   }
 
   .supporting-project-grid {
@@ -4453,54 +4449,7 @@ button {
   }
 
   .project-marquee-section {
-    padding: 18px;
-    border-radius: 14px;
-  }
-
-  .project-marquee-heading {
-    text-align: left;
-  }
-
-  .project-marquee-heading h3 {
-    font-size: 32px;
-  }
-
-  .project-marquee {
-    min-height: 0;
-    overflow: visible;
-    border-radius: 12px;
-    mask-image: none;
-    background: transparent;
-  }
-
-  .project-marquee::before,
-  .project-marquee::after,
-  .project-marquee-stage {
     display: none;
-  }
-
-  .project-marquee-mobile {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(245px, 82%);
-    gap: 12px;
-    overflow-x: auto;
-    padding: 2px 0 10px;
-    scroll-snap-type: x mandatory;
-  }
-
-  .project-marquee-mobile .project-marquee-card {
-    height: 300px;
-    grid-template-rows: minmax(0, 1fr) 58px;
-    scroll-snap-align: start;
-  }
-
-  .project-marquee-mobile .project-marquee-card span {
-    font-size: 10px;
-  }
-
-  .project-marquee-mobile .project-marquee-card strong {
-    font-size: 16px;
   }
 
   .supporting-project-grid {
