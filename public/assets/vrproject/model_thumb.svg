@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#171412"/>
+  <g fill="none" stroke="#d88161" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M194 228c0-62 37-101 98-101h216c61 0 98 39 98 101v34c0 38-29 68-67 68H261c-38 0-67-30-67-68z"/>
+    <path d="M283 231h92M425 231h92"/>
+    <path d="M244 184c-43 5-73 28-92 69M556 184c43 5 73 28 92 69"/>
+  </g>
+  <g fill="#f4eee7" font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="400" y="378" font-size="30" font-weight="700">VR Headset CAD</text>
+    <text x="400" y="412" font-size="16">Shell STL files and screws BOM</text>
+  </g>
+</svg>

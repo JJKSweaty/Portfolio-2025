@@ -43,8 +43,8 @@ const CaseSection = ({ title, children }) => (
   </motion.section>
 );
 
-const mediaStyle = (image) => ({
-  objectFit: "cover",
+const mediaStyle = (image, fit = image?.fit || "cover") => ({
+  objectFit: fit,
   objectPosition: image?.position || "center",
 });
 
@@ -109,7 +109,7 @@ const MediaGallery = ({ project }) => {
               src={item.src}
               alt={item.alt || project.image.alt}
               loading="lazy"
-              style={mediaStyle(item)}
+              style={mediaStyle(item, item.fit || project.image.fit)}
             />
             {item.caption && <figcaption>{item.caption}</figcaption>}
           </figure>

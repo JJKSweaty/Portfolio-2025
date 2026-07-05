@@ -78,7 +78,7 @@ const periodStartTime = (period) => {
 export const experiences = [
   {
     company: "Belimo",
-    role: "Embedded Systems Intern",
+    role: "Embedded Software Intern",
     location: "Montreal, QC",
     period: "May 2026 - Aug 2026",
     companyUrl: "https://www.belimo.com/",
@@ -93,7 +93,7 @@ export const experiences = [
   },
   {
     company: "AeroCardia",
-    role: "Embedded Systems Intern",
+    role: "Embedded Software Intern",
     location: "Montreal, QC",
     period: "Sep 2025 - Dec 2025",
     companyUrl: "https://www.aerocardia.com/",
@@ -123,7 +123,7 @@ export const experiences = [
   },
   {
     company: "Electrium Mobility",
-    role: "Firmware Member",
+    role: "Embedded Software Intern",
     location: "Waterloo, ON",
     period: "May 2025 - Sep 2025",
     companyUrl: "https://electriummobility.com/",
@@ -211,7 +211,7 @@ export const projects = [
     year: "2025",
     category: "Edge Computing",
     status: "HackCanada winner",
-    featured: false,
+    featured: true,
     role: "Built the edge-compute perception and hardware-software architecture for object finding, memory support, and medication verification.",
     summary:
       "Raspberry Pi 5 and Hailo-8L assisted perception system using YOLOv8, OpenCV, persistent object memory, and FastAPI/WebSocket communication.",
@@ -222,8 +222,8 @@ export const projects = [
     ],
     tags: ["Raspberry Pi 5", "Hailo-8L", "YOLOv8", "OpenCV", "FastAPI", "WebSocket"],
     image: {
-      src: "/images/emberapp.jpg",
-      alt: "remembR companion app interface",
+      src: "/images/remebRedgeAI.png",
+      alt: "remembR edge AI prototype thumbnail",
       fit: "contain",
     },
     links: [
@@ -276,7 +276,7 @@ export const projects = [
     year: "2024",
     category: "GPU Systems",
     status: "Completed",
-    featured: true,
+    featured: false,
     role: "Implemented and benchmarked GPU kernels while comparing custom CUDA paths against a PyTorch baseline.",
     summary:
       "Two-layer MNIST MLP focused on memory movement, kernel execution, cuBLAS SGEMM, profiling, and benchmark methodology.",
@@ -414,6 +414,80 @@ export const projects = [
       results: [
         "Produced a working embedded controller demo with media controls, telemetry, and visual feedback.",
         "Built reusable firmware and UI patterns for future ESP32 touchscreen systems.",
+      ],
+    },
+  },
+  {
+    slug: "custom-vr-headset",
+    title: "jjkVR",
+    subtitle: "Custom PCB, firmware, shell CAD, and SteamVR integration",
+    year: "2026",
+    category: "Hardware Systems",
+    status: "In progress",
+    featured: true,
+    role: "Planned and integrated the headset architecture across custom tracking electronics, firmware, 3D-printed shell CAD, and PC-side SteamVR driver work.",
+    summary:
+      "Custom VR headset build with tracking PCB planning, ICM20948 IMU, USB HID firmware, display integration, printable shell parts, and SteamVR driver configuration.",
+    decisions: [
+      "Split motion tracking, display, and mechanical work into independent subsystems so the build can move in parallel.",
+      "Chose an STM32F411-class MCU path with an ATmega32U4 fallback to balance USB HID capability and firmware bring-up risk.",
+      "Kept the v1 scope to a reliable 3-DoF headset, with IR camera tracking and wireless links documented as later upgrades.",
+    ],
+    tags: ["STM32", "ICM20948", "USB HID", "SteamVR", "CAD", "KiCad"],
+    image: {
+      src: "/images/headsetphotovr.jpg",
+      alt: "Custom VR headset prototype shell",
+      fit: "cover",
+      position: "center",
+    },
+    links: [{ label: "GitHub", href: "https://github.com/JJKSweaty/jjkVR" }],
+    cad: {
+      thumbnail: "/assets/vrproject/model_thumb.svg",
+      files: [
+        { label: "Download body STL", href: "/assets/vrproject/body.stl" },
+        { label: "Download eyes panel STL", href: "/assets/vrproject/eyes_panel.stl" },
+        { label: "Download front panel STL", href: "/assets/vrproject/front_panel.stl" },
+        { label: "Download screen panel STL", href: "/assets/vrproject/screen_panel.stl" },
+        { label: "Download foam support STL", href: "/assets/vrproject/foam_support.stl" },
+        { label: "Download screws BOM", href: "/assets/vrproject/screws_BOM.xlsx" },
+      ],
+    },
+    caseStudy: {
+      overview:
+        "jjkVR is a custom VR headset build combining a printable shell, custom tracking electronics, firmware for IMU fusion and USB HID reports, and SteamVR/OpenVR driver configuration.",
+      problem:
+        "A DIY headset has several failure points: noisy motion tracking, fragile cabling, display geometry setup, and shell alignment. The project plan separates those risks so each subsystem can be designed and tested without blocking the rest of the build.",
+      ownership:
+        "I organized the system architecture, hardware requirements, firmware path, CAD deliverables, integration plan, and v2 tracking roadmap.",
+      architecture: [
+        "ICM20948 IMU",
+        "Custom MCU PCB",
+        "USB HID",
+        "SteamVR driver",
+        "Display driver",
+        "3D-printed shell",
+      ],
+      components: [
+        "STM32F411-class MCU with native USB HID",
+        "ICM20948 9-axis IMU",
+        "USB-C power and data path",
+        "Display panel and controller board",
+        "Printable shell, face support, screen panel, and lens panels",
+        "SteamVR/OpenVR driver configuration",
+      ],
+      engineering: [
+        "Defined tracking, display, and mechanical chains as separate interfaces.",
+        "Planned firmware around FastIMU fusion, EEPROM-stored calibration, and HID reports consumed by the PC driver.",
+        "Included PCB bring-up requirements: regulator checks, I2C address validation, USB enumeration, and test points.",
+      ],
+      validation: [
+        "Bring up the board by checking regulator output, IMU I2C response, USB HID enumeration, and orientation data.",
+        "Validate display geometry through SteamVR settings for window placement, render size, IPD, and distortion coefficients.",
+        "Fit-check printed CAD parts around PCB mounting holes, lens spacing, strap mounts, and cable strain relief.",
+      ],
+      results: [
+        "Produced a detailed build plan plus downloadable CAD assets for the headset shell and mounting parts.",
+        "Set a scoped v1 path for a working 3-DoF headset while preserving upgrade paths for IR positional tracking and wireless links, with inspiration from HadesVR and Relativty.",
       ],
     },
   },
@@ -664,10 +738,9 @@ export const projects = [
 ];
 
 const featuredProjectOrder = [
-  "userspace-tcp-ip-stack",
-  "spi-controlled-pwm-peripheral",
-  "cuda-mlp-mnist",
+  "custom-vr-headset",
   "esp32-media-controller",
+  "remembr",
 ];
 
 export const featuredProjects = projects

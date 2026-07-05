@@ -4,13 +4,16 @@
     <loc>https://jonathankoshy.netlify.app/</loc>
   </url>
   <url>
+    <loc>https://jonathankoshy.netlify.app/projects/custom-vr-headset</loc>
+  </url>
+  <url>
+    <loc>https://jonathankoshy.netlify.app/projects/esp32-media-controller</loc>
+  </url>
+  <url>
     <loc>https://jonathankoshy.netlify.app/projects/remembr</loc>
   </url>
   <url>
     <loc>https://jonathankoshy.netlify.app/projects/cuda-mlp-mnist</loc>
-  </url>
-  <url>
-    <loc>https://jonathankoshy.netlify.app/projects/esp32-media-controller</loc>
   </url>
   <url>
     <loc>https://jonathankoshy.netlify.app/projects/vision-guided-autonomous-disk-launcher</loc>

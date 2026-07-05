@@ -18,9 +18,9 @@ import { ImagesBadge } from "@/components/ui/images-badge";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 
 const showcaseProjectSlugs = [
-  "userspace-tcp-ip-stack",
-  "spi-controlled-pwm-peripheral",
-  "cuda-mlp-mnist",
+  "custom-vr-headset",
+  "esp32-media-controller",
+  "remembr",
 ];
 
 const showcaseProjects = showcaseProjectSlugs
@@ -32,11 +32,13 @@ const supportingProjects = projects.filter(
 );
 
 const marqueeProjectSlugs = [
+  "custom-vr-headset",
+  "esp32-media-controller",
+  "remembr",
   "spi-controlled-pwm-peripheral",
   "userspace-tcp-ip-stack",
-  "esp32-media-controller",
-  "cuda-mlp-mnist",
   "vision-guided-autonomous-disk-launcher",
+  "cuda-mlp-mnist",
   "heartbeat-monitor-pcb",
   "signtolearn",
   "claude-firmware-assistant",
