@@ -27,10 +27,6 @@ const showcaseProjects = showcaseProjectSlugs
   .map((slug) => projects.find((project) => project.slug === slug))
   .filter(Boolean);
 
-const supportingProjects = projects.filter(
-  (project) => !showcaseProjectSlugs.includes(project.slug)
-);
-
 const marqueeFeaturedProjectSlugs = [
   "remembr",
   "custom-vr-headset",
@@ -54,6 +50,10 @@ const marqueeProjects = [
     fit: project.image.fit,
     position: project.image.position,
   }));
+
+const supportingProjects = projects.filter(
+  (project) => !showcaseProjectSlugs.includes(project.slug)
+);
 
 const getPrimaryLink = (project, label) =>
   project.links?.find((link) => link.label.toLowerCase() === label.toLowerCase());
