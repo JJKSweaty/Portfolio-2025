@@ -174,7 +174,6 @@ export const projects = [
     subtitle: "Raw Ethernet frames to ARP, IPv4, ICMP, UDP, and TCP",
     year: "2026",
     category: "Systems Software",
-    status: "In progress",
     featured: true,
     role: "Built an educational C networking stack around a Linux TAP device, packet parsing, checksums, TCP state, and terminal-driven demos.",
     summary:
@@ -275,7 +274,6 @@ export const projects = [
     subtitle: "Custom CUDA kernels for neural-network training",
     year: "2024",
     category: "GPU Systems",
-    status: "Completed",
     featured: false,
     role: "Implemented and benchmarked GPU kernels while comparing custom CUDA paths against a PyTorch baseline.",
     summary:
@@ -337,7 +335,6 @@ export const projects = [
     subtitle: "Touchscreen embedded UI and telemetry controller",
     year: "2025",
     category: "Embedded UI",
-    status: "In progress",
     featured: true,
     role: "Designed the ESP32 firmware, LVGL touchscreen interface, Wi-Fi event pipeline, and PC telemetry bridge.",
     summary:
@@ -423,7 +420,6 @@ export const projects = [
     subtitle: "Custom PCB, firmware, shell CAD, and SteamVR integration",
     year: "2026",
     category: "Hardware Systems",
-    status: "In progress",
     featured: true,
     role: "Planned and integrated the headset architecture across custom tracking electronics, firmware, 3D-printed shell CAD, and PC-side SteamVR driver work.",
     summary:
@@ -440,6 +436,14 @@ export const projects = [
       fit: "cover",
       position: "center",
     },
+    featuredMedia: [
+      {
+        src: "/assets/vrproject/vr_custom_pcb.png",
+        alt: "Custom jjkVR tracking PCB",
+        fit: "contain",
+        position: "center",
+      },
+    ],
     links: [{ label: "GitHub", href: "https://github.com/JJKSweaty/jjkVR" }],
     cad: {
       thumbnail: "/assets/vrproject/model_thumb.svg",
@@ -497,7 +501,6 @@ export const projects = [
     subtitle: "Perception, tracking, actuation, and safety interlocks",
     year: "2025",
     category: "Robotics",
-    status: "Completed",
     featured: true,
     role: "Built the perception-to-control integration across Raspberry Pi vision, ESP32 actuation, PID tracking, LiDAR validation, and safety-gated sequencing.",
     summary:
@@ -588,7 +591,6 @@ export const projects = [
     subtitle: "Biomedical sensing board",
     year: "2024",
     category: "Hardware",
-    status: "Completed",
     featured: false,
     role: "Designed the KiCad PCB and firmware integration around MAX30102 sensing and STM32/Arduino data handling.",
     summary:
@@ -669,7 +671,6 @@ export const projects = [
     subtitle: "Real-time ASL gesture recognition",
     year: "2024",
     category: "Computer Vision",
-    status: "Completed",
     featured: false,
     role: "Built the real-time hand-tracking and model-backed recognition flow for ASL learning.",
     summary:
@@ -693,7 +694,6 @@ export const projects = [
     subtitle: "RAG assistant for firmware workflows",
     year: "2025",
     category: "AI Tooling",
-    status: "In progress",
     featured: false,
     role: "Built a firmware-focused assistant with scoped memory, RAG, streaming, and context compression.",
     summary:
@@ -717,7 +717,6 @@ export const projects = [
     subtitle: "Biometric voting platform",
     year: "2025",
     category: "Full Stack",
-    status: "Completed",
     featured: false,
     role: "Implemented face-authentication and backend voting flows for one-person-one-vote validation.",
     summary:

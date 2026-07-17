@@ -197,7 +197,7 @@ const ProjectCaseStudy = () => {
               <p>{project.summary}</p>
               <div className="case-meta">
                 <span>{project.year}</span>
-                <span>{project.status}</span>
+                {project.status && <span>{project.status}</span>}
               </div>
               <div className="tag-row">
                 {project.tags.map((tag) => (
@@ -315,11 +315,15 @@ const ProjectCaseStudy = () => {
                       <dt>Year</dt>
                       <dd>{project.year}</dd>
                     </div>
-                    <Separator />
-                    <div>
-                      <dt>Status</dt>
-                      <dd>{project.status}</dd>
-                    </div>
+                    {project.status && (
+                      <>
+                        <Separator />
+                        <div>
+                          <dt>Status</dt>
+                          <dd>{project.status}</dd>
+                        </div>
+                      </>
+                    )}
                     <Separator />
                     <div>
                       <dt>Contact</dt>

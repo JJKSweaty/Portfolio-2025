@@ -2024,6 +2024,78 @@ button {
   transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ponytail: one shadcn card handles the only project with multiple featured views. */
+.project-media-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--muted);
+  box-shadow: none;
+}
+
+.project-media-card-tabs {
+  height: 100%;
+}
+
+.project-media-tabs-list {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  z-index: 3;
+  width: min(calc(100% - 28px), 340px);
+  height: 44px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 4px;
+  transform: translateX(-50%);
+  border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
+  background: color-mix(in srgb, var(--card) 90%, transparent);
+  box-shadow: 0 10px 30px color-mix(in srgb, black 24%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+.project-media-tab-trigger {
+  min-width: 0;
+  height: 34px;
+  gap: 7px;
+  padding: 0 10px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.project-media-tab-trigger svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+}
+
+.project-media-tab-trigger[data-state="active"] {
+  background: var(--foreground);
+  color: var(--background);
+}
+
+.project-media-tab-panel {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+  background: var(--muted);
+}
+
+.project-media-tab-panel[data-state="active"] {
+  animation: mediaTabIn 220ms ease-out;
+}
+
+.project-media-tab-panel img {
+  width: 100%;
+  height: 100%;
+}
+
 .project-story:hover .project-story-image img {
   transform: scale(1.015);
 }
@@ -2134,6 +2206,25 @@ button {
   color: var(--foreground);
   font-size: 14px;
   line-height: 1.5;
+}
+
+.project-story-result-award {
+  border-left-color: #f6c453;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255, 225, 122, 0.22), transparent 42%),
+    linear-gradient(135deg, rgba(246, 196, 83, 0.16), rgba(174, 112, 20, 0.1));
+  box-shadow:
+    0 0 24px rgba(246, 196, 83, 0.2),
+    inset 0 0 0 1px rgba(246, 196, 83, 0.18);
+}
+
+.project-story-result-award span {
+  color: #d89a19;
+  text-shadow: 0 0 12px rgba(246, 196, 83, 0.48);
+}
+
+.dark .project-story-result-award span {
+  color: #ffd76a;
 }
 
 .project-story-links {
@@ -3818,6 +3909,13 @@ button {
 @keyframes dashFlow {
   to {
     stroke-dashoffset: -40;
+  }
+}
+
+@keyframes mediaTabIn {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
   }
 }
 

@@ -9,13 +9,17 @@ import {
 import {
   ArrowRight,
   ArrowUpRight,
+  CircuitBoard,
+  Glasses,
   Github,
   Play,
 } from "lucide-react";
 import { projects } from "../data/portfolio";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { ProjectMarquee } from "@/components/ui/3d-marquee";
 import { ImagesBadge } from "@/components/ui/images-badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const showcaseProjectSlugs = [
   "custom-vr-headset",
@@ -64,11 +68,12 @@ const getSupportingLink = (project) =>
   );
 
 const getProjectBadgeImages = (project) => {
+  const featuredImages = project.featuredMedia?.map((item) => item.src) || [];
   const supportingImages = project.media
     ?.filter((item) => item.type === "image" && item.src)
     .map((item) => item.src) || [];
   const cadImages = project.cad?.thumbnail ? [project.cad.thumbnail] : [];
-  const images = [project.image.src, ...cadImages, ...supportingImages];
+  const images = [project.image.src, ...featuredImages, ...cadImages, ...supportingImages];
 
   return images.length > 1 ? images.slice(0, 3) : [];
 };
@@ -104,6 +109,47 @@ const ProjectImage = ({ project, priority = false }) => {
         style={mediaStyle(project.image, fit)}
       />
     </div>
+  );
+};
+
+const ProjectMediaCard = ({ project, priority = false }) => {
+  const pcb = project.featuredMedia?.[0];
+  if (!pcb) return <ProjectImage project={project} priority={priority} />;
+
+  return (
+    <Card className="project-media-card">
+      <Tabs defaultValue="headset" className="project-media-card-tabs">
+        <TabsList className="project-media-tabs-list" aria-label={`${project.title} build views`}>
+          <TabsTrigger value="headset" className="project-media-tab-trigger">
+            <Glasses aria-hidden="true" />
+            Headset build
+          </TabsTrigger>
+          <TabsTrigger value="pcb" className="project-media-tab-trigger">
+            <CircuitBoard aria-hidden="true" />
+            Custom PCB
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="headset" className="project-media-tab-panel">
+          <img
+            src={project.image.src}
+            alt={project.image.alt}
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+            style={mediaStyle(project.image, project.image.fit || "cover")}
+          />
+        </TabsContent>
+        <TabsContent value="pcb" className="project-media-tab-panel">
+          <img
+            src={pcb.src}
+            alt={pcb.alt}
+            loading="lazy"
+            decoding="async"
+            style={mediaStyle(pcb, pcb.fit || "cover")}
+          />
+        </TabsContent>
+      </Tabs>
+    </Card>
   );
 };
 
@@ -213,16 +259,20 @@ const ProjectStory = ({ project, index }) => {
       transition={{ duration: reducedMotion ? 0.01 : 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="project-story-media">
-        <motion.div className="project-story-image" style={{ y: imageY }}>
-          <ProjectImage project={project} priority={index === 0} />
-        </motion.div>
+        {project.featuredMedia?.length ? (
+          <ProjectMediaCard project={project} priority={index === 0} />
+        ) : (
+          <motion.div className="project-story-image" style={{ y: imageY }}>
+            <ProjectImage project={project} priority={index === 0} />
+          </motion.div>
+        )}
       </div>
 
       <div className="project-story-content">
         <div className="project-story-meta">
           <Badge variant="secondary">{project.category}</Badge>
           <span>{project.year}</span>
-          <span>{project.status}</span>
+          {project.status && <span>{project.status}</span>}
         </div>
 
         <div>
@@ -242,7 +292,7 @@ const ProjectStory = ({ project, index }) => {
         )}
 
         {result && (
-          <div className="project-story-result">
+          <div className={`project-story-result${project.status === "HackCanada winner" ? " project-story-result-award" : ""}`}>
             <span>Outcome</span>
             <p>{result}</p>
           </div>
@@ -299,7 +349,7 @@ const SupportingProjectCard = ({ project, index }) => {
         <div className="project-kicker">
           <Badge variant="secondary">{project.category}</Badge>
           <span>{project.year}</span>
-          <span>{project.status}</span>
+          {project.status && <span>{project.status}</span>}
         </div>
 
         <h3>{project.title}</h3>
