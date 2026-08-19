@@ -13,7 +13,7 @@ export const ThemeProvider = ({ children }) => {
     const storedTheme = localStorage.getItem(STORAGE_KEY);
     return storedTheme === "dark" || storedTheme === "light"
       ? storedTheme
-      : "light";
+      : "system";
   });
   const [systemTheme, setSystemTheme] = useState(() => {
     if (typeof window === "undefined") return "light";

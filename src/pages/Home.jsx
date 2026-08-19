@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <div className="app-shell">
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <Experience />
         <Works />

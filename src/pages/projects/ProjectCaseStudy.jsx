@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
 import { ArrowLeft, ArrowUpRight, Download, Github, Play } from "lucide-react";
 import { Navbar } from "../../components";
 import { getProjectBySlug, portfolio } from "../../data/portfolio";
@@ -31,16 +30,10 @@ const ArchitectureDiagram = ({ nodes }) => (
 );
 
 const CaseSection = ({ title, children }) => (
-  <motion.section
-    className="case-section"
-    initial={{ opacity: 0, y: 14 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-80px" }}
-    transition={{ duration: 0.22 }}
-  >
+  <section className="case-section">
     <h2>{title}</h2>
     {children}
-  </motion.section>
+  </section>
 );
 
 const mediaStyle = (image, fit = image?.fit || "cover") => ({
@@ -150,15 +143,16 @@ const ProjectCaseStudy = () => {
   const project = getProjectBySlug(slug);
 
   useEffect(() => {
-    if (!project) return;
-    document.title = `${project.title} - ${portfolio.person.name}`;
+    document.title = project
+      ? `${project.title} - ${portfolio.person.name}`
+      : `Project not found - ${portfolio.person.name}`;
   }, [project]);
 
   if (!project) {
     return (
       <div className="app-shell">
         <Navbar />
-        <main className="site-container not-found">
+        <main id="main-content" className="site-container not-found">
           <h1>Project not found</h1>
           <p>The requested case study does not exist.</p>
           <Link className="button button-primary" to="/#projects">
@@ -175,7 +169,7 @@ const ProjectCaseStudy = () => {
   return (
     <div className="app-shell">
       <Navbar />
-      <main className="case-page">
+      <main id="main-content" className="case-page">
         <div className="site-container">
           <Button asChild variant="ghost" className="back-link">
             <Link to="/#projects">
@@ -184,12 +178,7 @@ const ProjectCaseStudy = () => {
             </Link>
           </Button>
 
-          <motion.header
-            className="case-hero"
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.28 }}
-          >
+          <header className="case-hero">
             <div>
               <p className="eyebrow">{project.category}</p>
               <h1>{project.title}</h1>
@@ -241,7 +230,7 @@ const ProjectCaseStudy = () => {
             </div>
 
             <ProjectImage project={project} />
-          </motion.header>
+          </header>
 
           {caseStudy ? (
             <div className="case-layout">

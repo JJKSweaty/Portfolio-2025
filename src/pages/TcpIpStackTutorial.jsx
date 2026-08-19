@@ -568,7 +568,7 @@ const TcpIpStackTutorial = () => {
   return (
     <div className="app-shell craft-page">
       <Navbar />
-      <main>
+      <main id="main-content">
         <article className="craft-article">
           <header className="craft-hero">
             <Button asChild variant="ghost" className="back-link">

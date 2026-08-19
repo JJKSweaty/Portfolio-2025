@@ -1,11 +1,4 @@
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -17,7 +10,6 @@ import {
 import { projects } from "../data/portfolio";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { ProjectMarquee } from "@/components/ui/3d-marquee";
 import { ImagesBadge } from "@/components/ui/images-badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -30,30 +22,6 @@ const showcaseProjectSlugs = [
 const showcaseProjects = showcaseProjectSlugs
   .map((slug) => projects.find((project) => project.slug === slug))
   .filter(Boolean);
-
-const marqueeFeaturedProjectSlugs = [
-  "remembr",
-  "custom-vr-headset",
-  "userspace-tcp-ip-stack",
-  "esp32-media-controller",
-  "vision-guided-autonomous-disk-launcher",
-];
-
-const marqueeProjects = [
-  ...marqueeFeaturedProjectSlugs,
-  ...projects.map((project) => project.slug).filter((slug) => !marqueeFeaturedProjectSlugs.includes(slug)),
-]
-  .map((slug) => projects.find((project) => project.slug === slug))
-  .filter(Boolean)
-  .map((project) => ({
-    src: project.image.src,
-    alt: project.image.alt,
-    title: project.title,
-    category: project.category,
-    featured: marqueeFeaturedProjectSlugs.includes(project.slug),
-    fit: project.image.fit,
-    position: project.image.position,
-  }));
 
 const supportingProjects = projects.filter(
   (project) => !showcaseProjectSlugs.includes(project.slug)
@@ -186,22 +154,6 @@ const ProjectMediaBadge = ({ project }) => {
   );
 };
 
-const FeaturedProjectMarquee = () => {
-  const reducedMotion = useReducedMotion();
-
-  return (
-    <section className="project-marquee-section" aria-labelledby="project-marquee-title">
-      <div className="project-marquee-heading">
-        <p className="eyebrow">Project showcase</p>
-        <h3 id="project-marquee-title">Featured Projects</h3>
-        <p>Firmware, embedded systems, edge AI, and low-level systems projects.</p>
-      </div>
-
-      <ProjectMarquee items={marqueeProjects} reducedMotion={reducedMotion} />
-    </section>
-  );
-};
-
 const ProjectLinks = ({ project, className }) => (
   <div className={className}>
     {project.caseStudy && (
@@ -231,17 +183,6 @@ const ProjectLinks = ({ project, className }) => (
 );
 
 const ProjectStory = ({ project, index }) => {
-  const storyRef = useRef(null);
-  const reducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: storyRef,
-    offset: ["start end", "end start"],
-  });
-  const imageY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reducedMotion ? [0, 0] : [34, -34]
-  );
   const highlights = (
     project.caseStudy?.engineering ||
     project.decisions ||
@@ -250,21 +191,14 @@ const ProjectStory = ({ project, index }) => {
   const result = project.caseStudy?.results?.[0];
 
   return (
-    <motion.article
-      ref={storyRef}
-      className={`project-story ${index % 2 === 1 ? "project-story-reverse" : ""}`}
-      initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 34 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ amount: 0.24, once: true }}
-      transition={{ duration: reducedMotion ? 0.01 : 0.55, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <article className={`project-story ${index % 2 === 1 ? "project-story-reverse" : ""}`}>
       <div className="project-story-media">
         {project.featuredMedia?.length ? (
           <ProjectMediaCard project={project} priority={index === 0} />
         ) : (
-          <motion.div className="project-story-image" style={{ y: imageY }}>
+          <div className="project-story-image">
             <ProjectImage project={project} priority={index === 0} />
-          </motion.div>
+          </div>
         )}
       </div>
 
@@ -309,14 +243,14 @@ const ProjectStory = ({ project, index }) => {
         <ProjectLinks project={project} className="project-story-links" />
         <ProjectMediaBadge project={project} />
       </div>
-    </motion.article>
+    </article>
   );
 };
 
 const getProjectHref = (project) =>
   project.caseStudy ? getCaseStudyHref(project) : project.links?.[0]?.href;
 
-const SupportingProjectCard = ({ project, index }) => {
+const SupportingProjectCard = ({ project }) => {
   const github = getPrimaryLink(project, "GitHub");
   const supporting = getSupportingLink(project);
   const fallbackLink = !github && !supporting ? project.links?.[0] : null;
@@ -324,13 +258,7 @@ const SupportingProjectCard = ({ project, index }) => {
   const external = href && !href.startsWith("/");
 
   return (
-    <motion.article
-      className="supporting-project-card"
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-70px" }}
-      transition={{ duration: 0.32, delay: index * 0.025 }}
-    >
+    <article className="supporting-project-card">
       {href ? (
         external ? (
           <a href={href} target="_blank" rel="noopener noreferrer" className="supporting-project-media-link">
@@ -404,7 +332,7 @@ const SupportingProjectCard = ({ project, index }) => {
 
         <ProjectMediaBadge project={project} />
       </div>
-    </motion.article>
+    </article>
   );
 };
 
@@ -417,8 +345,8 @@ const AdditionalProjects = () => (
     </div>
 
     <div className="supporting-project-grid">
-      {supportingProjects.map((project, index) => (
-        <SupportingProjectCard key={project.slug} project={project} index={index} />
+      {supportingProjects.map((project) => (
+        <SupportingProjectCard key={project.slug} project={project} />
       ))}
     </div>
   </section>
@@ -437,8 +365,6 @@ const Works = () => (
           </p>
         </div>
       </div>
-
-      <FeaturedProjectMarquee />
 
       <div className="project-story-list">
         {showcaseProjects.map((project, index) => (

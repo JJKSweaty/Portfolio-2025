@@ -168,7 +168,7 @@ const TcpIpStackPage = () => {
   return (
     <div className="app-shell tcp-page">
       <Navbar />
-      <main>
+      <main id="main-content">
         <section className="tcp-hero">
           <div className="site-container tcp-hero-grid">
             <div className="tcp-hero-copy">

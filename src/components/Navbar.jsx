@@ -71,7 +71,7 @@ const Navbar = () => {
     if (!section) return;
 
     event.preventDefault();
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    section.scrollIntoView({ block: "start" });
   };
 
   const navItems = portfolio.navLinks.map((nav) => {
@@ -84,6 +84,7 @@ const Navbar = () => {
         href={href}
         onClick={(event) => handleSectionClick(event, nav.id)}
         className={`nav-link ${isActive ? "nav-link-active" : ""}`}
+        aria-current={isActive ? "location" : undefined}
       >
         {nav.label}
       </a>
@@ -98,13 +99,16 @@ const Navbar = () => {
     <header
       className={`site-header ${scrolled ? "site-header-scrolled" : ""}`}
     >
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <nav className="site-nav" aria-label="Primary navigation">
         <Link
           to="/"
           onClick={() => {
             setActive("");
             setMobileOpen(false);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0 });
           }}
           className="brand-mark"
           aria-label={`${portfolio.person.name} home`}
