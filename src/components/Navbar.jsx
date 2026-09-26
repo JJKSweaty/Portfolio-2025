@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import {
   Sheet,
   SheetContent,
   SheetTitle,
+  SheetDescription,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
@@ -18,6 +19,7 @@ import { useTheme } from "@/hooks/useTheme";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
+  const menuDestination = useRef(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -62,6 +64,7 @@ const Navbar = () => {
   }, [isHome]);
 
   const handleSectionClick = (event, id) => {
+    menuDestination.current = mobileOpen ? id : null;
     setMobileOpen(false);
     setActive(id);
 
@@ -70,7 +73,6 @@ const Navbar = () => {
     const section = document.getElementById(id);
     if (!section) return;
 
-    event.preventDefault();
     section.scrollIntoView({ block: "start" });
   };
 
@@ -79,15 +81,15 @@ const Navbar = () => {
     const href = isHome ? `#${nav.id}` : `/#${nav.id}`;
 
     return (
-      <a
+      <Link
         key={nav.id}
-        href={href}
+        to={href}
         onClick={(event) => handleSectionClick(event, nav.id)}
         className={`nav-link ${isActive ? "nav-link-active" : ""}`}
         aria-current={isActive ? "location" : undefined}
       >
         {nav.label}
-      </a>
+      </Link>
     );
   });
 
@@ -155,8 +157,22 @@ const Navbar = () => {
                 <Menu aria-hidden="true" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="mobile-nav-sheet">
+            <SheetContent side="right" className="mobile-nav-sheet" onCloseAutoFocus={(event) => {
+              if (!menuDestination.current) return;
+              event.preventDefault();
+              const id = menuDestination.current;
+              menuDestination.current = null;
+              window.requestAnimationFrame(() => {
+                const section = document.getElementById(id);
+                if (section) {
+                  section.tabIndex = -1;
+                  section.focus({ preventScroll: true });
+                  section.scrollIntoView({ block: "start" });
+                }
+              });
+            }}>
               <SheetTitle>Navigation</SheetTitle>
+              <SheetDescription className="sr-only">Navigate to a portfolio section.</SheetDescription>
               <div className="mobile-nav" aria-label="Mobile navigation">
                 {navItems}
               </div>

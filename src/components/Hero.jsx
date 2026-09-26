@@ -26,6 +26,7 @@ const Hero = () => {
           <p>I’m an Electrical Engineering student at the University of Waterloo. I build firmware and hardware for wearable sensors, flight controllers, and VR systems.</p>
           <div className="intro-links">
             <a href="#projects">View Projects <ArrowDown size={16} aria-hidden="true" /></a>
+            <a href={person.hardwarePortfolioPath} target="_blank" rel="noopener noreferrer">Hardware Portfolio <ArrowUpRight size={16} aria-hidden="true" /></a>
             <a href={person.resumePath} target="_blank" rel="noopener noreferrer">Resume <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
         </div>

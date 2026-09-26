@@ -1,5 +1,5 @@
 import { ArrowUpRight, Plus } from "lucide-react";
-import { designTeams, experiences } from "../data/portfolio";
+import { designTeams, experiences, portfolio } from "../data/portfolio";
 import Reveal from "./Reveal";
 
 const ExperienceRow = ({ experience }) => (
@@ -18,9 +18,14 @@ const ExperienceRow = ({ experience }) => (
         )}
       </div>
       <p className="experience-description">{experience.summary}</p>
+      {experience.hardwarePage && (
+        <a className="experience-document" href={`${portfolio.person.hardwarePortfolioPath}#page=${experience.hardwarePage}`} target="_blank" rel="noopener noreferrer">Hardware Portfolio, p. {experience.hardwarePage}<ArrowUpRight size={14} aria-hidden="true" /></a>
+      )}
       <details className="work-details">
-        <summary>Contributions <Plus size={16} aria-hidden="true" /></summary>
+        <summary aria-label={`Contributions at ${experience.company}`}>Contributions <Plus size={16} aria-hidden="true" /></summary>
         <ul>{experience.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
+        {experience.image && <figure className="experience-photo"><img src={experience.image.src} alt={experience.image.alt} loading="lazy" /><figcaption>{experience.image.alt}</figcaption></figure>}
+        {experience.sourceUrl && <a className="experience-document" href={experience.sourceUrl} target="_blank" rel="noopener noreferrer">Source Code<ArrowUpRight size={14} aria-hidden="true" /></a>}
         <p className="experience-tools mono-label">{experience.domains.join(" / ")}</p>
       </details>
     </div>

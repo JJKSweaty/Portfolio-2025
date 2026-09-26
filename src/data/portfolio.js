@@ -17,6 +17,7 @@ export const portfolio = {
     location: "Waterloo, ON / Montreal, QC",
     email: "johnkoper12@gmail.com",
     resumePath: "/Jonathan_Jacob_Koshy_resume.pdf",
+    hardwarePortfolioPath: "/hardware-portfolio.pdf",
     headshot: faceLogo,
     summary:
       "Electrical Engineering student at the University of Waterloo building low-level software for sensing, control, communication, and edge-compute systems.",
@@ -76,13 +77,14 @@ export const experiences = [
   {
     company: "AeroCardia",
     role: "Embedded Software Intern",
+    hardwarePage: 3,
     location: "Montreal, QC",
     period: "Sep – Dec 2025",
     companyUrl: "https://www.aerocardia.com/",
     domains: ["ESP32", "FreeRTOS", "BLE OTA", "Altium"],
     summary: "Led core ESP32 firmware for a cardiopulmonary wearable. Reduced dropped biosignal samples by 25% and brought secure firmware updates under one minute.",
     details: [
-      "Developed C drivers for IMU, PPG, and temperature sensors for synchronized biosignal capture.",
+      "Developed C++ drivers for IMU, PPG, and temperature sensors for synchronized 50 Hz biosignal capture.",
       "Decoupled sensor acquisition from BLE telemetry with FreeRTOS queues and buffered handoff.",
       "Implemented secure BLE OTA with image verification and rollback.",
       "Designed an O2 sensor PCB in Altium with EEPROM-backed calibration that persists across power cycles.",
@@ -107,20 +109,27 @@ export const designTeams = [
   {
     company: "Midnight Sun Solar Car Team",
     role: "Vehicle Firmware Member",
+    hardwarePage: 4,
+    sourceUrl: "https://github.com/uw-midsun/fwxvi",
+    image: { src: "/images/hardware/midnight-sun-bench.jpg", alt: "Midnight Sun steering wheel and vehicle controllers during bench integration" },
     location: "Waterloo, ON",
     period: "Aug 2026 – Present",
     domains: ["C", "FOTA", "CAN", "Bootloaders"],
     summary: "Cruise-control safety logic and reliable firmware updates for the solar car’s vehicle controllers.",
     details: [
       "Fixed front-controller safety state-machine faults blocking WaveSculptor CAN setpoint tests.",
-      "Built a C FOTA bootloader that buffers incoming firmware into flash-page writes.",
+      "Built a C FOTA bootloader that stages flash-page writes and verifies the whole image before copying it into the application region.",
       "Added CRC32 validation, sequencing, and ACK retries to reject corrupted or out-of-order firmware before flash writes.",
       "Built reusable UART/CAN update transport with ISR-fed circular buffers, separating FOTA logic from vehicle bus I/O.",
+      "Work is at the bench-integration and setpoint-test stage. CRC32 checks detect accidental corruption; they do not authenticate the sender.",
     ],
   },
   {
     company: "Waterloo Aerial Robotics",
     role: "Embedded Flight Software Member",
+    hardwarePage: 5,
+    sourceUrl: "https://github.com/UWARG/efs-zeropilot-4.0",
+    image: { src: "/images/hardware/uwarg-controller.jpg", alt: "ZeroPilot flight-controller hardware on the bench" },
     location: "Waterloo, ON",
     period: "Dec 2024 – Present",
     companyUrl: "https://www.uwarg.com/",
@@ -163,6 +172,94 @@ export const designTeams = [
 
 export const projects = [
   {
+    "slug": "badge-market",
+    "title": "Badge Market",
+    "subtitle": "Offline multiplayer firmware for Hack the North badges",
+    "year": "2026",
+    "category": "Embedded Firmware",
+    "status": "Hack the North 2026",
+    "featured": false,
+    "hardwarePage": 7,
+    "role": "Built native C++ firmware, board drivers, DMA display rendering, ESP-NOW synchronization, and persistent saves.",
+    "summary": "An offline multiplayer trading game running on ESP32-C3 badges. One badge hosts the market while nearby players trade fictional currency over ESP-NOW.",
+    "tags": [
+      "ESP32-C3",
+      "C++17",
+      "ESP-IDF",
+      "ESP-NOW",
+      "DMA",
+      "NVS"
+    ],
+    "image": {
+      "src": "/images/hardware/badge-market.jpg",
+      "alt": "Badge Market buy and sell screen running on a Hack the North badge",
+      "fit": "contain"
+    },
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/JJKSweaty/badge-market"
+      },
+      {
+        "label": "Verification Notes",
+        "href": "https://github.com/JJKSweaty/badge-market/blob/main/firmware/VERIFICATION.md"
+      },
+      {
+        "label": "Video",
+        "href": "https://youtu.be/2Qrzvv-iPmM"
+      }
+    ],
+    "media": [
+      {
+        "type": "image",
+        "src": "/images/hardware/badge-market-screens.jpg",
+        "alt": "Badge Market home, trading, and MEMEWORD puzzle screens",
+        "caption": "Market home, buy/sell controls, and puzzle input on physical badges.",
+        "fit": "contain"
+      },
+      {
+        "type": "youtube",
+        "src": "https://youtu.be/2Qrzvv-iPmM",
+        "caption": "Badge Market demo"
+      }
+    ],
+    "caseStudy": {
+      "overview": "Badge Market is a shared game for Hack the North badges. Nearby players earn fictional currency, launch coins, and trade without a phone or internet connection during play. I moved the game from a stock-runtime Lua app to native C++ firmware.",
+      "problem": "The badges needed consistent shared state over an unreliable radio link, responsive display updates within a small RAM budget, and saves that survive restarts.",
+      "ownership": "I implemented the board drivers, display renderer, ESP-NOW transport, trade synchronization, and persistent saves.",
+      "architecture": [
+        "Guest input",
+        "ESP-NOW request",
+        "Host commits trade",
+        "Chunked snapshot",
+        "Validated guest state",
+        "SPI display"
+      ],
+      "components": [
+        "ESP32-C3 badges running ESP-IDF and C++17",
+        "ESP-NOW transport with a 16-packet receive queue",
+        "320 × 240 RGB565 SPI display",
+        "Two 5 KiB DMA stripe buffers",
+        "Dual-slot NVS persistence for host and solo modes"
+      ],
+      "engineering": [
+        "Only the host commits trades. Guests retry using the same sequence number and payload so a lost reply does not apply a trade twice.",
+        "Snapshots travel in 200-byte chunks with revision, length, offset, and CRC checks. Partial snapshots never become visible state.",
+        "Two 5 KiB DMA buffers replace a 153,600-byte full framebuffer. Eight-row stripe hashes limit SPI transfers to changed regions.",
+        "Saving writes the older of two NVS slots, commits it, and reads it back. Checkpoints occur at gameplay-safe points."
+      ],
+      "results": [
+        "Built native firmware for offline badge-to-badge play, including a market, trading controls, and MEMEWORD input.",
+        "Reduced display RAM requirements with stripe rendering and prevented duplicate credits during request retries."
+      ],
+      "limitations": [
+        "Trading depends on the host remaining nearby; there is no host migration.",
+        "Unexpected power loss can roll back changes since the most recent checkpoint.",
+        "Moved or removed graphics must invalidate affected display stripes."
+      ]
+    }
+  },
+  {
     slug: "userspace-tcp-ip-stack",
     title: "Userspace TCP/IP Stack",
     subtitle: "Raw Ethernet frames to ARP, IPv4, ICMP, UDP, and TCP",
@@ -201,66 +298,67 @@ export const projects = [
     slug: "remembr",
     title: "remembR",
     subtitle: "Edge AI dementia companion",
-    year: "2025",
+    year: "2026",
     category: "Edge Computing",
-    status: "HackCanada · Most Likely to Be a Startup",
+    status: "HackCanada 2026 Winner",
     featured: true,
-    role: "Built the edge-compute perception and hardware-software architecture for object finding, memory support, and medication verification.",
+    hardwarePage: 6,
+    role: "Built the edge-compute perception and hardware-software architecture for object finding, persistent memory, and pan-tilt scanning.",
     summary:
       "An edge AI companion that remembers where objects were last seen. Raspberry Pi 5 and Hailo-8L run detection locally, with pan-and-tilt room scanning.",
     showcaseNote: "1080p · 30fps detection / HackCanada winner",
     decisions: [
-      "Offloaded YOLOv8s to Hailo-8L for 1080p 30fps detection and persistent last-seen object locations.",
-      "Drove pan-and-tilt servos to search beyond the camera field of view.",
-      "Separated medication barcode/QR verification from general object detection so safety-critical reminders can be validated explicitly.",
+      "Used a bounded detection queue and discarded the oldest batch when full to keep observations current.",
+      "Kept timestamped object records in JSON so recent history survives restarts.",
+      "Drove pan-tilt servos with a PCA9685 controller to scan beyond the current camera view.",
     ],
-    tags: ["Raspberry Pi 5", "Hailo-8L", "YOLOv8", "OpenCV", "FastAPI", "WebSocket"],
+    tags: ["Raspberry Pi 5", "Hailo-8L", "YOLOv8s", "Python", "PCA9685", "FastAPI"],
     image: {
-      src: "/images/remebRedgeAI.png",
-      alt: "remembR edge AI prototype thumbnail",
-      fit: "contain",
+      src: "/images/hardware/remembr-bench.jpg",
+      alt: "remembR Raspberry Pi, pan-tilt camera, and controller wiring on the bench",
+      fit: "cover",
     },
+    media: [
+      { type: "image", src: "/images/hardware/remembr-bench.jpg", alt: "remembR bench setup", caption: "Pi, pan-tilt camera, and controller wiring.", fit: "contain" },
+    ],
     links: [
       { label: "GitHub", href: "https://github.com/JJKSweaty/remembR" },
-      { label: "Devpost", href: "https://devpost.com/software/ember-n8m3yk" },
+      { label: "Devpost (Ember)", href: "https://devpost.com/software/ember-n8m3yk" },
     ],
     caseStudy: {
-      overview:
-        "remembR is an assistive edge-computing system for dementia support. It combines local perception, persistent object memory, medication verification, and a companion interface so the user can find important items and follow reminders without sending every interaction to a remote service.",
-      problem:
-        "People with memory loss often need help locating objects and verifying routine tasks. The system needed to respond quickly, work around real room conditions, and make the hardware/software boundary clear enough to debug under hackathon constraints.",
-      ownership:
-        "I focused on the embedded and edge-compute system architecture: perception pipeline, device communication, object memory flow, and hardware-software integration.",
-      architecture: [
+      "overview": "remembR is an edge AI memory-aid prototype that helps locate misplaced objects. A Raspberry Pi 5 and Hailo-8L process camera detections locally and return last-seen information to a phone interface.",
+      "problem": "Object search needs recent observations and useful history. Inference, camera motion, and phone queries must share limited processing time without building a backlog of stale detections.",
+      "ownership": "I built the Pi/Hailo inference pipeline, persistent object memory, and pan-tilt camera hardware.",
+      "architecture": [
         "Camera",
-        "Raspberry Pi 5",
         "Hailo-8L inference",
-        "Detection memory",
-        "FastAPI/WebSocket",
-        "Mobile interface",
+        "Bounded detection queue",
+        "Object memory",
+        "FastAPI / WebSockets",
+        "Phone interface"
       ],
-      components: [
-        "Raspberry Pi 5 edge host",
-        "Hailo-8L accelerator",
-        "Camera input",
-        "YOLOv8/OpenCV perception stack",
-        "FastAPI backend and WebSocket messaging",
-        "Companion application for reminders and object feedback",
+      "components": [
+        "Raspberry Pi 5 and Hailo-8L accelerator",
+        "YOLOv8s inference with GStreamer callbacks",
+        "PCA9685 PWM controller and pan-tilt servos",
+        "JSON object records with timestamps",
+        "FastAPI and WebSockets over Tailscale"
       ],
-      engineering: [
-        "Balanced local inference against companion-app interaction so the system stays responsive.",
-        "Structured object memory separately from one-off detections to support repeated object queries.",
-        "Kept verification flows explicit for medication barcode and QR interactions.",
+      "engineering": [
+        "A callback queues detection metadata and an optional frame; a worker filters detections and updates object records.",
+        "The queue discards its oldest batch when full. Empty batches also reach the worker so absence updates the temporal filter.",
+        "A three-hits-in-five-frames rule reduces detection flicker at the cost of a short confirmation delay.",
+        "Hardware PWM maintains servo pulses while the Pi processes frames. Scanning expands coverage but requires camera settling time."
       ],
-      validation: [
-        "Tested object-finding behavior with real camera frames and companion-app feedback loops.",
-        "Validated communication between edge host and interface through WebSocket events.",
-        "Checked reminder and verification flows against expected task states.",
+      "results": [
+        "Recognized as a winner at HackCanada 2026.",
+        "Built a 1080p, 30 fps detection pipeline with persistent last-seen records and pan-tilt object search."
       ],
-      results: [
-        "Won Most Likely to Be a Startup at HackCanada.",
-        "Sustained 1080p 30fps YOLOv8s detection on Hailo-8L, stored last-seen object locations, and expanded searches with pan-and-tilt servos.",
-      ],
+      "limitations": [
+        "Records are grouped by class label, so two objects of the same class are not reliably distinguished.",
+        "Location descriptions refer to the camera image, not mapped room coordinates.",
+        "Wallet queries use the model’s handbag class as a proxy, which limits recognition accuracy."
+      ]
     },
   },
   {
@@ -331,6 +429,7 @@ export const projects = [
     year: "2025",
     category: "Embedded UI",
     featured: true,
+    hardwarePage: 8,
     role: "Designed the ESP32 firmware, LVGL touchscreen interface, Wi-Fi event pipeline, and PC telemetry bridge.",
     summary:
       "A dedicated touchscreen for PC telemetry, music, and Discord. A queued TCP/JSON protocol keeps media commands and live updates moving over Wi-Fi.",
@@ -340,7 +439,7 @@ export const projects = [
       "Used event-driven message handling to keep touch interaction responsive under frequent updates.",
       "Rendered RGB565 artwork alongside media metadata on the ESP32 touchscreen.",
     ],
-    tags: ["ESP32-S3", "LVGL", "FreeRTOS", "Wi-Fi", "WebSockets", "SPI"],
+    tags: ["ESP32", "LVGL", "FreeRTOS", "Wi-Fi", "TCP / JSON", "SPI"],
     image: {
       src: esp32MediaPreview,
       alt: "ESP32 media controller demo thumbnail",
@@ -380,29 +479,34 @@ export const projects = [
         "I owned the embedded firmware structure, LVGL interface, communication protocol, display behavior, and hardware mounting workflow.",
       architecture: [
         "Computer telemetry service",
-        "Wi-Fi API",
+        "Newline-delimited JSON over TCP",
         "ESP32 event pipeline",
         "LVGL interface",
         "Touch input",
         "Media commands",
       ],
       components: [
-        "ESP32-S3 controller",
-        "480x320 SPI touchscreen",
+        "ESP32 controller",
+        "320 × 240 SPI display with XPT2046 touch controller",
         "LVGL interface",
         "Python telemetry service",
         "Queued TCP/JSON protocol for telemetry and media commands",
         "3D-printed screen mount",
       ],
       engineering: [
-        "Separated UI rendering, communication, and input handling so network updates do not block touch response.",
-        "Used compact rendering paths for metadata and artwork on memory-constrained hardware.",
+        "A lower-priority FreeRTOS task parses network data while the main loop services LVGL. A one-element overwrite queue keeps only the newest pending snapshot.",
+        "Newline-delimited JSON provides TCP message boundaries. Touch commands use a separate bounded queue so the UI does not wait for socket writes.",
+        "Decoded 80 × 80 RGB565 artwork into one reusable 12,800-byte buffer, outside the snapshot queue. Artwork is skipped when heap is low.",
         "Created a physical mounting workflow with downloadable CAD artifacts.",
       ],
       validation: [
         "Tested media command flows against the host computer service.",
         "Validated telemetry update rates while interacting with the touchscreen.",
-        "Debugged display behavior, touch input, and Wi-Fi message handling on real hardware.",
+        "Corrected display byte order and inversion settings, then mapped raw touch readings into screen coordinates.",
+      ],
+      limitations: [
+        "Outbound commands can be dropped when the queue fills. Application-level acknowledgements would be needed to confirm delivery.",
+        "Base64 artwork adds bandwidth overhead: 17,068 characters before JSON framing.",
       ],
       results: [
         "Produced a working embedded controller demo with media controls, telemetry, and visual feedback.",
@@ -417,13 +521,14 @@ export const projects = [
     year: "2026",
     category: "Hardware Systems",
     featured: true,
-    role: "Built the tracking firmware, custom PCB, and SteamVR integration for a 2K 120Hz open-source headset.",
+    hardwarePage: 2,
+    role: "Built the tracking firmware, custom PCB, and SteamVR integration for a 2K, 120 Hz open-source headset.",
     summary:
-      "A custom VR headset with STM32 sensor fusion, USB HID tracking, a two-layer PCB, and SteamVR integration. Built from the board up.",
-    showcaseNote: "2K · 120Hz display / STM32F411 tracking",
+      "A custom VR headset with STM32 sensor fusion, USB HID tracking, a two-layer PCB, and SteamVR integration. The current prototype supports 4DoF seated tracking.",
+    showcaseNote: "4DoF seated prototype / 2K · 120 Hz display",
     decisions: [
-      "Calibrated IMU bias at startup and used Mahony quaternion fusion for stable orientation.",
-      "Remapped fused poses into OpenVR coordinates and streamed orientation over USB HID.",
+      "Calibrated IMU bias at startup and used FastIMU quaternion fusion for stable orientation.",
+      "Mapped coordinates in firmware and sent a fixed 64-byte HID report, avoiding a second axis conversion in the PC driver.",
       "Used TF-Luna LiDAR range baselining for bounded forward tracking in seated movement.",
     ],
     tags: ["C", "STM32F411", "ICM20948", "USB HID", "OpenVR", "KiCad"],
@@ -442,6 +547,10 @@ export const projects = [
       },
     ],
     links: [{ label: "GitHub", href: "https://github.com/JJKSweaty/jjkVR" }],
+    media: [
+      { type: "image", src: "/images/headsetphotovr.jpg", alt: "jjkVR headset prototype", caption: "Headset prototype with the display illuminated." },
+      { type: "image", src: "/assets/vrproject/vr_custom_pcb.png", alt: "Two-layer jjkVR tracking PCB", caption: "Custom STM32F411 tracking PCB.", fit: "contain" },
+    ],
     cad: {
       thumbnail: "/assets/vrproject/model_thumb.svg",
       files: [
@@ -455,7 +564,7 @@ export const projects = [
     },
     caseStudy: {
       overview:
-        "jjkVR is an open-source 2K 120Hz headset combining STM32 tracking firmware, custom electronics, a printed enclosure, and PC-side SteamVR integration.",
+        "jjkVR is an open-source 2K, 120 Hz headset combining STM32 tracking firmware, custom electronics, a printed enclosure, and PC-side SteamVR integration.",
       problem:
         "The tracking stack needed stable orientation, a consistent coordinate system, and bounded forward movement without accumulating inertial drift.",
       ownership:
@@ -464,15 +573,23 @@ export const projects = [
       components: [
         "STM32F411 MCU and ICM20948 IMU",
         "TF-Luna LiDAR for bounded forward tracking",
-        "2K 120Hz headset display",
+        "2K, 120 Hz headset display",
         "Two-layer KiCad PCB with USB-C and regulated power",
         "3D-printed shell and mounting parts",
       ],
       engineering: [
-        "Combined startup IMU bias calibration with Mahony quaternion fusion on STM32F411.",
-        "Mapped fused poses into OpenVR coordinates and streamed orientation over USB HID.",
-        "Used LiDAR range baselining to avoid inertial drift in bounded seated movement.",
-        "Designed USB-C power, IMU filtering, I2C routing, and board bring-up test points.",
+        "Combined startup IMU bias calibration with FastIMU quaternion fusion on STM32F411.",
+        "Scheduled IMU reads every 5 ms and 64-byte HID reports every 10 ms. The report carries orientation, optional position, validity flags, and sensor status.",
+        "Parsed checksummed TF-Luna UART frames and gated range correction on heading alignment, since turning toward a different surface can change distance without head translation.",
+        "Designed USB-C, fused 5 V display power, 3.3 V regulation, IMU filtering, and test points. The PC drives video independently of the MCU’s pose reports.",
+      ],
+      limitations: [
+        "Tracking has three rotational axes and one experimental forward-translation axis. Lateral and vertical position remain fixed.",
+        "Forward tracking uses a stationary range baseline and depends on heading alignment. Full 6DoF requires an external positional reference and is planned for V2.",
+      ],
+      references: [
+        { label: "Relativty driver reference", href: "https://github.com/relativty/Relativty" },
+        { label: "HadesVR reference", href: "https://github.com/UkonnRa/HadesVR" },
       ],
       results: [
         "Built a custom tracking stack spanning sensor fusion, USB HID, and SteamVR integration.",
@@ -522,10 +639,6 @@ export const projects = [
       },
     ],
     links: [
-      {
-        label: "GitHub",
-        href: "https://github.com/JJKSweaty/Autonomous-Disk-Launcher",
-      },
       {
         label: "Demo",
         href: "/demos/autonomous-launcher-demo.mp4",

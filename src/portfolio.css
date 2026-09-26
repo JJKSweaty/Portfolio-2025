@@ -204,3 +204,35 @@
   .intro-portrait { display: none; }
   .footer-email { gap: 10px; font-size: 17px; }
 }
+
+/* Hardware portfolio links and supporting evidence. */
+.case-document-link, .experience-document, .case-reference { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--primary); font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+.case-document-link { margin-top: 16px; }
+.experience-photo { max-width: 520px; margin: 20px 0; }
+.experience-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: contain; border-radius: 3px; background: var(--muted); }
+.experience-photo figcaption { margin-top: 8px; color: var(--muted-foreground); font-size: 14px; }
+.showcase-image-remembr img { padding: 0; }
+.intro-links { column-gap: 24px; row-gap: 2px; }
+.showcase-copy h3 { overflow-wrap: anywhere; }
+.case-hero > div { min-width: 0; }
+.case-hero h1 { overflow-wrap: anywhere; font-size: clamp(36px, 4.5vw, 56px); }
+.case-subtitle { font-weight: 500; }
+.case-image-frame img { width: 100%; max-height: 460px; }
+.case-document-link + .case-layout { padding-top: 32px; }
+.site-header:has(.mobile-menu-button[aria-expanded="true"]) { z-index: 40; }
+.mobile-nav-sheet { z-index: 90; }
+.portfolio-section:focus { outline: none; }
+@media (max-width: 640px) {
+  .architecture-diagram { min-width: 0; flex-direction: column; align-items: stretch; }
+  .architecture-step-wrap { flex-direction: column; align-items: stretch; }
+  .architecture-step { max-width: none; min-height: 46px; }
+  .architecture-arrow { align-self: center; transform: rotate(90deg); }
+  .case-hero { gap: 24px; padding-bottom: 32px; }
+}
+.case-sidebar dl > div + div { border-top: 1px solid var(--border); padding-top: 16px; }
+.skip-link { pointer-events: auto; }
+@media (min-width: 761px) {
+  .intro { padding-top: 132px; padding-bottom: 64px; }
+  .intro-name-row { margin: 28px 0 32px; }
+  .intro h1 { font-size: clamp(64px, 8vw, 104px); }
+}

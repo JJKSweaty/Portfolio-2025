@@ -31,9 +31,9 @@ const ProjectMedia = ({ project, priority }) => {
 
 const ProjectLinks = ({ project }) => (
   <div className="work-links">
-    {project.caseStudy && <Link to={caseHref(project)}>{project.caseStudy.label || "View project"}<ArrowUpRight size={16} aria-hidden="true" /></Link>}
+    {project.caseStudy && <Link to={caseHref(project)} aria-label={`View ${project.title} project`}>{project.caseStudy.label || "View Project"}<ArrowUpRight size={16} aria-hidden="true" /></Link>}
     {project.links?.map((link) => (
-      <a key={link.href} href={link.href} target={link.href.startsWith("/") ? undefined : "_blank"} rel={link.href.startsWith("/") ? undefined : "noopener noreferrer"}>{link.label}<ArrowUpRight size={14} aria-hidden="true" /></a>
+      <a key={link.href} aria-label={`${project.title}: ${link.label}`} href={link.href} target={link.href.startsWith("/") ? undefined : "_blank"} rel={link.href.startsWith("/") ? undefined : "noopener noreferrer"}>{link.label}<ArrowUpRight size={14} aria-hidden="true" /></a>
     ))}
   </div>
 );

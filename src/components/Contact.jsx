@@ -16,6 +16,7 @@ const Contact = () => {
         <span className="mono-label">© {new Date().getFullYear()} {person.name}</span>
         <div className="footer-links">
           {socials.filter((link) => link.label !== "Email").map((link) => <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={14} aria-hidden="true" /></a>)}
+          <a href={person.hardwarePortfolioPath} target="_blank" rel="noopener noreferrer">Hardware Portfolio<ArrowUpRight size={14} aria-hidden="true" /></a>
           <a href={person.resumePath} target="_blank" rel="noopener noreferrer">Resume<ArrowUpRight size={14} aria-hidden="true" /></a>
           <a href="#hero-title" aria-label="Back to top"><ArrowUp size={16} aria-hidden="true" /></a>
         </div>

@@ -6,7 +6,6 @@ import { getProjectBySlug, portfolio } from "../../data/portfolio";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 
 const getYouTubeId = (url) => {
   if (!url) return null;
@@ -17,7 +16,7 @@ const getYouTubeId = (url) => {
 };
 
 const ArchitectureDiagram = ({ nodes }) => (
-  <div className="architecture-scroll" role="img" aria-label={nodes.join(" to ")}>
+  <div className="architecture-scroll" role="region" tabIndex={0} aria-label={`System architecture: ${nodes.join(" to ")}`}>
     <div className="architecture-diagram">
       {nodes.map((node, index) => (
         <div className="architecture-step-wrap" key={`${node}-${index}`}>
@@ -53,7 +52,7 @@ const ProjectImage = ({ project, className = "" }) => (
 );
 
 const MediaGallery = ({ project }) => {
-  const media = project.media || [];
+  const media = project.media || project.featuredMedia?.map((item) => ({ ...item, type: "image" })) || [];
 
   if (!media.length && !project.image) return null;
 
@@ -81,7 +80,8 @@ const MediaGallery = ({ project }) => {
             <figure className="media-frame" key={`${item.src}-${index}`}>
               {id ? (
                 <iframe
-                  src={`https://www.youtube.com/embed/${id}`}
+                  src={`https://www.youtube-nocookie.com/embed/${id}`}
+                  loading="lazy"
                   title={item.caption || `${project.title} video`}
                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -121,8 +121,8 @@ const CadDownloads = ({ cad }) => {
         <img src={cad.thumbnail} alt="CAD model preview" loading="lazy" />
       )}
       <div>
-        <h3>CAD files</h3>
-        <p>Mounting files preserved from the original project assets.</p>
+        <h3>CAD Files</h3>
+        <p>Download the enclosure and mounting files for this build.</p>
         <div className="cad-links">
           {cad.files.map((file) => (
             <Button key={file.href} asChild variant="outline" size="sm">
@@ -232,6 +232,7 @@ const ProjectCaseStudy = () => {
             <ProjectImage project={project} />
           </header>
 
+          {project.hardwarePage && <a className="case-document-link" href={`${portfolio.person.hardwarePortfolioPath}#page=${project.hardwarePage}`} target="_blank" rel="noopener noreferrer">Hardware Portfolio, p. {project.hardwarePage}<ArrowUpRight size={16} aria-hidden="true" /></a>}
           {caseStudy ? (
             <div className="case-layout">
               <article className="case-content">
@@ -259,7 +260,7 @@ const ProjectCaseStudy = () => {
                   </ul>
                 </CaseSection>
 
-                <CaseSection title="Hardware And Software Components">
+                <CaseSection title="Hardware and Software">
                   <ul>
                     {caseStudy.components.map((item) => (
                       <li key={item}>{item}</li>
@@ -267,7 +268,7 @@ const ProjectCaseStudy = () => {
                   </ul>
                 </CaseSection>
 
-                {caseStudy.validation?.length > 0 && <CaseSection title="Validation And Testing">
+                {caseStudy.validation?.length > 0 && <CaseSection title="Validation and Testing">
                   <ul>
                     {caseStudy.validation.map((item) => (
                       <li key={item}>{item}</li>
@@ -275,6 +276,11 @@ const ProjectCaseStudy = () => {
                   </ul>
                 </CaseSection>}
 
+                {caseStudy.limitations?.length > 0 && (
+                  <CaseSection title="Current Limitations">
+                    <ul>{caseStudy.limitations.map((item) => <li key={item}>{item}</li>)}</ul>
+                  </CaseSection>
+                )}
                 <CaseSection title="Results">
                   <ul>
                     {caseStudy.results.map((item) => (
@@ -283,15 +289,20 @@ const ProjectCaseStudy = () => {
                   </ul>
                 </CaseSection>
 
+                {caseStudy.references?.length > 0 && (
+                  <CaseSection title="References">
+                    <ul>{caseStudy.references.map((reference) => <li key={reference.href}><a className="case-reference" href={reference.href} target="_blank" rel="noopener noreferrer">{reference.label}<ArrowUpRight size={14} aria-hidden="true" /></a></li>)}</ul>
+                  </CaseSection>
+                )}
                 <CaseSection title="Project Gallery">
                   <MediaGallery project={project} />
                   <CadDownloads cad={project.cad} />
                 </CaseSection>
               </article>
 
-              <Card className="case-sidebar" aria-label="Project summary">
+              <Card className="case-sidebar" role="complementary" aria-label="Project Summary">
                 <CardHeader>
-                  <CardTitle>At a glance</CardTitle>
+                  <CardTitle>At a Glance</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <dl>
@@ -299,21 +310,17 @@ const ProjectCaseStudy = () => {
                       <dt>Role</dt>
                       <dd>{project.role}</dd>
                     </div>
-                    <Separator />
                     <div>
                       <dt>Year</dt>
                       <dd>{project.year}</dd>
                     </div>
                     {project.status && (
-                      <>
-                        <Separator />
-                        <div>
-                          <dt>Status</dt>
-                          <dd>{project.status}</dd>
-                        </div>
-                      </>
+                      <div>
+                        <dt>Status</dt>
+                        <dd>{project.status}</dd>
+                      </div>
                     )}
-                    <Separator />
+                    {project.hardwarePage && <div><dt>Hardware Portfolio</dt><dd><a href={`${portfolio.person.hardwarePortfolioPath}#page=${project.hardwarePage}`} target="_blank" rel="noopener noreferrer">Read the PDF, p. {project.hardwarePage}</a></dd></div>}
                     <div>
                       <dt>Contact</dt>
                       <dd>

@@ -10,7 +10,8 @@ const getSystemTheme = () =>
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
     if (typeof window === "undefined") return "light";
-    const storedTheme = localStorage.getItem(STORAGE_KEY);
+    let storedTheme;
+    try { storedTheme = localStorage.getItem(STORAGE_KEY); } catch { /* Storage can be disabled by the browser. */ }
     return storedTheme === "dark" || storedTheme === "light"
       ? storedTheme
       : "system";
@@ -25,11 +26,10 @@ export const ThemeProvider = ({ children }) => {
     document.documentElement.classList.toggle("dark", resolved === "dark");
     document.documentElement.style.colorScheme = resolved;
 
-    if (theme === "system") {
-      localStorage.removeItem(STORAGE_KEY);
-    } else {
-      localStorage.setItem(STORAGE_KEY, theme);
-    }
+    try {
+      if (theme === "system") localStorage.removeItem(STORAGE_KEY);
+      else localStorage.setItem(STORAGE_KEY, theme);
+    } catch { /* The selected theme still works for this visit. */ }
 
     const media = window.matchMedia?.("(prefers-color-scheme: dark)");
     if (theme !== "system" || !media) return undefined;
