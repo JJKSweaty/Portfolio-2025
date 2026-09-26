@@ -1,10 +1,9 @@
 import { lazy, Suspense, useEffect } from "react";
-import { BrowserRouter, Link, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Navbar, ScrollProgress } from "./components";
 import { ThemeProvider } from "./components/ThemeProvider";
 import Home from "./pages/Home";
 
-const TcpIpStackTutorial = lazy(() => import("./pages/TcpIpStackTutorial"));
 const ProjectCaseStudy = lazy(() => import("./pages/projects/ProjectCaseStudy"));
 const TcpIpStackPage = lazy(() => import("./pages/projects/TcpIpStackPage"));
 
@@ -61,10 +60,9 @@ const App = () => {
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/blog/tcp-ip-stack" element={<TcpIpStackTutorial />} />
-            <Route path="/blog/tcp-ip-stack/:chapterId" element={<TcpIpStackTutorial />} />
-            <Route path="/tutorials/tcp-ip-stack" element={<TcpIpStackTutorial />} />
-            <Route path="/code-crafters/tcp-ip-stack" element={<TcpIpStackTutorial />} />
+            <Route path="/blog/tcp-ip-stack/*" element={<Navigate to="/projects/userspace-tcp-ip-stack" replace />} />
+            <Route path="/tutorials/tcp-ip-stack" element={<Navigate to="/projects/userspace-tcp-ip-stack" replace />} />
+            <Route path="/code-crafters/tcp-ip-stack" element={<Navigate to="/projects/userspace-tcp-ip-stack" replace />} />
             <Route path="/projects/userspace-tcp-ip-stack" element={<TcpIpStackPage />} />
             <Route path="/projects/:slug" element={<ProjectCaseStudy />} />
             <Route path="*" element={<NotFound />} />

@@ -24,11 +24,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
-  const isReaderRoute = [
-    "/blog/tcp-ip-stack",
-    "/tutorials/tcp-ip-stack",
-    "/code-crafters/tcp-ip-stack",
-  ].some((path) => location.pathname.startsWith(path));
   const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -121,7 +116,6 @@ const Navbar = () => {
         <div className="desktop-nav">{navItems}</div>
 
         <div className="nav-actions">
-          {!isReaderRoute && (
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
@@ -143,7 +137,6 @@ const Navbar = () => {
                 {resolvedTheme === "dark" ? "Light mode" : "Dark mode"}
               </TooltipContent>
             </Tooltip>
-          )}
 
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>

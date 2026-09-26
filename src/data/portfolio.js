@@ -283,10 +283,10 @@ export const projects = [
     },
     links: [{ label: "GitHub", href: "https://github.com/JJKSweaty/tcpip-stack" }],
     caseStudy: {
-      label: "Interactive tutorial",
-      href: "/blog/tcp-ip-stack",
+      label: "View Project",
+      href: "/projects/userspace-tcp-ip-stack",
       overview:
-        "Interactive article and packet visualizer for a userspace TCP/IP stack written in C.",
+        "Project overview, packet flow, and implementation details for a userspace TCP/IP stack written in C.",
       engineering: [
         "Linux TAP device supplies raw Ethernet frames.",
         "Ethernet dispatches ARP or IPv4, then IPv4 dispatches ICMP, UDP, or TCP.",

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, ChevronRight, Code2, Cpu, Github, Terminal } from "lucide-react";
+import { ArrowLeft, ChevronRight, Code2, Cpu, Github, Terminal } from "lucide-react";
 import { Navbar } from "../../components";
 import { portfolio } from "../../data/portfolio";
 import {
@@ -191,12 +191,6 @@ const TcpIpStackPage = () => {
                     <Github aria-hidden="true" />
                     GitHub
                   </a>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link to="/blog/tcp-ip-stack">
-                    <BookOpen aria-hidden="true" />
-                    Open tutorial
-                  </Link>
                 </Button>
                 <Button asChild variant="outline">
                   <a href="#packet-inspector">
