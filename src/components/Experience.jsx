@@ -31,8 +31,8 @@ const Experience = () => (
   <>
     <section id="experience" className="portfolio-section site-container" aria-labelledby="experience-title">
       <Reveal className="section-rule">
-        <p className="mono-label section-index">02 / Experience</p>
-        <h2 id="experience-title">Learning by building.</h2>
+        <p className="mono-label section-index">02</p>
+        <h2 id="experience-title">Experience</h2>
       </Reveal>
       <div className="experience-list">
         {experiences.map((experience) => (
@@ -42,8 +42,8 @@ const Experience = () => (
     </section>
     <section id="teams" className="portfolio-section site-container" aria-labelledby="teams-title">
       <Reveal className="section-rule">
-        <p className="mono-label section-index">03 / Design teams</p>
-        <div><h2 id="teams-title">Built together.</h2><p className="section-description">Solar cars, aircraft, and silicon. The work I do with other Waterloo students.</p></div>
+        <p className="mono-label section-index">03</p>
+        <h2 id="teams-title">Design Team</h2>
       </Reveal>
       <div className="experience-list">
         {designTeams.map((experience) => (

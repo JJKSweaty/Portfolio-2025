@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Blog, Contact, Experience, Hero, Navbar, Works } from "../components";
+import { Contact, Experience, Hero, Navbar, Works } from "../components";
 
 const Home = () => {
   useEffect(() => {
@@ -13,7 +13,6 @@ const Home = () => {
         <Hero />
         <Works />
         <Experience />
-        <Blog />
         <Contact />
       </main>
     </div>

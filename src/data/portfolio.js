@@ -34,10 +34,9 @@ export const portfolio = {
     ],
   },
   navLinks: [
-    { id: "projects", label: "Work" },
+    { id: "projects", label: "Projects" },
     { id: "experience", label: "Experience" },
-    { id: "teams", label: "Design teams" },
-    { id: "blog", label: "Writing" },
+    { id: "teams", label: "Design Team" },
     { id: "contact", label: "Contact" },
   ],
   socials: [

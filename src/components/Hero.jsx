@@ -9,7 +9,7 @@ const Hero = () => {
     <section className="intro site-container" aria-labelledby="hero-title">
       <Reveal>
         <div className="intro-topline mono-label">
-          <span>Electrical engineering · University of Waterloo</span>
+          <span>Electrical Engineering · University of Waterloo</span>
           <span className="intro-location">Waterloo, Canada</span>
         </div>
         <div className="intro-name-row">
@@ -21,11 +21,11 @@ const Hero = () => {
         </div>
       </Reveal>
       <Reveal className="intro-bottom" delay={0.12}>
-        <p className="intro-statement">I build firmware.<br /><span>And the hardware around it.</span></p>
+        <p className="intro-statement">Firmware &amp;<br /><span>Embedded Systems</span></p>
         <div className="intro-description">
-          <p>I’m an electrical engineering student who likes getting things working on real hardware — from wearable sensors and flight controllers to a VR headset built from scratch.</p>
+          <p>I’m an Electrical Engineering student at the University of Waterloo. I build firmware and hardware for wearable sensors, flight controllers, and VR systems.</p>
           <div className="intro-links">
-            <a href="#projects">Explore my work <ArrowDown size={16} aria-hidden="true" /></a>
+            <a href="#projects">View Projects <ArrowDown size={16} aria-hidden="true" /></a>
             <a href={person.resumePath} target="_blank" rel="noopener noreferrer">Resume <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
         </div>

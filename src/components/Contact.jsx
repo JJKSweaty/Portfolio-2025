@@ -7,10 +7,10 @@ const Contact = () => {
   return (
     <footer id="contact" className="portfolio-footer site-container" aria-labelledby="contact-title">
       <Reveal>
-        <p className="mono-label">05 / Get in touch</p>
-        <h2 id="contact-title">Have something<br />in mind?</h2>
+        <p className="mono-label">04</p>
+        <h2 id="contact-title">Contact</h2>
         <a className="footer-email" href={`mailto:${person.email}`}>{person.email}<ArrowUpRight aria-hidden="true" /></a>
-        <p className="footer-interest">Always happy to talk firmware, hardware, and interesting things to build.</p>
+        <p className="footer-interest">Contact me about firmware, embedded systems, and hardware projects.</p>
       </Reveal>
       <div className="footer-bottom">
         <span className="mono-label">© {new Date().getFullYear()} {person.name}</span>
