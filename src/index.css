@@ -29,25 +29,25 @@
 }
 
 :root {
-  --background: #f5f3ef;
-  --foreground: #1f1d1b;
-  --card: #fcfbf8;
-  --card-foreground: #1f1d1b;
-  --popover: #fcfbf8;
-  --popover-foreground: #1f1d1b;
-  --primary: #9b4f36;
-  --primary-foreground: #fffaf6;
-  --secondary: #ece8e2;
-  --secondary-foreground: #2e2a27;
-  --muted: #ece8e2;
-  --muted-foreground: #69635d;
-  --accent: #ead8cf;
-  --accent-foreground: #6d321f;
+  --background: #f7f7f5;
+  --foreground: #222421;
+  --card: #ffffff;
+  --card-foreground: #222421;
+  --popover: #ffffff;
+  --popover-foreground: #222421;
+  --primary: #b74023;
+  --primary-foreground: #ffffff;
+  --secondary: #eeefeb;
+  --secondary-foreground: #222421;
+  --muted: #eeefeb;
+  --muted-foreground: #686c65;
+  --accent: #f5e6e0;
+  --accent-foreground: #9d331d;
   --destructive: #b42318;
   --destructive-foreground: #ffffff;
-  --border: #d8d2ca;
-  --input: #d8d2ca;
-  --ring: #b45d42;
+  --border: #d9dcd5;
+  --input: #d9dcd5;
+  --ring: #b74023;
   --radius: 0.625rem;
   --shadow-color: rgba(31, 29, 27, 0.08);
   --theme-bg: var(--background);
@@ -63,25 +63,25 @@
 }
 
 .dark {
-  --background: #161513;
-  --foreground: #f3f0eb;
-  --card: #1f1d1a;
-  --card-foreground: #f3f0eb;
-  --popover: #1f1d1a;
-  --popover-foreground: #f3f0eb;
-  --primary: #d78768;
-  --primary-foreground: #21100b;
-  --secondary: #292622;
-  --secondary-foreground: #f3f0eb;
-  --muted: #292622;
-  --muted-foreground: #b7afa7;
-  --accent: #39241e;
+  --background: #171917;
+  --foreground: #eeefea;
+  --card: #1e211e;
+  --card-foreground: #eeefea;
+  --popover: #1e211e;
+  --popover-foreground: #eeefea;
+  --primary: #f09575;
+  --primary-foreground: #22140f;
+  --secondary: #282c27;
+  --secondary-foreground: #eeefea;
+  --muted: #282c27;
+  --muted-foreground: #abb2a6;
+  --accent: #3d2b25;
   --accent-foreground: #f2b29a;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #3b3732;
-  --input: #3b3732;
-  --ring: #e19476;
+  --border: #393f36;
+  --input: #393f36;
+  --ring: #f09575;
   --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -98,9 +98,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background:
-    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 30rem),
-    var(--background);
+  background: var(--background);
   color: var(--foreground);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 1rem;

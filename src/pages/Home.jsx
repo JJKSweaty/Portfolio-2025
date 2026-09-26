@@ -11,8 +11,8 @@ const Home = () => {
       <Navbar />
       <main id="main-content">
         <Hero />
-        <Experience />
         <Works />
+        <Experience />
         <Blog />
         <Contact />
       </main>

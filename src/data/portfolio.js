@@ -1,7 +1,7 @@
 import claudefirmwareai from "../assets/claudefirmwareai.png";
 import cudaMlpPreview from "../assets/project-previews/cuda-mlp-preview.png";
 import esp32MediaPreview from "../assets/project-previews/esp32-media-preview.jpg";
-import faceLogo from "../assets/jonathanFace.png";
+import faceLogo from "../assets/jonathan-portrait.jpg";
 import heartbeatpcb from "../assets/hearbeatsensor pcb.png";
 import roboticsPlatformPreview from "../assets/project-previews/robotics-platform-preview.jpg";
 import signtolearn from "../assets/signtolearn.png";
@@ -16,7 +16,7 @@ export const portfolio = {
     title: "Firmware & Embedded Systems Engineer",
     location: "Waterloo, ON / Montreal, QC",
     email: "johnkoper12@gmail.com",
-    resumePath: "/resumeJonathanEmbedded.pdf",
+    resumePath: "/Jonathan_Jacob_Koshy_resume.pdf",
     headshot: faceLogo,
     summary:
       "Electrical Engineering student at the University of Waterloo building low-level software for sensing, control, communication, and edge-compute systems.",
@@ -25,7 +25,7 @@ export const portfolio = {
     availability: [
       {
         label: "Currently",
-        value: "Embedded Systems Intern at Belimo",
+        value: "Vehicle firmware at Midnight Sun · Flight software at WARG",
       },
       {
         label: "Seeking",
@@ -34,9 +34,10 @@ export const portfolio = {
     ],
   },
   navLinks: [
+    { id: "projects", label: "Work" },
     { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
-    { id: "blog", label: "Blog" },
+    { id: "teams", label: "Design teams" },
+    { id: "blog", label: "Writing" },
     { id: "contact", label: "Contact" },
   ],
   socials: [
@@ -46,7 +47,7 @@ export const portfolio = {
     },
     {
       label: "LinkedIn",
-      href: "https://www.linkedin.com/in/jonathan-jacob-koshy-49b683291/?profileId=ACoAAEbBtvcBVjkY-zL8NmlZ2okVDVF7R1r5xwg",
+      href: "https://www.linkedin.com/in/jonathan-jacob-koshy-49b683291/",
     },
     {
       label: "Email",
@@ -55,117 +56,111 @@ export const portfolio = {
   ],
 };
 
-const monthIndexes = {
-  Jan: 0,
-  Feb: 1,
-  Mar: 2,
-  Apr: 3,
-  May: 4,
-  Jun: 5,
-  Jul: 6,
-  Aug: 7,
-  Sep: 8,
-  Oct: 9,
-  Nov: 10,
-  Dec: 11,
-};
-
-const periodStartTime = (period) => {
-  const [, month, year] = period.match(/^([A-Z][a-z]{2}) (\d{4})/) ?? [];
-  return new Date(Number(year), monthIndexes[month] ?? 0).getTime();
-};
-
+// Resume-aligned industry experience; student teams are listed separately below.
 export const experiences = [
   {
     company: "Belimo",
-    role: "Embedded Software Intern",
+    role: "Firmware Development Intern",
     location: "Montreal, QC",
-    period: "May 2026 - Aug 2026",
+    period: "May – Aug 2026",
     companyUrl: "https://www.belimo.com/",
-    domains: ["Firmware", "Controls", "BACnet", "Validation"],
-    summary:
-      "Developing bare-metal Embedded C firmware for memory-constrained HVAC sensor and actuator controllers. Work spans interrupt timing, state-machine debugging, ADC filtering, communication validation, and hardware/firmware verification.",
+    domains: ["PIC18", "Embedded C", "Modbus", "ADC"],
+    summary: "Worked on memory-constrained sensor firmware: 20% lower memory use, 30% lower keypad latency, and 10% better gas measurement accuracy.",
     details: [
-      "Debugging controller behavior across CAN, UART, I2C, and BACnet-facing system tests.",
-      "Validating sensor reads, actuator commands, debouncing behavior, and timing-sensitive routines on real hardware.",
-      "Working in constrained firmware environments where global state, binary flags, and deterministic control paths matter.",
+      "Removed dead code and simplified memory-heavy routines to meet PIC18 flash limits.",
+      "Diagnosed CAN, UART, and I2C timing and framing faults using oscilloscopes and logic analyzers.",
+      "Tuned interrupt timing and debounce windows for faster, stable input detection; filtered ADC samples to suppress sensor noise.",
+      "Restored Modbus communication after malformed frames by correcting UART parsing and state recovery.",
+      "Validated sensor behavior, fault conditions, edge cases, and PCB operation against UL test cases.",
     ],
   },
   {
     company: "AeroCardia",
     role: "Embedded Software Intern",
     location: "Montreal, QC",
-    period: "Sep 2025 - Dec 2025",
+    period: "Sep – Dec 2025",
     companyUrl: "https://www.aerocardia.com/",
-    domains: ["FreeRTOS", "Sensors", "BLE", "PCB"],
-    summary:
-      "Built firmware and hardware for a biosensor platform with PPG, IMU, temperature, and related sensing. Contributed across sensor drivers, FreeRTOS streaming, BLE telemetry, secure OTA updates, PCB work, and signal-chain validation.",
+    domains: ["ESP32", "FreeRTOS", "BLE OTA", "Altium"],
+    summary: "Led core ESP32 firmware for a cardiopulmonary wearable. Reduced dropped biosignal samples by 25% and brought secure firmware updates under one minute.",
     details: [
-      "Implemented streaming firmware architecture for real-time acquisition and mobile/dashboard integration.",
-      "Worked across firmware, hardware, mobile, dashboard, and product stakeholders to turn prototype requirements into testable system behavior.",
-      "Supported filtering, calibration, and signal-quality improvements for wearable biomedical measurements.",
+      "Developed C drivers for IMU, PPG, and temperature sensors for synchronized biosignal capture.",
+      "Decoupled sensor acquisition from BLE telemetry with FreeRTOS queues and buffered handoff.",
+      "Implemented secure BLE OTA with image verification and rollback.",
+      "Designed an O2 sensor PCB in Altium with EEPROM-backed calibration that persists across power cycles.",
     ],
   },
   {
-    company: "UWARG",
-    role: "Embedded Flight Systems",
+    company: "University of Waterloo · ECE",
+    role: "Information Technology Intern",
     location: "Waterloo, ON",
-    period: "Apr 2025 - Present",
+    period: "Sep – Dec 2024",
+    domains: ["Linux", "Windows", "Networking", "Hardware"],
+    summary: "Supported research and teaching infrastructure across Linux and Windows workstations, networking, drivers, and lab hardware.",
+    details: [
+      "Automated workstation imaging and deployment for course and lab environments.",
+      "Troubleshot hardware, driver, networking, and OS failures for faculty, students, and lab systems.",
+      "Configured workstation hardware for research and specialized course workloads.",
+    ],
+  },
+];
+
+export const designTeams = [
+  {
+    company: "Midnight Sun Solar Car Team",
+    role: "Vehicle Firmware Member",
+    location: "Waterloo, ON",
+    period: "Aug 2026 – Present",
+    domains: ["C", "FOTA", "CAN", "Bootloaders"],
+    summary: "Cruise-control safety logic and reliable firmware updates for the solar car’s vehicle controllers.",
+    details: [
+      "Fixed front-controller safety state-machine faults blocking WaveSculptor CAN setpoint tests.",
+      "Built a C FOTA bootloader that buffers incoming firmware into flash-page writes.",
+      "Added CRC32 validation, sequencing, and ACK retries to reject corrupted or out-of-order firmware before flash writes.",
+      "Built reusable UART/CAN update transport with ISR-fed circular buffers, separating FOTA logic from vehicle bus I/O.",
+    ],
+  },
+  {
+    company: "Waterloo Aerial Robotics",
+    role: "Embedded Flight Software Member",
+    location: "Waterloo, ON",
+    period: "Dec 2024 – Present",
     companyUrl: "https://www.uwarg.com/",
-    domains: ["Flight Control", "PID", "Motor Test", "Validation"],
-    summary:
-      "Developing flight-control firmware and hardware test tooling for UAV systems. Work includes roll-yaw mixing, PID attitude stabilization groundwork, motor and ESC testing, simulation, and hardware validation.",
+    domains: ["STM32H7", "PID", "ZeroPilot", "LTE"],
+    summary: "Flight-control firmware for ZeroPilot: motor mixing, attitude stabilization, and modem integration. Reduced flight oscillation by 20% and motor-command jitter by 30%.",
     details: [
-      "Implemented motor passthrough and control logic for repeatable actuator testing.",
-      "Mapped sensor and control data into firmware paths with safety checks for flight-system validation.",
-      "Collaborated with mechanical, electrical, and autonomy contributors on integration and test plans.",
-    ],
-  },
-  {
-    company: "Electrium Mobility",
-    role: "Embedded Software Intern",
-    location: "Waterloo, ON",
-    period: "May 2025 - Sep 2025",
-    companyUrl: "https://electriummobility.com/",
-    domains: ["ESP32", "BLE", "VESC", "Embedded UI"],
-    summary:
-      "Built ESP32 firmware for vehicle dashboard and controller integration. Work included event-driven BLE communication, VESC telemetry over UART, and embedded display flows for motor and battery state.",
-    details: [
-      "Designed modular firmware paths for live telemetry, controls, and display updates.",
-      "Improved control responsiveness under rapid state changes and noisy sensor updates.",
-      "Integrated embedded UI behavior with underlying vehicle telemetry and communication constraints.",
+      "Implemented roll/yaw motor mixing on STM32H7 to reduce cross-axis coupling in fixed-wing control modes.",
+      "Diagnosed attitude-loop instability and retuned PID gains during stabilization tests.",
+      "Corrected control-loop timing and actuator scaling to reduce motor-command jitter.",
+      "Built a Quectel EG915Q LTE driver with a UART AT-command state machine for modem control and Raspberry Pi integration.",
     ],
   },
   {
     company: "UWASIC",
     role: "ASIC Digital Member",
     location: "Waterloo, ON",
-    period: "Jan 2026 - Present",
+    period: "Jan 2026 – Present",
     companyUrl: "https://uwasic.com/",
     domains: ["Verilog", "SPI", "PWM", "Cocotb"],
-    summary:
-      "Designed RTL for an SPI-controlled PWM peripheral using Mode 0 SPI transactions and memory-mapped registers. Verified edge detection, clock-domain crossing, register behavior, and PWM timing with Cocotb, Icarus Verilog, and GTKWave.",
+    summary: "Designed and verified an SPI-controlled PWM peripheral for Tiny Tapeout-style ASIC integration.",
     details: [
-      "Implemented synchronized SPI input handling, bit counting, address validation, and register writes.",
-      "Validated duty-cycle and frequency behavior against expected timing under simulation.",
-      "Prepared the peripheral for Tiny Tapeout-style ASIC integration and review.",
+      "Implemented synchronized Mode 0 SPI input handling, bit counting, address validation, and memory-mapped register writes.",
+      "Verified edge detection, clock-domain crossing, and PWM timing with Cocotb, Icarus Verilog, and GTKWave.",
     ],
   },
   {
-    company: "University of Waterloo ECE Department",
-    role: "Information Technology Intern",
+    company: "Electrium Mobility",
+    role: "Embedded Software Intern",
     location: "Waterloo, ON",
-    period: "Sep 2024 - Dec 2024",
-    domains: ["Linux", "Windows", "Networking", "Hardware"],
-    summary:
-      "Supported research and lab infrastructure across Linux and Windows systems, drivers, workstation hardware, networking failures, and PCIe configuration issues.",
+    period: "May – Sep 2025",
+    companyUrl: "https://electriummobility.com/",
+    domains: ["ESP32", "BLE", "VESC", "UART"],
+    summary: "ESP32 vehicle dashboard firmware connecting VESC telemetry, event-driven BLE, and embedded display updates.",
     details: [
-      "Automated workstation imaging and deployment paths for course and lab environments.",
-      "Troubleshot hardware, driver, networking, and OS failures for faculty, students, and lab systems.",
-      "Recommended and configured workstation hardware for research and specialized course workloads.",
+      "Designed modular firmware paths for live telemetry, controls, and display updates.",
+      "Integrated motor and battery state into the dashboard while handling rapid state changes and noisy sensor updates.",
     ],
   },
-].sort((a, b) => periodStartTime(b.period) - periodStartTime(a.period));
+];
 
 export const projects = [
   {
@@ -209,14 +204,15 @@ export const projects = [
     subtitle: "Edge AI dementia companion",
     year: "2025",
     category: "Edge Computing",
-    status: "HackCanada winner",
+    status: "HackCanada · Most Likely to Be a Startup",
     featured: true,
     role: "Built the edge-compute perception and hardware-software architecture for object finding, memory support, and medication verification.",
     summary:
-      "Raspberry Pi 5 and Hailo-8L assisted perception system using YOLOv8, OpenCV, persistent object memory, and FastAPI/WebSocket communication.",
+      "An edge AI companion that remembers where objects were last seen. Raspberry Pi 5 and Hailo-8L run detection locally, with pan-and-tilt room scanning.",
+    showcaseNote: "1080p · 30fps detection / HackCanada winner",
     decisions: [
-      "Kept inference and object memory local to the edge device for responsive object search.",
-      "Used a companion interface for task flow and found-item feedback instead of making the device itself the main UI.",
+      "Offloaded YOLOv8s to Hailo-8L for 1080p 30fps detection and persistent last-seen object locations.",
+      "Drove pan-and-tilt servos to search beyond the camera field of view.",
       "Separated medication barcode/QR verification from general object detection so safety-critical reminders can be validated explicitly.",
     ],
     tags: ["Raspberry Pi 5", "Hailo-8L", "YOLOv8", "OpenCV", "FastAPI", "WebSocket"],
@@ -263,8 +259,8 @@ export const projects = [
         "Checked reminder and verification flows against expected task states.",
       ],
       results: [
-        "Produced a working assistive prototype recognized as a HackCanada winner.",
-        "Demonstrated an edge-first architecture that combines perception, memory, and task reminders.",
+        "Won Most Likely to Be a Startup at HackCanada.",
+        "Sustained 1080p 30fps YOLOv8s detection on Hailo-8L, stored last-seen object locations, and expanded searches with pan-and-tilt servos.",
       ],
     },
   },
@@ -338,11 +334,12 @@ export const projects = [
     featured: true,
     role: "Designed the ESP32 firmware, LVGL touchscreen interface, Wi-Fi event pipeline, and PC telemetry bridge.",
     summary:
-      "ESP32-S3 device with LVGL UI for media controls, system telemetry, artwork rendering, and Discord status over a Wi-Fi communication pipeline.",
+      "A dedicated touchscreen for PC telemetry, music, and Discord. A queued TCP/JSON protocol keeps media commands and live updates moving over Wi-Fi.",
+    showcaseNote: "LVGL touchscreen / Bidirectional TCP + JSON",
     decisions: [
       "Separated the PC telemetry service from the ESP32 UI so each side owns a clear responsibility.",
       "Used event-driven message handling to keep touch interaction responsive under frequent updates.",
-      "Rendered media metadata and artwork with bounded buffers to respect embedded memory limits.",
+      "Rendered RGB565 artwork alongside media metadata on the ESP32 touchscreen.",
     ],
     tags: ["ESP32-S3", "LVGL", "FreeRTOS", "Wi-Fi", "WebSockets", "SPI"],
     image: {
@@ -395,7 +392,7 @@ export const projects = [
         "480x320 SPI touchscreen",
         "LVGL interface",
         "Python telemetry service",
-        "WebSocket or socket communication",
+        "Queued TCP/JSON protocol for telemetry and media commands",
         "3D-printed screen mount",
       ],
       engineering: [
@@ -421,15 +418,16 @@ export const projects = [
     year: "2026",
     category: "Hardware Systems",
     featured: true,
-    role: "Planned and integrated the headset architecture across custom tracking electronics, firmware, 3D-printed shell CAD, and PC-side SteamVR driver work.",
+    role: "Built the tracking firmware, custom PCB, and SteamVR integration for a 2K 120Hz open-source headset.",
     summary:
-      "Custom VR headset build with tracking PCB planning, ICM20948 IMU, USB HID firmware, display integration, printable shell parts, and SteamVR driver configuration.",
+      "A custom VR headset with STM32 sensor fusion, USB HID tracking, a two-layer PCB, and SteamVR integration. Built from the board up.",
+    showcaseNote: "2K · 120Hz display / STM32F411 tracking",
     decisions: [
-      "Split motion tracking, display, and mechanical work into independent subsystems so the build can move in parallel.",
-      "Chose an STM32F411-class MCU path with an ATmega32U4 fallback to balance USB HID capability and firmware bring-up risk.",
-      "Kept the v1 scope to a reliable 3-DoF headset, with IR camera tracking and wireless links documented as later upgrades.",
+      "Calibrated IMU bias at startup and used Mahony quaternion fusion for stable orientation.",
+      "Remapped fused poses into OpenVR coordinates and streamed orientation over USB HID.",
+      "Used TF-Luna LiDAR range baselining for bounded forward tracking in seated movement.",
     ],
-    tags: ["STM32", "ICM20948", "USB HID", "SteamVR", "CAD", "KiCad"],
+    tags: ["C", "STM32F411", "ICM20948", "USB HID", "OpenVR", "KiCad"],
     image: {
       src: "/images/headsetphotovr.jpg",
       alt: "Custom VR headset prototype shell",
@@ -458,40 +456,29 @@ export const projects = [
     },
     caseStudy: {
       overview:
-        "jjkVR is a custom VR headset build combining a printable shell, custom tracking electronics, firmware for IMU fusion and USB HID reports, and SteamVR/OpenVR driver configuration.",
+        "jjkVR is an open-source 2K 120Hz headset combining STM32 tracking firmware, custom electronics, a printed enclosure, and PC-side SteamVR integration.",
       problem:
-        "A DIY headset has several failure points: noisy motion tracking, fragile cabling, display geometry setup, and shell alignment. The project plan separates those risks so each subsystem can be designed and tested without blocking the rest of the build.",
+        "The tracking stack needed stable orientation, a consistent coordinate system, and bounded forward movement without accumulating inertial drift.",
       ownership:
-        "I organized the system architecture, hardware requirements, firmware path, CAD deliverables, integration plan, and v2 tracking roadmap.",
-      architecture: [
-        "ICM20948 IMU",
-        "Custom MCU PCB",
-        "USB HID",
-        "SteamVR driver",
-        "Display driver",
-        "3D-printed shell",
-      ],
+        "I built the STM32 tracking stack, USB HID pose transport, OpenVR coordinate mapping, LiDAR-assisted forward tracking, and two-layer KiCad PCB.",
+      architecture: ["ICM20948 + TF-Luna", "STM32F411 fusion", "USB HID", "OpenVR coordinates", "SteamVR"],
       components: [
-        "STM32F411-class MCU with native USB HID",
-        "ICM20948 9-axis IMU",
-        "USB-C power and data path",
-        "Display panel and controller board",
-        "Printable shell, face support, screen panel, and lens panels",
-        "SteamVR/OpenVR driver configuration",
+        "STM32F411 MCU and ICM20948 IMU",
+        "TF-Luna LiDAR for bounded forward tracking",
+        "2K 120Hz headset display",
+        "Two-layer KiCad PCB with USB-C and regulated power",
+        "3D-printed shell and mounting parts",
       ],
       engineering: [
-        "Defined tracking, display, and mechanical chains as separate interfaces.",
-        "Planned firmware around FastIMU fusion, EEPROM-stored calibration, and HID reports consumed by the PC driver.",
-        "Included PCB bring-up requirements: regulator checks, I2C address validation, USB enumeration, and test points.",
-      ],
-      validation: [
-        "Bring up the board by checking regulator output, IMU I2C response, USB HID enumeration, and orientation data.",
-        "Validate display geometry through SteamVR settings for window placement, render size, IPD, and distortion coefficients.",
-        "Fit-check printed CAD parts around PCB mounting holes, lens spacing, strap mounts, and cable strain relief.",
+        "Combined startup IMU bias calibration with Mahony quaternion fusion on STM32F411.",
+        "Mapped fused poses into OpenVR coordinates and streamed orientation over USB HID.",
+        "Used LiDAR range baselining to avoid inertial drift in bounded seated movement.",
+        "Designed USB-C power, IMU filtering, I2C routing, and board bring-up test points.",
       ],
       results: [
-        "Produced a detailed build plan plus downloadable CAD assets for the headset shell and mounting parts.",
-        "Set a scoped v1 path for a working 3-DoF headset while preserving upgrade paths for IR positional tracking and wireless links, with inspiration from HadesVR and Relativty.",
+        "Built a custom tracking stack spanning sensor fusion, USB HID, and SteamVR integration.",
+        "Added bounded forward tracking alongside orientation tracking for seated movement.",
+        "Designed the custom PCB and printable headset enclosure.",
       ],
     },
   },

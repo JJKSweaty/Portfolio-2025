@@ -267,13 +267,13 @@ const ProjectCaseStudy = () => {
                   </ul>
                 </CaseSection>
 
-                <CaseSection title="Validation And Testing">
+                {caseStudy.validation?.length > 0 && <CaseSection title="Validation And Testing">
                   <ul>
                     {caseStudy.validation.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
-                </CaseSection>
+                </CaseSection>}
 
                 <CaseSection title="Results">
                   <ul>

@@ -1,58 +1,26 @@
-import { FileText, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { portfolio } from "../data/portfolio";
-
-const iconMap = {
-  GitHub: Github,
-  LinkedIn: Linkedin,
-  Email: Mail,
-};
+import Reveal from "./Reveal";
 
 const Contact = () => {
   const { person, socials } = portfolio;
-
   return (
-    <section id="contact" className="contact-section" aria-labelledby="contact-title">
-      <div className="site-container contact-grid">
-        <div>
-          <p className="eyebrow">Contact</p>
-          <h2 id="contact-title">Let us connect</h2>
-          <p>
-            I am interested in firmware, embedded systems, systems software,
-            hardware validation, and GPU systems opportunities.
-          </p>
-        </div>
-
-        <div className="contact-panel">
-          <a className="email-link" href={`mailto:${person.email}`}>
-            <Mail size={18} aria-hidden="true" />
-            {person.email}
-          </a>
-
-          <div className="contact-links">
-            {socials
-              .filter((link) => link.label !== "Email")
-              .map((link) => {
-                const Icon = iconMap[link.label];
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon size={16} aria-hidden="true" />
-                    {link.label}
-                  </a>
-                );
-              })}
-            <a href={person.resumePath}>
-              <FileText size={16} aria-hidden="true" />
-              Resume
-            </a>
-          </div>
+    <footer id="contact" className="portfolio-footer site-container" aria-labelledby="contact-title">
+      <Reveal>
+        <p className="mono-label">05 / Get in touch</p>
+        <h2 id="contact-title">Have something<br />in mind?</h2>
+        <a className="footer-email" href={`mailto:${person.email}`}>{person.email}<ArrowUpRight aria-hidden="true" /></a>
+        <p className="footer-interest">Always happy to talk firmware, hardware, and interesting things to build.</p>
+      </Reveal>
+      <div className="footer-bottom">
+        <span className="mono-label">© {new Date().getFullYear()} {person.name}</span>
+        <div className="footer-links">
+          {socials.filter((link) => link.label !== "Email").map((link) => <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={14} aria-hidden="true" /></a>)}
+          <a href={person.resumePath} target="_blank" rel="noopener noreferrer">Resume<ArrowUpRight size={14} aria-hidden="true" /></a>
+          <a href="#hero-title" aria-label="Back to top"><ArrowUp size={16} aria-hidden="true" /></a>
         </div>
       </div>
-    </section>
+    </footer>
   );
 };
 
