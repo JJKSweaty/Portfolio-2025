@@ -16,7 +16,6 @@ const Hero = () => {
           <h1 id="hero-title">Jonathan<br />Jacob Koshy<span className="name-period">.</span></h1>
           <figure className="intro-portrait">
             <img src={person.headshot} alt="Jonathan Jacob Koshy" width="280" height="280" loading="eager" />
-            <figcaption className="mono-label">Hello, I’m Jonathan.</figcaption>
           </figure>
         </div>
       </Reveal>
