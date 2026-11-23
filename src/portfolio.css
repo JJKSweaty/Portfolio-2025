@@ -61,27 +61,37 @@
 #experience { display: block; }
 #experience > h2 { font-size: clamp(40px, 5vw, 62px); margin-bottom: clamp(20px, 3vw, 40px); }
 #experience .experience-row {
-  grid-template-columns: minmax(108px, .38fr) 48px minmax(0, 1fr) minmax(0, 1.25fr);
-  grid-template-areas: "date logo employer notes";
+  grid-template-columns: 48px minmax(0, 1fr);
   align-items: start;
-  gap: clamp(16px, 2vw, 32px);
-  padding: clamp(24px, 3vw, 40px) 0;
-  border-bottom: 0;
-  border-top: 1px solid var(--border);
+  gap: clamp(14px, 2vw, 24px);
+  padding: clamp(22px, 2.5vw, 32px) 0;
+  border: 0;
 }
-#experience .experience-row:first-child { border-top-color: var(--foreground); }
-#experience .experience-body { display: contents; }
-#experience .experience-date { grid-area: date; font-size: 13px; }
-#experience .employer-logo { grid-area: logo; }
-#experience .experience-row-heading { grid-area: employer; }
+.experience-group + .experience-group { margin-top: 12px; }
+.experience-group-label { display: flex; align-items: center; gap: 14px; color: var(--muted-foreground); }
+.experience-group-label > [data-orientation] { flex: 1; }
+#experience .experience-row + .experience-row { border-top: 1px solid var(--border); }
+#experience .employer-logo { grid-row: auto; }
+#experience .experience-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "heading date" "notes notes";
+  align-items: start;
+  gap: 8px 20px;
+}
+#experience .experience-row-heading { grid-area: heading; }
+#experience .experience-date { grid-area: date; font-size: 13px; padding-top: 4px; }
 #experience .experience-notes { grid-area: notes; }
 #experience .experience-row h3 { font-size: clamp(24px, 2.4vw, 33px); line-height: 1.12; }
-#experience .experience-role { margin-top: 7px; font-size: 16px; }
-#experience .experience-description { margin: 0; font-size: 16px; }
-@media (max-width: 820px) {
-  #experience .experience-row { grid-template-columns: 48px minmax(0, 1fr); grid-template-areas: "logo date" "logo employer" ". notes"; gap: 6px 16px; }
-  #experience .experience-date { padding: 0; }
-  #experience .experience-notes { margin-top: 6px; }
+#experience .experience-role { margin-top: 5px; font-size: 16px; }
+#experience .experience-description {
+  margin: 0;
+  font-size: 16px;
+  color: color-mix(in srgb, var(--foreground) 38%, var(--muted-foreground));
+}
+@media (max-width: 640px) {
+  #experience .experience-body { grid-template-columns: 1fr; grid-template-areas: "heading" "date" "notes"; gap: 6px; }
+  #experience .experience-date { padding-top: 0; }
 }
 
 .showcase-list { margin-top: 30px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }

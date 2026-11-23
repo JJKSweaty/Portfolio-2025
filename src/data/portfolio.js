@@ -52,7 +52,7 @@ export const portfolio = {
 };
 
 // Resume-aligned industry experience; student teams are listed separately below.
-export const experiences = [
+export const upcomingExperiences = [
   {
     company: "Formlabs",
     logo: formlabsLogo,
@@ -69,6 +69,9 @@ export const experiences = [
     period: "Jan – Apr 2027",
     summary: "Firmware for custom hardware and wearables that support robotics data collection and deployment.",
   },
+];
+
+export const experiences = [
   {
     company: "Belimo",
     logo: belimoLogo,
