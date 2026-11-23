@@ -1,4 +1,9 @@
 import claudefirmwareai from "../assets/claudefirmwareai.png";
+import aerocardiaLogo from "../assets/company/aerocardia.png";
+import belimoLogo from "../assets/company/belimo.svg";
+import formlabsLogo from "../assets/company/formlabs.png";
+import meckaLogo from "../assets/company/mecka.png";
+import waterlooLogo from "../assets/company/waterloo.png";
 import cudaMlpPreview from "../assets/project-previews/cuda-mlp-preview.png";
 import esp32MediaPreview from "../assets/project-previews/esp32-media-preview.jpg";
 import faceLogo from "../assets/jonathan-portrait.jpg";
@@ -49,19 +54,24 @@ export const portfolio = {
 // Resume-aligned industry experience; student teams are listed separately below.
 export const experiences = [
   {
-    company: "Mecka AI",
-    role: "Firmware Intern",
-    period: "Jan – Apr 2027",
-    summary: "Firmware for wearable devices.",
-  },
-  {
     company: "Formlabs",
+    logo: formlabsLogo,
+    fullBleedLogo: true,
     role: "Embedded Software Intern",
     period: "May – Aug 2027",
-    summary: "Embedded software for the next generation of SLA and SLS 3D printers.",
+    summary: "Software for next-generation SLA and SLS printers.",
+  },
+  {
+    company: "Mecka AI",
+    logo: meckaLogo,
+    fullBleedLogo: true,
+    role: "Firmware Intern",
+    period: "Jan – Apr 2027",
+    summary: "Firmware for custom hardware and wearables that support robotics data collection and deployment.",
   },
   {
     company: "Belimo",
+    logo: belimoLogo,
     role: "Firmware Development Intern",
     location: "Montreal, QC",
     period: "May – Aug 2026",
@@ -78,6 +88,7 @@ export const experiences = [
   },
   {
     company: "AeroCardia",
+    logo: aerocardiaLogo,
     role: "Embedded Software Intern",
     hardwarePage: 3,
     location: "Montreal, QC",
@@ -94,6 +105,7 @@ export const experiences = [
   },
   {
     company: "University of Waterloo · ECE",
+    logo: waterlooLogo,
     role: "Information Technology Intern",
     location: "Waterloo, ON",
     period: "Sep – Dec 2024",
@@ -109,25 +121,7 @@ export const experiences = [
 
 export const designTeams = [
   {
-    company: "Midnight Sun Solar Car Team",
-    role: "Vehicle Firmware Member",
-    hardwarePage: 4,
-    sourceUrl: "https://github.com/uw-midsun/fwxvi",
-    image: { src: "/images/hardware/midnight-sun-bench.jpg", alt: "Midnight Sun steering wheel and vehicle controllers during bench integration" },
-    location: "Waterloo, ON",
-    period: "Aug 2026 – Present",
-    domains: ["C", "FOTA", "CAN", "Bootloaders"],
-    summary: "Cruise-control safety logic and reliable firmware updates for the solar car’s vehicle controllers.",
-    details: [
-      "Fixed front-controller safety state-machine faults blocking WaveSculptor CAN setpoint tests.",
-      "Built a C FOTA bootloader that stages flash-page writes and verifies the whole image before copying it into the application region.",
-      "Added CRC32 validation, sequencing, and ACK retries to reject corrupted or out-of-order firmware before flash writes.",
-      "Built reusable UART/CAN update transport with ISR-fed circular buffers, separating FOTA logic from vehicle bus I/O.",
-      "Work is at the bench-integration and setpoint-test stage. CRC32 checks detect accidental corruption; they do not authenticate the sender.",
-    ],
-  },
-  {
-    company: "Waterloo Aerial Robotics",
+    company: "Waterloo Aerial Robotics Group (WARG)",
     role: "Embedded Flight Software Member",
     hardwarePage: 5,
     sourceUrl: "https://github.com/UWARG/efs-zeropilot-4.0",
@@ -145,10 +139,28 @@ export const designTeams = [
     ],
   },
   {
+    company: "Midnight Sun Solar Car Team",
+    role: "Vehicle Firmware Member",
+    hardwarePage: 4,
+    sourceUrl: "https://github.com/uw-midsun/fwxvi",
+    image: { src: "/images/hardware/midnight-sun-bench.jpg", alt: "Midnight Sun steering wheel and vehicle controllers during bench integration" },
+    location: "Waterloo, ON",
+    period: "Aug – Dec 2026",
+    domains: ["C", "FOTA", "CAN", "Bootloaders"],
+    summary: "Cruise-control safety logic and reliable firmware updates for the solar car’s vehicle controllers.",
+    details: [
+      "Fixed front-controller safety state-machine faults blocking WaveSculptor CAN setpoint tests.",
+      "Built a C FOTA bootloader that stages flash-page writes and verifies the whole image before copying it into the application region.",
+      "Added CRC32 validation, sequencing, and ACK retries to reject corrupted or out-of-order firmware before flash writes.",
+      "Built reusable UART/CAN update transport with ISR-fed circular buffers, separating FOTA logic from vehicle bus I/O.",
+      "Work is at the bench-integration and setpoint-test stage. CRC32 checks detect accidental corruption; they do not authenticate the sender.",
+    ],
+  },
+  {
     company: "UWASIC",
     role: "ASIC Digital Member",
     location: "Waterloo, ON",
-    period: "Jan 2026 – Present",
+    period: "Jan – Aug 2026",
     companyUrl: "https://uwasic.com/",
     domains: ["Verilog", "SPI", "PWM", "Cocotb"],
     summary: "Designed and verified an SPI-controlled PWM peripheral for Tiny Tapeout-style ASIC integration.",

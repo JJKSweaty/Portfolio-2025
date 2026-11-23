@@ -3,6 +3,7 @@ import { designTeams, experiences, portfolio } from "../data/portfolio";
 
 const ExperienceRow = ({ experience }) => (
   <article className="experience-row">
+    {experience.logo && <img className="employer-logo" data-full-bleed={experience.fullBleedLogo} src={experience.logo} alt="" width="48" height="48" loading="lazy" />}
     <div className="experience-body">
       <div className="experience-row-heading">
         <div>
