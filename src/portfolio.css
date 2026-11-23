@@ -36,7 +36,7 @@
 .experience-row { display: grid; grid-template-columns: minmax(0, 1fr) max-content; gap: 18px; border-bottom: 1px solid var(--border); padding: 23px 0; }
 .experience-row:has(> .employer-logo) { grid-template-columns: 48px minmax(0, 1fr) max-content; }
 .employer-logo { width: 48px; height: 48px; object-fit: contain; background: #fff; border: 1px solid var(--border); border-radius: 5px; padding: 3px; }
-.employer-logo[data-full-bleed="true"] { padding: 0; border: 0; }
+.employer-logo[data-full-bleed="true"] { padding: 0; border: 0; background: transparent; }
 .experience-row:first-child { padding-top: 1px; }
 .experience-row:last-child { border-bottom: 0; padding-bottom: 0; }
 .experience-date { padding-top: 5px; color: var(--muted-foreground); }
