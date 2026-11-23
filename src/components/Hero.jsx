@@ -7,7 +7,7 @@ const Hero = () => (
     <div className="intro-copy">
       <p className="intro-field">Firmware &amp; embedded systems</p>
       <h1 id="hero-title">Jonathan<br />Jacob Koshy</h1>
-      <p className="intro-bio">I study electrical engineering at the University of Waterloo. I build firmware for wearable sensors, flight controllers, and a VR headset of my own.</p>
+      <p className="intro-bio">I study electrical engineering at Waterloo. I build firmware for wearables and work on drones, solar cars, and robots. I’m looking for my next embedded systems role.</p>
       <div className="intro-links">
         <a href={portfolio.person.resumePath} target="_blank" rel="noopener noreferrer">Résumé <ArrowUpRight size={15} aria-hidden="true" /></a>
         <a href={portfolio.person.hardwarePortfolioPath} target="_blank" rel="noopener noreferrer">Hardware portfolio <ArrowUpRight size={15} aria-hidden="true" /></a>

@@ -3,9 +3,11 @@ import { ArrowUpRight, Plus } from "lucide-react";
 import { projects } from "../data/portfolio";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const showcaseSlugs = ["custom-vr-headset", "esp32-media-controller", "remembr"];
+const showcaseSlugs = ["custom-vr-headset", "remembr", "esp32-media-controller"];
 const showcaseProjects = showcaseSlugs.map((slug) => projects.find((project) => project.slug === slug));
-const archiveProjects = projects.filter((project) => !showcaseSlugs.includes(project.slug));
+const archiveProjects = projects
+  .filter((project) => !showcaseSlugs.includes(project.slug))
+  .sort((a, b) => Number(b.year) - Number(a.year));
 const caseHref = (project) => project.caseStudy?.href || `/projects/${project.slug}`;
 
 const ProjectImage = ({ image, priority = false }) => (
