@@ -11,14 +11,15 @@
     <link rel="canonical" href="https://jonathankoshy.netlify.app/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon.png" sizes="64x64" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f6" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b19" />
+    <meta name="theme-color" content="#faf9f6" />
+    <meta name="color-scheme" content="light" />
     <script>
       try {
         const savedTheme = localStorage.getItem("portfolio-theme");
         const dark = savedTheme === "dark";
         document.documentElement.classList.toggle("dark", dark);
         document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        if (dark) document.querySelector('meta[name="theme-color"]').content = "#1b1b19";
       } catch {}
     </script>
 

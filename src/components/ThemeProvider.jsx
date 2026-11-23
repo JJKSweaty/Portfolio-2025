@@ -25,6 +25,7 @@ export const ThemeProvider = ({ children }) => {
     const resolved = theme === "system" ? systemTheme : theme;
     document.documentElement.classList.toggle("dark", resolved === "dark");
     document.documentElement.style.colorScheme = resolved;
+    document.querySelector('meta[name="theme-color"]').content = getComputedStyle(document.documentElement).getPropertyValue("--background").trim();
 
     try {
       if (theme === "system") localStorage.removeItem(STORAGE_KEY);
