@@ -29,25 +29,25 @@
 }
 
 :root {
-  --background: #f7f7f5;
-  --foreground: #222421;
+  --background: #faf9f6;
+  --foreground: #252421;
   --card: #ffffff;
-  --card-foreground: #222421;
+  --card-foreground: #252421;
   --popover: #ffffff;
-  --popover-foreground: #222421;
-  --primary: #b74023;
+  --popover-foreground: #252421;
+  --primary: #34332f;
   --primary-foreground: #ffffff;
-  --secondary: #eeefeb;
-  --secondary-foreground: #222421;
-  --muted: #eeefeb;
-  --muted-foreground: #686c65;
-  --accent: #f5e6e0;
-  --accent-foreground: #9d331d;
+  --secondary: #efede8;
+  --secondary-foreground: #252421;
+  --muted: #efede8;
+  --muted-foreground: #625f58;
+  --accent: #eae7e1;
+  --accent-foreground: #35332e;
   --destructive: #b42318;
   --destructive-foreground: #ffffff;
-  --border: #d9dcd5;
-  --input: #d9dcd5;
-  --ring: #b74023;
+  --border: #d7d4cd;
+  --input: #d7d4cd;
+  --ring: #34332f;
   --radius: 0.625rem;
   --shadow-color: rgba(31, 29, 27, 0.08);
   --theme-bg: var(--background);
@@ -63,25 +63,25 @@
 }
 
 .dark {
-  --background: #171917;
-  --foreground: #eeefea;
-  --card: #1e211e;
-  --card-foreground: #eeefea;
-  --popover: #1e211e;
-  --popover-foreground: #eeefea;
-  --primary: #f09575;
-  --primary-foreground: #22140f;
-  --secondary: #282c27;
-  --secondary-foreground: #eeefea;
-  --muted: #282c27;
-  --muted-foreground: #abb2a6;
-  --accent: #3d2b25;
-  --accent-foreground: #f2b29a;
+  --background: #1b1b19;
+  --foreground: #f1efe9;
+  --card: #232320;
+  --card-foreground: #f1efe9;
+  --popover: #232320;
+  --popover-foreground: #f1efe9;
+  --primary: #e6e2d9;
+  --primary-foreground: #22211f;
+  --secondary: #2c2c28;
+  --secondary-foreground: #f1efe9;
+  --muted: #2c2c28;
+  --muted-foreground: #b9b6ad;
+  --accent: #373631;
+  --accent-foreground: #ebe8e1;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #393f36;
-  --input: #393f36;
-  --ring: #f09575;
+  --border: #44433d;
+  --input: #44433d;
+  --ring: #e6e2d9;
   --shadow-color: rgba(0, 0, 0, 0.3);
 }
 

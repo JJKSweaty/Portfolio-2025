@@ -1,37 +1,25 @@
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { portfolio } from "../data/portfolio";
-import Reveal from "./Reveal";
 
-const Hero = () => {
-  const { person } = portfolio;
-
-  return (
-    <section className="intro site-container" aria-labelledby="hero-title">
-      <Reveal>
-        <div className="intro-topline mono-label">
-          <span>Electrical Engineering · University of Waterloo</span>
-          <span className="intro-location">Waterloo, Canada</span>
-        </div>
-        <div className="intro-name-row">
-          <h1 id="hero-title">Jonathan<br />Jacob Koshy<span className="name-period">.</span></h1>
-          <figure className="intro-portrait">
-            <img src={person.headshot} alt="Jonathan Jacob Koshy" width="280" height="280" loading="eager" />
-          </figure>
-        </div>
-      </Reveal>
-      <Reveal className="intro-bottom" delay={0.12}>
-        <p className="intro-statement">Firmware &amp;<br /><span>Embedded Systems</span></p>
-        <div className="intro-description">
-          <p>I’m an Electrical Engineering student at the University of Waterloo. I build firmware and hardware for wearable sensors, flight controllers, and VR systems.</p>
-          <div className="intro-links">
-            <a href="#projects">View Projects <ArrowDown size={16} aria-hidden="true" /></a>
-            <a href={person.hardwarePortfolioPath} target="_blank" rel="noopener noreferrer">Hardware Portfolio <ArrowUpRight size={16} aria-hidden="true" /></a>
-            <a href={person.resumePath} target="_blank" rel="noopener noreferrer">Resume <ArrowUpRight size={16} aria-hidden="true" /></a>
-          </div>
-        </div>
-      </Reveal>
-    </section>
-  );
-};
+const Hero = () => (
+  <section className="intro site-container" aria-labelledby="hero-title">
+    <div className="intro-copy">
+      <p className="intro-field">Firmware &amp; embedded systems</p>
+      <h1 id="hero-title">Jonathan<br />Jacob Koshy</h1>
+      <p className="intro-bio">I study electrical engineering at the University of Waterloo. I build firmware for wearable sensors, flight controllers, and a VR headset of my own.</p>
+      <div className="intro-links">
+        <a href={portfolio.person.resumePath} target="_blank" rel="noopener noreferrer">Résumé <ArrowUpRight size={15} aria-hidden="true" /></a>
+        <a href={portfolio.person.hardwarePortfolioPath} target="_blank" rel="noopener noreferrer">Hardware portfolio <ArrowUpRight size={15} aria-hidden="true" /></a>
+      </div>
+    </div>
+    <Link to="/projects/custom-vr-headset" className="intro-project" aria-label="View the jjkVR headset project">
+      <figure>
+        <img src="/images/headsetphotovr.jpg" alt="Light from the display seen through the twin lenses of my headset prototype" fetchpriority="high" />
+        <figcaption><span><strong>jjkVR</strong> <span>Custom VR headset</span></span><ArrowUpRight size={17} aria-hidden="true" /></figcaption>
+      </figure>
+    </Link>
+  </section>
+);
 
 export default Hero;

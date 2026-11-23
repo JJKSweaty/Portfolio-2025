@@ -110,7 +110,7 @@ const Navbar = () => {
           className="brand-mark"
           aria-label={`${portfolio.person.name} home`}
         >
-          <span>JJK</span>
+          <span>J. Koshy</span>
         </Link>
 
         <div className="desktop-nav">{navItems}</div>

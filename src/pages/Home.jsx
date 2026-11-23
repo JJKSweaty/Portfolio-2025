@@ -11,8 +11,9 @@ const Home = () => {
       <Navbar />
       <main id="main-content">
         <Hero />
-        <Works />
         <Experience />
+        <Works />
+        <Experience teams />
       </main>
       <Contact />
     </div>

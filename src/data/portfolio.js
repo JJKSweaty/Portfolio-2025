@@ -16,28 +16,18 @@ export const portfolio = {
     title: "Firmware & Embedded Systems Engineer",
     location: "Waterloo, ON / Montreal, QC",
     email: "johnkoper12@gmail.com",
-    resumePath: "/Jonathan_Jacob_Koshy_resume.pdf",
+    resumePath: "/resumeJonathanK.pdf",
     hardwarePortfolioPath: "/hardware-portfolio.pdf",
     headshot: faceLogo,
     summary:
       "Electrical Engineering student at the University of Waterloo building low-level software for sensing, control, communication, and edge-compute systems.",
     focus:
       "Currently working in embedded firmware and interested in firmware, systems software, embedded Linux, GPU systems, and hardware-software integration.",
-    availability: [
-      {
-        label: "Currently",
-        value: "Vehicle firmware at Midnight Sun · Flight software at WARG",
-      },
-      {
-        label: "Seeking",
-        value: "Winter 2027 firmware and systems opportunities",
-      },
-    ],
   },
   navLinks: [
-    { id: "projects", label: "Projects" },
     { id: "experience", label: "Experience" },
-    { id: "teams", label: "Design Team" },
+    { id: "projects", label: "Projects" },
+    { id: "teams", label: "Design teams" },
     { id: "contact", label: "Contact" },
   ],
   socials: [
@@ -58,6 +48,18 @@ export const portfolio = {
 
 // Resume-aligned industry experience; student teams are listed separately below.
 export const experiences = [
+  {
+    company: "Mecka AI",
+    role: "Firmware Intern",
+    period: "Jan – Apr 2027",
+    summary: "Firmware for wearable devices.",
+  },
+  {
+    company: "Formlabs",
+    role: "Embedded Software Intern",
+    period: "May – Aug 2027",
+    summary: "Embedded software for the next generation of SLA and SLS 3D printers.",
+  },
   {
     company: "Belimo",
     role: "Firmware Development Intern",

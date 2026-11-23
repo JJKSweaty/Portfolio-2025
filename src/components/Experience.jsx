@@ -1,10 +1,8 @@
 import { ArrowUpRight, Plus } from "lucide-react";
 import { designTeams, experiences, portfolio } from "../data/portfolio";
-import Reveal from "./Reveal";
 
 const ExperienceRow = ({ experience }) => (
   <article className="experience-row">
-    <div className="experience-date mono-label">{experience.period}</div>
     <div className="experience-body">
       <div className="experience-row-heading">
         <div>
@@ -21,46 +19,34 @@ const ExperienceRow = ({ experience }) => (
       {experience.hardwarePage && (
         <a className="experience-document" href={`${portfolio.person.hardwarePortfolioPath}#page=${experience.hardwarePage}`} target="_blank" rel="noopener noreferrer">Hardware Portfolio, p. {experience.hardwarePage}<ArrowUpRight size={14} aria-hidden="true" /></a>
       )}
-      <details className="work-details">
+      {experience.details && <details className="work-details">
         <summary aria-label={`Contributions at ${experience.company}`}>Contributions <Plus size={16} aria-hidden="true" /></summary>
         <ul>{experience.details.map((detail) => <li key={detail}>{detail}</li>)}</ul>
         {experience.image && <figure className="experience-photo"><img src={experience.image.src} alt={experience.image.alt} loading="lazy" /><figcaption>{experience.image.alt}</figcaption></figure>}
         {experience.sourceUrl && <a className="experience-document" href={experience.sourceUrl} target="_blank" rel="noopener noreferrer">Source Code<ArrowUpRight size={14} aria-hidden="true" /></a>}
         <p className="experience-tools mono-label">{experience.domains.join(" / ")}</p>
-      </details>
+      </details>}
     </div>
+    <div className="experience-date mono-label">{experience.period}</div>
   </article>
 );
 
-const Experience = () => (
-  <>
-    <section id="experience" className="portfolio-section site-container" aria-labelledby="experience-title">
-      <Reveal className="section-rule">
-        <p className="mono-label section-index">02</p>
-        <h2 id="experience-title">Experience</h2>
-      </Reveal>
-      <div className="experience-list">
-        {experiences.map((experience) => (
-          <Reveal key={experience.company}><ExperienceRow experience={experience} /></Reveal>
+const Experience = ({ teams = false }) => {
+  const id = teams ? "teams" : "experience";
+  return (
+    <section id={id} className="portfolio-section site-container history-section" aria-labelledby={id + "-title"}>
+      <h2 id={id + "-title"}>{teams ? "Design teams" : "Experience"}</h2>
+      <div>
+        {(teams ? designTeams : experiences).map((experience) => (
+          <ExperienceRow key={experience.company} experience={experience} />
         ))}
+        {teams && <div className="education-note">
+          <h3>Education</h3>
+          <p>University of Waterloo<br /><span>BASc, Electrical Engineering · Expected April 2029</span></p>
+        </div>}
       </div>
     </section>
-    <section id="teams" className="portfolio-section site-container" aria-labelledby="teams-title">
-      <Reveal className="section-rule">
-        <p className="mono-label section-index">03</p>
-        <h2 id="teams-title">Design Team</h2>
-      </Reveal>
-      <div className="experience-list">
-        {designTeams.map((experience) => (
-          <Reveal key={experience.company}><ExperienceRow experience={experience} /></Reveal>
-        ))}
-      </div>
-      <div className="education-note">
-        <p className="mono-label">Education</p>
-        <p>University of Waterloo <span>BASc, Electrical Engineering · Expected April 2029</span></p>
-      </div>
-    </section>
-  </>
-);
+  );
+};
 
 export default Experience;
