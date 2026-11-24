@@ -16,16 +16,27 @@ const ProjectImage = ({ image, priority = false }) => (
 
 const ProjectMedia = ({ project, priority }) => {
   const pcb = project.featuredMedia?.[0];
-  if (!pcb) return <div className={`showcase-image showcase-image-${project.slug}`}><ProjectImage image={project.image} priority={priority} /></div>;
+  const caption = <span className="mono-label">{project.category} · {project.year}</span>;
+  if (!pcb) return (
+    <figure>
+      <div className={`showcase-image showcase-image-${project.slug}`}><ProjectImage image={project.image} priority={priority} /></div>
+      <figcaption className="showcase-caption">{caption}</figcaption>
+    </figure>
+  );
 
   return (
-    <Tabs defaultValue="pcb" className="showcase-views">
-      <TabsContent value="build" className="showcase-image"><ProjectImage image={project.image} priority={priority} /></TabsContent>
-      <TabsContent value="pcb" className="showcase-image showcase-pcb"><ProjectImage image={pcb} /></TabsContent>
-      <TabsList className="showcase-tabs" aria-label={`${project.title} build views`}>
-        <TabsTrigger value="build">Headset</TabsTrigger>
-        <TabsTrigger value="pcb">Custom PCB</TabsTrigger>
-      </TabsList>
+    <Tabs defaultValue="pcb" asChild>
+      <figure>
+        <TabsContent value="build" className="showcase-image"><ProjectImage image={project.image} priority={priority} /></TabsContent>
+        <TabsContent value="pcb" className="showcase-image"><ProjectImage image={pcb} /></TabsContent>
+        <figcaption className="showcase-caption">
+          {caption}
+          <TabsList className="showcase-tabs" aria-label={`${project.title} build views`}>
+            <TabsTrigger value="build">Headset</TabsTrigger>
+            <TabsTrigger value="pcb">Custom PCB</TabsTrigger>
+          </TabsList>
+        </figcaption>
+      </figure>
     </Tabs>
   );
 };
@@ -45,7 +56,6 @@ const ProjectStory = ({ project }) => (
         <ProjectMedia project={project} />
       </div>
       <div className="showcase-copy">
-        <p className="showcase-caption mono-label">{project.category} · {project.year}</p>
         <h3><Link to={caseHref(project)}>{project.title}</Link></h3>
         <p className="showcase-description">{project.summary}</p>
         <ProjectLinks project={project} />
