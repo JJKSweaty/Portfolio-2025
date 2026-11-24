@@ -103,6 +103,7 @@
 .showcase-tabs [role="tab"] { min-height: 44px; padding: 0 5px; color: var(--muted-foreground); font-size: 13px; }
 .showcase-tabs [data-state="active"] { background: transparent; color: var(--foreground); box-shadow: none; text-decoration: underline; text-underline-offset: 4px; }
 .showcase-copy h3, .project-index-heading h3 { margin: 0; font-size: 23px; font-weight: 500; letter-spacing: -.04em; line-height: 1.25; }
+.showcase-copy h3 a { text-decoration: underline; text-decoration-color: var(--border); text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .showcase-description { margin: 10px 0 4px; }
 .work-links { column-gap: 17px; }
 .project-index { margin-top: 42px; }

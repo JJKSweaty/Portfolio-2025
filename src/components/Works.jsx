@@ -41,9 +41,9 @@ const ProjectMedia = ({ project, priority }) => {
   );
 };
 
-const ProjectLinks = ({ project }) => (
+const ProjectLinks = ({ project, includeCaseStudy = false }) => (
   <div className="work-links">
-    {project.caseStudy && <Link to={caseHref(project)} aria-label={`View ${project.title} project`}>{project.caseStudy.label || "View Project"}<ArrowUpRight size={16} aria-hidden="true" /></Link>}
+    {includeCaseStudy && project.caseStudy && <Link to={caseHref(project)} aria-label={`View ${project.title} project`}>{project.caseStudy.label || "View Project"}<ArrowUpRight size={16} aria-hidden="true" /></Link>}
     {project.links?.map((link) => (
       <a key={link.href} aria-label={`${project.title}: ${link.label}`} href={link.href} target={link.href.startsWith("/") ? undefined : "_blank"} rel={link.href.startsWith("/") ? undefined : "noopener noreferrer"}>{link.label}<ArrowUpRight size={14} aria-hidden="true" /></a>
     ))}
@@ -74,7 +74,7 @@ const Works = () => (
           <summary><span className="archive-year mono-label">{project.year}</span><span className="archive-title">{project.title}</span><span className="archive-category mono-label">{project.category}</span><Plus size={18} aria-hidden="true" /></summary>
           <div className="archive-detail">
             <div className="archive-image"><ProjectImage image={project.image} /></div>
-            <div><p>{project.summary}</p><p className="mono-label archive-tech">{project.tags.join(" / ")}</p><ProjectLinks project={project} /></div>
+            <div><p>{project.summary}</p><p className="mono-label archive-tech">{project.tags.join(" / ")}</p><ProjectLinks project={project} includeCaseStudy /></div>
           </div>
         </details>
       ))}
