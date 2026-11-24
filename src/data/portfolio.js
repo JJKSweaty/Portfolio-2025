@@ -333,11 +333,10 @@ export const projects = [
     image: {
       src: "/images/hardware/remembr-bench.jpg",
       alt: "remembR Raspberry Pi, pan-tilt camera, and controller wiring on the bench",
+      caption: "The prototype runs local object detection at 1080p and 30 fps using a Raspberry Pi 5 and Hailo-8L.",
       fit: "cover",
     },
-    media: [
-      { type: "image", src: "/images/hardware/remembr-bench.jpg", alt: "remembR bench setup", caption: "Pi, pan-tilt camera, and controller wiring.", fit: "contain" },
-    ],
+    media: [],
     links: [
       { label: "GitHub", href: "https://github.com/JJKSweaty/remembR" },
       { label: "Devpost (Ember)", href: "https://devpost.com/software/ember-n8m3yk" },
@@ -368,8 +367,7 @@ export const projects = [
         "Hardware PWM maintains servo pulses while the Pi processes frames. Scanning expands coverage but requires camera settling time."
       ],
       "results": [
-        "Recognized as a winner at HackCanada 2026.",
-        "Built a 1080p, 30 fps detection pipeline with persistent last-seen records and pan-tilt object search."
+        "Recognized as a winner at HackCanada 2026."
       ],
       "limitations": [
         "Records are grouped by class label, so two objects of the same class are not reliably distinguished.",

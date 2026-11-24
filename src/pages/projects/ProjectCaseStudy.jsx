@@ -40,26 +40,21 @@ const mediaStyle = (image, fit = image?.fit || "cover") => ({
   objectPosition: image?.position || "center",
 });
 
-const ProjectImage = ({ project, className = "" }) => (
-  <div className={`case-image-frame ${className}`}>
-    <img
-      src={project.image.src}
-      alt={project.image.alt}
-      loading="eager"
-      style={mediaStyle(project.image)}
-    />
-  </div>
+const ProjectImage = ({ project }) => (
+  <figure className="m-0 min-w-0">
+    <div className="case-image-frame">
+      <img
+        src={project.image.src}
+        alt={project.image.alt}
+        loading="eager"
+        style={mediaStyle(project.image)}
+      />
+    </div>
+    {project.image.caption && <figcaption className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.image.caption}</figcaption>}
+  </figure>
 );
 
-const MediaGallery = ({ project }) => {
-  const media = project.media || project.featuredMedia?.map((item) => ({ ...item, type: "image" })) || [];
-
-  if (!media.length && !project.image) return null;
-
-  const gallery = media.length
-    ? media
-    : [{ type: "image", src: project.image.src, alt: project.image.alt }];
-
+const MediaGallery = ({ project, gallery }) => {
   return (
     <div className="media-gallery">
       {gallery.map((item, index) => {
@@ -164,6 +159,7 @@ const ProjectCaseStudy = () => {
   }
 
   const { caseStudy } = project;
+  const gallery = project.media ?? project.featuredMedia ?? [project.image];
   const githubLink = project.links?.find((link) => link.label === "GitHub");
 
   return (
@@ -294,10 +290,12 @@ const ProjectCaseStudy = () => {
                     <ul>{caseStudy.references.map((reference) => <li key={reference.href}><a className="case-reference" href={reference.href} target="_blank" rel="noopener noreferrer">{reference.label}<ArrowUpRight size={14} aria-hidden="true" /></a></li>)}</ul>
                   </CaseSection>
                 )}
-                <CaseSection title="Project Gallery">
-                  <MediaGallery project={project} />
-                  <CadDownloads cad={project.cad} />
-                </CaseSection>
+                {(gallery.length > 0 || project.cad) && (
+                  <CaseSection title="Project Gallery">
+                    <MediaGallery project={project} gallery={gallery} />
+                    <CadDownloads cad={project.cad} />
+                  </CaseSection>
+                )}
               </article>
 
               <Card className="case-sidebar" role="complementary" aria-label="Project Summary">
